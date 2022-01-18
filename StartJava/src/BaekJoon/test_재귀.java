@@ -1,6 +1,6 @@
 package BaekJoon;
 
-public class test_Àç±Í {
+public class test_ìž¬ê·€{
 
 	public static void mt(int n) {
 
