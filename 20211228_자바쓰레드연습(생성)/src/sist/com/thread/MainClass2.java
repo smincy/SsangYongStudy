@@ -1,16 +1,16 @@
 package sist.com.thread;
 
-//¿©·¯°³¸¦ µ¿½Ã¿¡ ¼öÇà 
+//ì—¬ëŸ¬ê°œë¥¼ ë™ì‹œì— ìˆ˜í–‰ 
 class MyThread2 extends Thread {
-	// ¾²·¹µå µ¿ÀÛ
+	// ì“°ë ˆë“œ ë™ì‘
 	public void run() {
 		for (char c = 'A'; c <= 'Z'; c++) {
 			System.out.println(getName() + "=>" + c);
 			try {
-				// ÀÏ½Ã Á¤Áö
-				Thread.sleep(100); // Àá½Ã ¸ØÃã (1/1000)
-				// 0.1 ¸ØÃá´Ù
-				// ÃÑ¾Ë ¹ß»ç
+				// ì¼ì‹œ ì •ì§€
+				Thread.sleep(100); // ì ì‹œ ë©ˆì¶¤ (1/1000)
+				// 0.1 ë©ˆì¶˜ë‹¤
+				// ì´ì•Œ ë°œì‚¬
 			} catch (Exception ex) {
 			}
 		}
@@ -21,12 +21,12 @@ public class MainClass2 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		// 3°³ÀÇ ¾²·¹µå°¡ µ¿ÀÛ => ½ÃºĞÇÒ (½Ã°£À» ³ª´²¼­ ÇÑ¹ø¾¿ ¼öÇà)
+		// 3ê°œì˜ ì“°ë ˆë“œê°€ ë™ì‘ => ì‹œë¶„í•  (ì‹œê°„ì„ ë‚˜ëˆ ì„œ í•œë²ˆì”© ìˆ˜í–‰)
 		MyThread2 m1 = new MyThread2();
 		MyThread2 m2 = new MyThread2();
 		MyThread2 m3 = new MyThread2();
 
-		// ÀÏÀ» ½ÃÀÛÇÑ´Ù (ÀÛ¾÷¾²·¹µå)
+		// ì¼ì„ ì‹œì‘í•œë‹¤ (ì‘ì—…ì“°ë ˆë“œ)
 		m1.start();// Thread-0
 		m2.start();// Thread-1
 		m3.start();// Thread-2

@@ -1,12 +1,11 @@
 package sist.com.thread;
 
-// »ó¼ÓÀ» ¹Ş¾Æ¼­ Ã³¸®ÇÏ´Â ¹æ½Ä
+//ìƒì†ì„ ë°›ì•„ì„œ ì²˜ë¦¬í•˜ëŠ” ë°©ì‹
 class MyThread extends Thread{
 	
 }
 
-// ÀÎÅÍÆäÀÌ½º·Î ±¸ÇöÇÏ´Â ¹æ½Ä
-
+//ì¸í„°í˜ì´ìŠ¤ë¡œ êµ¬í˜„í•˜ëŠ” ë°©ì‹
 
 public class MainClass {
 

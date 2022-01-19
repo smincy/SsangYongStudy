@@ -4,46 +4,46 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 /*
- *    À¥ , ¿À¶óÅ¬ ==> ³×Æ®¿öÅ© ÀÌ¿ë (¾²·¹µå)
+ *    ì›¹ , ì˜¤ë¼í´ ==> ë„¤íŠ¸ì›Œí¬ ì´ìš© (ì“°ë ˆë“œ)
  *    
- *    À¥ 
+ *    ì›¹ 
  *    ===
- *     = HTML/CSS => ÆÛºí¸®¼Å (µðÀÚÀÎ³Ê)
- *     = Front : JavaScript (¶óÀÌºê·¯¸®:Jquery,AJax,VueJS,ReactJS,NodeJS)
- *     = Back : Java,Oracle (¶óÀÌºê·¯¸®:Spring,MyBatis) => AI(*****)
- *     Spring => ¼³Á¤ÆÄÀÏ (¼³Á¤¾øÀÌ »ç¿ë=> Spring-Boot)
- *     =========================== Full Stack(¿ä±¸)
+ *     = HTML/CSS => í¼ë¸”ë¦¬ì…” (ë””ìžì¸ë„ˆ)
+ *     = Front : JavaScript (ë¼ì´ë¸ŒëŸ¬ë¦¬:Jquery,AJax,VueJS,ReactJS,NodeJS)
+ *     = Back : Java,Oracle (ë¼ì´ë¸ŒëŸ¬ë¦¬:Spring,MyBatis) => AI(*****)
+ *     Spring => ì„¤ì •íŒŒì¼ (ì„¤ì •ì—†ì´ ì‚¬ìš©=> Spring-Boot)
+ *     =========================== Full Stack(ìš”êµ¬)
  *    
- *    => Å¬¶óÀÌ¾ðÆ® => µ¿ÀÛ 2
- *    1) Ã¤ÆÃ¹®ÀÚ¿­ Àü¼Û 
- *    2) ¼­¹ö·ÎºÎÅÍ Ã¤ÆÃ¹®ÀÚ¿­À» ÀÐ¾î¿Í¼­ Ãâ·Â ==> ¾²·¹µå 
+ *    => í´ë¼ì´ì–¸íŠ¸ => ë™ìž‘ 2
+ *    1) ì±„íŒ…ë¬¸ìžì—´ ì „ì†¡ 
+ *    2) ì„œë²„ë¡œë¶€í„° ì±„íŒ…ë¬¸ìžì—´ì„ ì½ì–´ì™€ì„œ ì¶œë ¥ ==> ì“°ë ˆë“œ 
  */
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
 public class ClientForm extends JFrame implements Runnable, ActionListener {
-	// È­¸é UI°ü·Ã
+	// í™”ë©´ UIê´€ë ¨
 	JTable table;
 	DefaultTableModel model;
 	JTextArea ta;
 	JTextField tf;
 	JButton loginBtn, sendBtn, endBtn;
-	// ³×Æ®¿öÅ©¿Í °ü·Ã
-	Socket s; // ¼­¹ö¿Í ¿¬°á
-	BufferedReader in; // ¼­¹ö·ÎºÎÅÍ °ªÀ» ÀÐ¾î ¿Â´Ù
-	OutputStream out; // ¼­¹ö·Î ¿äÃ»°ªÀ» Àü¼Û
+	// ë„¤íŠ¸ì›Œí¬ì™€ ê´€ë ¨
+	Socket s; // ì„œë²„ì™€ ì—°ê²°
+	BufferedReader in; // ì„œë²„ë¡œë¶€í„° ê°’ì„ ì½ì–´ ì˜¨ë‹¤
+	OutputStream out; // ì„œë²„ë¡œ ìš”ì²­ê°’ì„ ì „ì†¡
 	String name = "";
 
 	public ClientForm() {
-		// ¸â¹öº¯¼öÀÇ ÃÊ±âÈ­
+		// ë©¤ë²„ë³€ìˆ˜ì˜ ì´ˆê¸°í™”
 		ta = new JTextArea();
-		ta.setEditable(false);// ÆíÁý¹æÁö
+		ta.setEditable(false);	// íŽ¸ì§‘ë°©ì§€
 		JScrollPane js1 = new JScrollPane(ta);
 		tf = new JTextField();
-		loginBtn = new JButton("·Î±×ÀÎ");
-		sendBtn = new JButton("Àü¼Û");
-		endBtn = new JButton("Á¾·á");
+		loginBtn = new JButton("ï¿½Î±ï¿½ï¿½ï¿½");
+		sendBtn = new JButton("ï¿½ï¿½ï¿½ï¿½");
+		endBtn = new JButton("ï¿½ï¿½ï¿½ï¿½");
 
 		String[] col = { "ID", "Name", "Sex" };
 		String[][] row = new String[0][3];
@@ -52,7 +52,7 @@ public class ClientForm extends JFrame implements Runnable, ActionListener {
 		JScrollPane js2 = new JScrollPane(table);
 		// Spring / AWS / MyBatis
 		// Spring-Boot == VueJS , ReactJS AI
-		// À©µµ¿ì¿¡ ¹èÄ¡
+		// ìœˆë„ìš°ì— ë°°ì¹˜
 		setLayout(null);
 		js2.setBounds(10, 15, 500, 200);
 		js1.setBounds(10, 220, 500, 250);
@@ -62,7 +62,7 @@ public class ClientForm extends JFrame implements Runnable, ActionListener {
 		p.add(loginBtn);
 		p.add(endBtn);
 		p.setBounds(10, 510, 500, 35);
-		// Ãß°¡
+		// ì¶”ê°€
 		add(js1);
 		add(js2);
 		add(tf);
@@ -70,7 +70,7 @@ public class ClientForm extends JFrame implements Runnable, ActionListener {
 		setSize(550, 590);
 		setVisible(true);
 
-		// µî·Ï (ÀÌº¥Æ®)
+		// ë“±ë¡ (ì´ë²¤íŠ¸)
 		loginBtn.addActionListener(this);// click => actionPerformed
 		tf.addActionListener(this);// enter=>actionPerformed
 	}
@@ -83,24 +83,24 @@ public class ClientForm extends JFrame implements Runnable, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (e.getSource() == loginBtn)// ·Î±×ÀÎ¹öÆ°À» Å¬¸¯Çß´Ù¸é
+		if (e.getSource() == loginBtn) // ë¡œê·¸ì¸ë²„íŠ¼ì„ í´ë¦­í–ˆë‹¤ë©´
 		{
-			name = JOptionPane.showInputDialog("ÀÌ¸§ ÀÔ·Â:");
+			name = JOptionPane.showInputDialog("ï¿½Ì¸ï¿½ ï¿½Ô·ï¿½:");
 			try {
 				s = new Socket("localhost", 3355);
 				in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-				// ¼­¹ö¿¡¼­ º¸³»ÁØ µ¥ÀÌÅÍ°¡ 1byte=>2byte·Î º¯È¯ÈÄ¿¡ ¹Þ´Â´Ù
+				// ì„œë²„ì—ì„œ ë³´ë‚´ì¤€ ë°ì´í„°ê°€ 1byte=>2byteë¡œ ë³€í™˜í›„ì— ë°›ëŠ”ë‹¤
 				out = s.getOutputStream();
 			} catch (Exception ex) {
 			}
-			// ¼­¹ö¿¡¼­ µé¾î¿À´Â °ªÀ» Ãâ·ÂÇÑ´Ù
-			new Thread(this).start(); // run()À» È£ÃâÇØ¼­ ´Ù¸¥ »ç¶÷ÀÌ º¸³½ µ¥ÀÌÅÍ¸¦ Ãâ·Â
+			// ì„œë²„ì—ì„œ ë“¤ì–´ì˜¤ëŠ” ê°’ì„ ì¶œë ¥í•œë‹¤
+			new Thread(this).start(); // run()ì„ í˜¸ì¶œí•´ì„œ ë‹¤ë¥¸ ì‚¬ëžŒì´ ë³´ë‚¸ ë°ì´í„°ë¥¼ ì¶œë ¥
 		}
-		if (e.getSource() == tf)// Ã¤ÆÃ => enter
+		if (e.getSource() == tf)// Ã¤ï¿½ï¿½ => enter
 		{
-			// ¼­¹ö·Î ¹®ÀÚ¿­À» º¸³½´Ù
+			// ì„œë²„ë¡œ ë¬¸ìžì—´ì„ ë³´ë‚¸ë‹¤
 			try {
-				// »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ Ã¤ÆÃ¹®ÀÚ¿­ ÀÐ±â
+				// ì‚¬ìš©ìžê°€ ìž…ë ¥í•œ ì±„íŒ…ë¬¸ìžì—´ ì½ê¸°
 				String msg = tf.getText();
 				if (msg.length() < 1)
 					return;
@@ -115,7 +115,7 @@ public class ClientForm extends JFrame implements Runnable, ActionListener {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		// ¼­¹ö¿¡¼­ µé¾î¿À´Â °ªÀ» Ãâ·Â
+		// ì„œë²„ì—ì„œ ë“¤ì–´ì˜¤ëŠ” ê°’ì„ ì¶œë ¥
 		while (true) {
 			try {
 				String msg = in.readLine();

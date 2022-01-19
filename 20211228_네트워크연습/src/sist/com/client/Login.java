@@ -11,24 +11,24 @@ public class Login extends JPanel {
 
 	public Login() {
 		la1 = new JLabel("ID");
-		la2 = new JLabel("ÀÌ¸§");
-		la3 = new JLabel("¼ºº°");
+		la2 = new JLabel("ï¿½Ì¸ï¿½");
+		la3 = new JLabel("ï¿½ï¿½ï¿½ï¿½");
 
 		tf1 = new JTextField();
 		tf2 = new JTextField();
 
-		rb1 = new JRadioButton("³²ÀÚ");
+		rb1 = new JRadioButton("ï¿½ï¿½ï¿½ï¿½");
 		rb1.setSelected(true);
-		rb2 = new JRadioButton("¿©ÀÚ");
-		// Group => 1°³¸¸ ¼±ÅÃ
+		rb2 = new JRadioButton("ï¿½ï¿½ï¿½ï¿½");
+		// Group => 1ê°œë§Œ ì„ íƒ
 		ButtonGroup bg = new ButtonGroup();
 		bg.add(rb1);
 		bg.add(rb2);
 
-		b1 = new JButton("·Î±×ÀÎ");
-		b2 = new JButton("Ãë¼Ò");
+		b1 = new JButton("ï¿½Î±ï¿½ï¿½ï¿½");
+		b2 = new JButton("ï¿½ï¿½ï¿½");
 
-		// ¹èÄ¡ (ÄÄÆ÷³ÍÆ®)
+		// ë°°ì¹˜ (ì»´í¬ë„ŒíŠ¸)
 		setLayout(null);
 		la1.setBounds(10, 15, 40, 30);
 		tf1.setBounds(55, 15, 150, 30);
@@ -45,7 +45,7 @@ public class Login extends JPanel {
 		p.add(b2);
 		p.setBounds(10, 130, 195, 35);
 
-		// Ãß°¡
+		// ì¶”ê°€
 		add(la1);
 		add(tf1);
 		add(la2);

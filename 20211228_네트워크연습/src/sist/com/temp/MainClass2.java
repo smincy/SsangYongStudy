@@ -1,6 +1,6 @@
 package sist.com.temp;
 
-// ∫Òµø±‚
+// ÎπÑÎèôÍ∏∞
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -12,28 +12,28 @@ public class MainClass2 extends JFrame {
 	JButton b1, b2;
 
 	public MainClass2() {
-		la = new JLabel("∑Œ∂« ª˝º∫", JLabel.CENTER);
-		la.setFont(new Font("«œ¥√√§", Font.BOLD, 35));
+		la = new JLabel("ÔøΩŒ∂ÔøΩ ÔøΩÔøΩÔøΩÔøΩ", JLabel.CENTER);
+		la.setFont(new Font("ÔøΩœ¥ÔøΩ√§", Font.BOLD, 35));
 		add("North", la);
 		JPanel p = new JPanel();
 
 		tf1 = new JTextField("", JLabel.CENTER);
-		tf1.setFont(new Font("±√º≠√º", Font.BOLD, 35));
+		tf1.setFont(new Font("ÔøΩ√ºÔøΩ√º", Font.BOLD, 35));
 
 		tf2 = new JTextField("", JLabel.CENTER);
-		tf2.setFont(new Font("±√º≠√º", Font.BOLD, 35));
+		tf2.setFont(new Font("ÔøΩ√ºÔøΩ√º", Font.BOLD, 35));
 
 		tf3 = new JTextField("", JLabel.CENTER);
-		tf3.setFont(new Font("±√º≠√º", Font.BOLD, 35));
+		tf3.setFont(new Font("ÔøΩ√ºÔøΩ√º", Font.BOLD, 35));
 
 		tf4 = new JTextField("", JLabel.CENTER);
-		tf4.setFont(new Font("±√º≠√º", Font.BOLD, 35));
+		tf4.setFont(new Font("ÔøΩ√ºÔøΩ√º", Font.BOLD, 35));
 
 		tf5 = new JTextField("", JLabel.CENTER);
-		tf5.setFont(new Font("±√º≠√º", Font.BOLD, 35));
+		tf5.setFont(new Font("ÔøΩ√ºÔøΩ√º", Font.BOLD, 35));
 
 		tf6 = new JTextField("", JLabel.CENTER);
-		tf6.setFont(new Font("±√º≠√º", Font.BOLD, 35));
+		tf6.setFont(new Font("ÔøΩ√ºÔøΩ√º", Font.BOLD, 35));
 
 		p.add(tf1);
 		p.add(tf2);

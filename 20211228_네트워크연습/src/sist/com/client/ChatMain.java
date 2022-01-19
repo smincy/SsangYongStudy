@@ -1,20 +1,19 @@
 package sist.com.client;
 
-
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-// ³×Æ®¿öÅ© °ü·Ã 
+// ë„¤íŠ¸ì›Œí¬ ê´€ë ¨
 import java.io.*;
 import java.net.*;
 import sist.com.common.*;
 
 /*
- *   ´ÙÁß ±¸Çö (»ó¼Ó) : implements Runnable,ActionListener
- *   => ÀÎÅÍÆäÀÌ½º¿¡¼­¸¸ »ç¿ëÀÌ °¡´É 
- *   => ¼­·Î ´Ù¸¥ Å¬·¡½º¸¦ ¿¬°áÇØ¼­ »ç¿ë 
- *   => °ü·ÃµÈ Å¬·¡½º¸¦ ¹­¾î¼­ ÇÑ°³ÀÇ ÀÌ¸§À¸·Î °ü¸® 
+ *   ë‹¤ì¤‘ êµ¬í˜„ (ìƒì†) : implements Runnable,ActionListener
+ *   => ì¸í„°í˜ì´ìŠ¤ì—ì„œë§Œ ì‚¬ìš©ì´ ê°€ëŠ¥ 
+ *   => ì„œë¡œ ë‹¤ë¥¸ í´ë˜ìŠ¤ë¥¼ ì—°ê²°í•´ì„œ ì‚¬ìš© 
+ *   => ê´€ë ¨ëœ í´ë˜ìŠ¤ë¥¼ ë¬¶ì–´ì„œ í•œê°œì˜ ì´ë¦„ìœ¼ë¡œ ê´€ë¦¬ 
  *   => 
  *      interface A
  *      {
@@ -25,31 +24,32 @@ import sist.com.common.*;
  *          
  *          public 
  *          ----default void aaa(){
- *             ±¸Çö 
+ *             êµ¬í˜„ 
  *          }
  *          
- *          º¯¼ö => »ó¼öÇü 
- *          ¸Ş¼Òµå´Â ¹«Á¶°Ç public 
+ *          ë³€ìˆ˜ => ìƒìˆ˜í˜• 
+ *          ë©”ì†Œë“œëŠ” ë¬´ì¡°ê±´ public 
  *      }
- *      ==> Å¬·¡½º °ü¸® (Å¬·¡½º °ü¸®ÀÚ => ½ºÇÁ¸µ(ÀÎÅÍÆäÀÌ½º))
- *          À¥ => ÀÎÅÍÆäÀÌ½º¸¦ ÀÌ¿ëÇØ¼­ ±¸Çö 
+ *      ==> í´ë˜ìŠ¤ ê´€ë¦¬ (í´ë˜ìŠ¤ ê´€ë¦¬ì => ìŠ¤í”„ë§(ì¸í„°í˜ì´ìŠ¤))
+ *          ì›¹ => ì¸í„°í˜ì´ìŠ¤ë¥¼ ì´ìš©í•´ì„œ êµ¬í˜„ 
  *          Model 1
- *          Model 2 ===> ÃÖ±Ù¿¡ À¥°³¹ß (MVC) => domain(ºĞ»ê)
- *      1.8 => ±¸ÇöµÈ ¸Ş¼Òµå »ç¿ëÀÌ °¡´É : default
+ *          Model 2 ===> ìµœê·¼ì— ì›¹ê°œë°œ (MVC) => domain(ë¶„ì‚°)
+ *      1.8 => êµ¬í˜„ëœ ë©”ì†Œë“œ ì‚¬ìš©ì´ ê°€ëŠ¥ : default
  */
+
 public class ChatMain extends JFrame implements Runnable, ActionListener {
 	Login login = new Login();
 	WaitRoom wr = new WaitRoom();
 	CardLayout card = new CardLayout();
-	//// È­¸é UI
-	//// ³×Æ®¿öÅ©¿Í °ü·ÃµÈ Å¬·¡½º
-	// ¿¬°á µµ±¸
+	//// í™”ë©´ UI
+	//// ë„¤íŠ¸ì›Œí¬ì™€ ê´€ë ¨ëœ í´ë˜ìŠ¤
+	// ì—°ê²° ë„êµ¬
 	Socket s;
-	// ÀÔÃâ·Â => ¼­¹ö ¼Û½Å , ¼­¹ö ¼ö½Å
-	OutputStream out; // ¼Û½Å
-	BufferedReader in; // ¼ö½Å ==> ¾²·¹µå (½Ç½Ã°£)
-	// ÀÔÃâ·Â => ´ÜÁ¡ (´Ü¹æÇâ)
-	// idÀúÀå
+	// ì…ì¶œë ¥ => ì„œë²„ ì†¡ì‹  , ì„œë²„ ìˆ˜ì‹ 
+	OutputStream out; // ì†¡ì‹ 
+	BufferedReader in; // ìˆ˜ì‹  ==> ì“°ë ˆë“œ (ì‹¤ì‹œê°„)
+	// ì…ì¶œë ¥ => ë‹¨ì  (ë‹¨ë°©í–¥)
+	// idì €ì¥
 	String id;
 
 	public ChatMain() {
@@ -59,7 +59,7 @@ public class ChatMain extends JFrame implements Runnable, ActionListener {
 		setSize(1000, 750);
 		setVisible(true);
 
-		// ·Î±×ÀÎ ¹öÆ° Ã³¸® ==> µî·Ï (ÀÌº¥Æ® µî·Ï => Äİ¹éÇÔ¼ö)
+		// ë¡œê·¸ì¸ ë²„íŠ¼ ì²˜ë¦¬ ==> ë“±ë¡ (ì´ë²¤íŠ¸ ë“±ë¡ => ì½œë°±í•¨ìˆ˜)
 		login.b1.addActionListener(this);// actionPerformed
 		login.b2.addActionListener(this);// actionPerformed
 		wr.tf.addActionListener(this);
@@ -70,75 +70,75 @@ public class ChatMain extends JFrame implements Runnable, ActionListener {
 		new ChatMain();
 	}
 
-	// ¿äÃ» => ¹öÆ° Å¬¸¯½Ã
+	// ìš”ì²­ => ë²„íŠ¼ í´ë¦­ì‹œ
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == login.b2) {
-			// e.getSource() => Å¬¸¯ÇÑ ¹öÆ°ÀÌ ¹¹³Ä?
-			System.exit(0);// Á¾·áÇØ¶ó
-		} else if (e.getSource() == login.b1) // ·Î±×ÀÎ ¹öÆ°À» Å¬¸¯ Çß´Ù¸é
+			// e.getSource() => í´ë¦­í•œ ë²„íŠ¼ì´ ë­ëƒ?
+			System.exit(0);// ì¢…ë£Œí•´ë¼
+		} else if (e.getSource() == login.b1) // ë¡œê·¸ì¸ ë²„íŠ¼ì„ í´ë¦­ í–ˆë‹¤ë©´
 		{
-			// 1. ÀÔ·ÂÇÑ °ªÀ» ÀĞ´Â´Ù
-			// 1-1 IDÀĞ±â
+			// 1. ì…ë ¥í•œ ê°’ì„ ì½ëŠ”ë‹¤
+			// 1-1 IDì½ê¸°
 			String id = login.tf1.getText();
-			// À¯È¿¼º °Ë»ç
-			if (id.length() < 1)// id ÀÔ·ÂÀÌ ¾ø´Â °æ¿ì
+			// ìœ íš¨ì„± ê²€ì‚¬
+			if (id.length() < 1)// id ì…ë ¥ì´ ì—†ëŠ” ê²½ìš°
 			{
-				JOptionPane.showMessageDialog(this, "¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
-				// À¥ (alert())
+				JOptionPane.showMessageDialog(this, "ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”");
+				// ì›¹ (alert())
 				login.tf1.requestFocus();
 				return;
 			}
-			// 1-2 ÀÌ¸§ ÀĞ±â
+			// 1-2 ì´ë¦„ ì½ê¸°
 			String name = login.tf2.getText();
-			if (name.length() < 1)// id ÀÔ·ÂÀÌ ¾ø´Â °æ¿ì
+			if (name.length() < 1)// id ì…ë ¥ì´ ì—†ëŠ” ê²½ìš°
 			{
-				JOptionPane.showMessageDialog(this, "ÀÌ¸§¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
-				// À¥ (alert())
+				JOptionPane.showMessageDialog(this, "ì´ë¦„ë¥¼ ì…ë ¥í•˜ì„¸ìš”");
+				// ì›¹ (alert())
 				login.tf2.requestFocus();
 				return;
 			}
-			// 1-3 ¼ºº°
+			// 1-3 ì„±ë³„
 			String sex = "";
 			if (login.rb1.isSelected()) {
-				sex = "³²ÀÚ";
+				sex = "ë‚¨ì";
 			} else {
-				sex = "¿©ÀÚ";
+				sex = "ì—¬ì";
 			}
-			// ¼­¹ö¿¬°áÇØ¼­ µ¥ÀÌÅÍ¸¦ Àü¼Û ==> °á°ú°ª
+			// ì„œë²„ì—°ê²°í•´ì„œ ë°ì´í„°ë¥¼ ì „ì†¡ ==> ê²°ê³¼ê°’
 			try {
-				// 1. ÀüÈ­±â ¿¬°á => ¼­¹ö
+				// 1. ì „í™”ê¸° ì—°ê²° => ì„œë²„
 				s = new Socket("localhost", 3355);
 				in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-				// ¼­¹ö¿¡¼­ º¸³»ÁÖ´Â µ¥ÀÌÅÍ ÀĞ´Â °´Ã¼
+				// ì„œë²„ì—ì„œ ë³´ë‚´ì£¼ëŠ” ë°ì´í„° ì½ëŠ” ê°ì²´
 				out = s.getOutputStream();
-				// ¼­¹ö·Î µ¥ÀÌÅÍ¸¦ º¸³½´Ù
+				// ì„œë²„ë¡œ ë°ì´í„°ë¥¼ ë³´ë‚¸ë‹¤
 
 				out.write((Function.LOGIN + "|" + id + "|" + name + "|" + sex + "\n").getBytes());
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			// °á°ú¸¦ ÀĞ¾î¿Í¶ó
+			// ê²°ê³¼ë¥¼ ì½ì–´ì™€ë¼
 			new Thread(this).start();
-			// ===== ChatMain¿¡ ÀÖ´Â run()¸¦ È£ÃâÇÏ¶ó
+			// ===== ChatMainì— ìˆëŠ” run()ë¥¼ í˜¸ì¶œí•˜ë¼
 		}
-		// Ã¤ÆÃ
+		// ì±„íŒ…
 		else if (e.getSource() == wr.tf) {
 			// enter
 			try {
-				// 1-1 ÀÔ·ÂµÈ Ã¤ÆÃ ¹®ÀÚ¿­ ÀĞ±â
+				// 1-1 ì…ë ¥ëœ ì±„íŒ… ë¬¸ìì—´ ì½ê¸°
 				String msg = wr.tf.getText();
 				if (msg.length() < 1) {
-					// ÀÔ·ÂÀÌ ¾ÈµÈ °æ¿ì
+					// ì…ë ¥ì´ ì•ˆëœ ê²½ìš°
 					wr.tf.requestFocus();
 					return;
 				}
 
-				// ÀÔ·ÂÀÌ µÈ °æ¿ì¿¡´Â ¼­¹ö·Î Àü¼Û => Á¢¼ÓÀüÃ¼¿¡ °ªÀ» Àü¼Û
+				// ì…ë ¥ì´ ëœ ê²½ìš°ì—ëŠ” ì„œë²„ë¡œ ì „ì†¡ => ì ‘ì†ì „ì²´ì— ê°’ì„ ì „ì†¡
 				out.write((Function.CHAT + "|" + msg + "\n").getBytes());
 
-				// ÀÔ·ÂµÈ °ªÀ» Áö¿öÁØ´Ù
+				// ì…ë ¥ëœ ê°’ì„ ì§€ì›Œì¤€ë‹¤
 				wr.tf.setText("");
 
 			} catch (Exception ex) {
@@ -146,13 +146,13 @@ public class ChatMain extends JFrame implements Runnable, ActionListener {
 		}
 	}
 
-	// ¼­¹ö¿¡¼­ ÀÀ´ä°ªÀ» ¹Ş¾Æ¼­ Ãâ·Â
+	// ì„œë²„ì—ì„œ ì‘ë‹µê°’ì„ ë°›ì•„ì„œ ì¶œë ¥
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		try {
 			while (true) {
-				// 1.¼­¹ö¿¡¼­ µé¾îÀº µ¥ÀÌÅÍ¸¦ ÀĞ´Â´Ù
+				// 1.ì„œë²„ì—ì„œ ë“¤ì–´ì€ ë°ì´í„°ë¥¼ ì½ëŠ”ë‹¤
 				String msg = in.readLine();
 				StringTokenizer st = new StringTokenizer(msg, "|");
 				int protocol = Integer.parseInt(st.nextToken());
@@ -162,12 +162,12 @@ public class ChatMain extends JFrame implements Runnable, ActionListener {
 				 */
 				case Function.LOGIN: {
 					String[] data = { st.nextToken(), st.nextToken(), st.nextToken() };
-					wr.model.addRow(data);// Å×ÀÌºí¿¡ Ãâ·Â
+					wr.model.addRow(data);// í…Œì´ë¸”ì— ì¶œë ¥
 
 				}
 					break;
 				case Function.MYLOG: {
-					// È­¸é ÀÌµ¿ => ·Î±×ÀÎÃ¢ => ´ë±â½Ç·Î º¯°æ
+					// í™”ë©´ ì´ë™ => ë¡œê·¸ì¸ì°½ => ëŒ€ê¸°ì‹¤ë¡œ ë³€ê²½
 					card.show(getContentPane(), "WR");
 					setTitle(st.nextToken());
 				}

@@ -7,17 +7,17 @@ public class MainClass {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			// 1. Driver µî·Ï
+			// 1. Driver ë“±ë¡
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 
-			// 2. ¿À¶óÅ¬ ¿¬°á
+			// 2. ì˜¤ë¼í´ ì—°ê²°
 			String url = "jdbc:oracle:thin:@172.20.10.2:1521:XE";
 			Connection conn = DriverManager.getConnection(url, "smincy", "134679");
 
-			// 3. ¿À¶óÅ¬ ¸í·É¾î Àü¼Û
+			// 3. ì˜¤ë¼í´ ëª…ë ¹ì–´ ì „ì†¡
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM dept");
 
-			// 4. ½ÇÇà°á°ú°ªÀ» °¡Áö°í ¿Â´Ù
+			// 4. ì‹¤í–‰ê²°ê³¼ê°’ì„ ê°€ì§€ê³  ì˜¨ë‹¤
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				System.out.println(rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3));
@@ -28,5 +28,4 @@ public class MainClass {
 
 		}
 	}
-
 }

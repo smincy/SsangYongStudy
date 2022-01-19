@@ -1,45 +1,42 @@
 package sist.com.server;
 
-// ==> Server ÇÁ·Î±×·¥Àº '»ç¿ëÀÚ ¿äÃ»' À» ¹Ş¾Æ¼­ => Ã³¸® => °á°ú°ªÀ» 'Àü¼Û'  ÇØÁÖ´Â°Ô ¼­¹öÇÁ·Î±×·¥
-// ==> 'Á¢¼Ó½Ã Ã³¸®' ÇÏ´Â ÇÁ·Î±×·¥ / '»ç¿ëÀÚ¸¶´Ù Åë½Å (Thread)' ÇÏ´Â ÇÁ·Î±×·¥
-
-import java.util.*; // StringTokenizer, ÀúÀå (»ç¿ëÀÚ Á¤º¸) ArrayList  ÀÌ¿ë
+// ==> Server : ì‚¬ìš©ì ìš”ì²­ => ì²˜ë¦¬ => ê²°ê³¼ê°’ì„ ì „ì†¡í•œë‹¤ 
+// ==> ì ‘ì†ì‹œ ì²˜ë¦¬ / ì‚¬ìš©ìë§ˆë‹¤ í†µì‹  (Thread)
+import java.util.*; // StringTokenizer , ì €ì¥ (ì‚¬ìš©ì ì •ë³´) ArrayList
 
 import sist.com.common.Function;
 
-import java.net.*; // ³×Æ®¿öÅ© °ü·Ã 
-import java.io.*; // ÀĞ±â (readLine)/ ¾²±â (write) 
-
-// Á¢¼Ó½Ã Ã³¸® => ¾²·¹µå Runnable => ±¸ÇöÀÌ ¾ÈµÈ ¸Ş¼Òµå (run())
+import java.net.*; // ë„¤íŠ¸ì›Œí¬ ê´€ë ¨ 
+import java.io.*; // ì½ê¸° (readLine)/ ì“°ê¸° (write) 
+// ì ‘ì†ì‹œ ì²˜ë¦¬ => ì“°ë ˆë“œ Runnable=>êµ¬í˜„ì´ ì•ˆëœ ë©”ì†Œë“œ (run())
 
 public class Server implements Runnable {
-	// ¼­¹ö ±¸µ¿ : ServerSocket
-	// Á¢¼ÓÀÚ Á¤º¸ ÀúÀå => ArrayList
-	// ¼­¹ö => Á¢¼ÓÇÏ´Â ¶óÀÎ¼± ==> Æ÷Æ®¹øÈ£ => °íÁ¤ = 3355
-
+	// ì„œë²„ êµ¬ë™ : ServerSocket
+	// ì ‘ì†ì ì •ë³´ ì €ì¥ => ArrayList
+	// ì„œë²„ => ì ‘ì†í•˜ëŠ” ë¼ì¸ì„  ==> í¬íŠ¸ë²ˆí˜¸ => ê³ ì • => 3355
 	private ServerSocket ss;
-	private ArrayList<Client> waitVc = new ArrayList<Client>(); // ´ë±â½Ç¿¡ ÀÖ´Â »ç¶ó¹É
+	private ArrayList<Client> waitVc = new ArrayList<Client>();
 
-	// 1. ¼­¹ö ±¸µ¿ => ÇÑ¹ø¸¸ »ç¿ë => ÇÑ¹ø¸¸ ¼öÇàÇÏ´Â ¸Ş¼Òµå (»ı¼ºÀÚ)
+	// 1. ì„œë²„ êµ¬ë™ => í•œë²ˆë§Œ ì‚¬ìš© => í•œë²ˆë§Œ ìˆ˜í–‰í•˜ëŠ” ë©”ì†Œë“œ (ìƒì„±ì)
 	public Server() {
 		try {
-			ss = new ServerSocket(3355); // ¼­¹ö ±¸µ¿ ¿Ï·á
-			// bind() : °³Åë , listen() : ´ë±â»óÅÂ
+			ss = new ServerSocket(3355); // ì„œë²„ êµ¬ë™ ì™„ë£Œ
+			// bind() : ê°œí†µ , listen() : ëŒ€ê¸°ìƒíƒœ
 			System.out.println("Server Start...");
 		} catch (Exception ex) {
 		}
 	}
 
-	// Á¢¼Ó½Ã¿¡ Ã³¸®ÇÏ´Â ¸Ş¼Òµå (¾²·¹µå)
+	// ì ‘ì†ì‹œì— ì²˜ë¦¬í•˜ëŠ” ë©”ì†Œë“œ (ì“°ë ˆë“œ)
 	public void run() {
-		while (true) // ¼­¹ö°Å Á¾·áÇÏ±â Àü±îÁö Á¢¼ÓÀ» ¹Ş´Â´Ù
+		while (true) // ì„œë²„ê±° ì¢…ë£Œí•˜ê¸° ì „ê¹Œì§€ ì ‘ì†ì„ ë°›ëŠ”ë‹¤
 		{
 			try {
-				// Server:Socket=>ClientÁ¤º¸
-				Socket s = ss.accept(); // Á¢¼Ó½Ã¿¡ È£ÃâµÇ´Â ¸Ş¼Òµå => Á¢¼ÓÇÑ Å¬¶óÀÌ¾ğÆ®ÀÇ Á¤º¸ ¸®ÅÏ
-				// Å¬¶óÀÌ¾ğÆ® Á¤º¸ (Å¬¶óÀÌ¾ğÆ® : IP , PORT)
-				// Socket ==> ¾²·¹µå¿¡ Àü¼ÛÇÏ¸é => ¾²·¹µå´Â ÇÑ»ç¶÷¸¸ Åë½ÅÀÌ °¡´ÉÇÏ°Ô ¸¸µç´Ù
-				// Client:Socket=>ServerÁ¤º¸
+				// Server:Socket=>Clientì •ë³´
+				Socket s = ss.accept(); // ì ‘ì†ì‹œì— í˜¸ì¶œë˜ëŠ” ë©”ì†Œë“œ => ì ‘ì†í•œ í´ë¼ì´ì–¸íŠ¸ì˜ ì •ë³´ ë¦¬í„´
+				// í´ë¼ì´ì–¸íŠ¸ ì •ë³´ (í´ë¼ì´ì–¸íŠ¸ : IP , PORT)
+				// Socket ==> ì“°ë ˆë“œì— ì „ì†¡í•˜ë©´ => ì“°ë ˆë“œëŠ” í•œì‚¬ëŒë§Œ í†µì‹ ì´ ê°€ëŠ¥í•˜ê²Œ ë§Œë“ ë‹¤
+				// Client:Socket=>Serverì •ë³´
 				Client client = new Client(s);
 				client.start();
 			} catch (Exception ex) {
@@ -53,88 +50,79 @@ public class Server implements Runnable {
 		new Thread(server).start();
 	}
 
-	/////////////////// Á¢¼Ó½Ã Ã³¸® ==> ±âÁö±¹(±³È¯)
-	// Á¢¼ÓÀÚ Á¤º¸¸¦ ÀúÀåÇÑ ÈÄ¿¡(À§ÂÊ ÄÚµå) ==> Thread¸¦ ¿¬°áÇØ ÁÖ´Â ¿ªÇÒ(¾Æ·¡)
-	// Åë½Å => ·Î±×ÀÎ Ã³¸® , Ã¤ÆÃ Ã³¸® , ³ª°¡±â Ã³¸®
+	/////////////////// ì ‘ì†ì‹œ ì²˜ë¦¬ ==> ê¸°ì§€êµ­(êµí™˜)
+	// ì ‘ì†ì ì •ë³´ë¥¼ ì €ì¥í•œ í›„ì— ==> Threadë¥¼ ì—°ê²°í•´ ì£¼ëŠ” ì—­í• 
+	// í†µì‹  => ë¡œê·¸ì¸ ì²˜ë¦¬ , ì±„íŒ… ì²˜ë¦¬ , ë‚˜ê°€ê¸° ì²˜ë¦¬
 	class Client extends Thread {
-		// ¾²·¹µå È®Àå
+		// ì“°ë ˆë“œ í™•ì¥
 		private String id;
 		private String sex;
 		private String name;
-		/// Á¢¼ÓÀÚ ±âº» Á¤º¸ ====> ·Î±×ÀÎ½Ã¿¡ Å¬¶óÀÌ¾ğÆ®°¡ Àü¼Û
-		/// ³×Æ®¿öÅ© °ü·Ã
-		private OutputStream out; // => ¿äÃ»½Ã¿¡ Ã³¸® °á°ú°ªÀ» º¸³»ÁÖ´Â ¿ªÇÒ
-		private BufferedReader in;// => Å¬¶óÀÌ¾ğÆ® ¿äÃ»
-		private Socket s; // Åë½Åµµ±¸
+		/// ì ‘ì†ì ê¸°ë³¸ ì •ë³´ ====> ë¡œê·¸ì¸ì‹œì— í´ë¼ì´ì–¸íŠ¸ê°€ ì „ì†¡
+		/// ë„¤íŠ¸ì›Œí¬ ê´€ë ¨
+		private OutputStream out; // => ìš”ì²­ì‹œì— ì²˜ë¦¬ ê²°ê³¼ê°’ì„ ë³´ë‚´ì£¼ëŠ” ì—­í• 
+		private BufferedReader in;// => í´ë¼ì´ì–¸íŠ¸ ìš”ì²­
+		private Socket s; // í†µì‹ ë„êµ¬
 
 		public Client(Socket s) {
-			// Á¢¼ÓÀÚ¿Í ¿¬°á
+			// ì ‘ì†ìì™€ ì—°ê²°
 			try {
-				// ÀüÈ­¸¦ ¹Ş´Â´Ù
+				// ì „í™”ë¥¼ ë°›ëŠ”ë‹¤
 				this.s = s;
-				// ¼Û½Å
+				// ì†¡ì‹ 
 				out = s.getOutputStream();
-				// ¼ö½Å
+				// ìˆ˜ì‹ 
 				in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 				/*
-				 * char => 1byte(½Ì±Û¹ÙÀÌÆ®) => ASC(¾Æ½ºÅ°) 0~256 (C/C++) char => 2byte(¸ÖÆ¼¹ÙÀÌÆ®) =>
+				 * char => 1byte(ì‹±ê¸€ë°”ì´íŠ¸) => ASC(ì•„ìŠ¤í‚¤) 0~256 (C/C++) char => 2byte(ë©€í‹°ë°”ì´íŠ¸) =>
 				 * Unicode 0~65535(Java,C#) *** ASC VS Unicode
 				 */
 			} catch (Exception ex) {
 			}
 		}
 
-		// Åë½Å ½ÃÀÛ => ¼­¹ö´Â 1°³ ==> Å¬¶óÀÌ¾ğÆ®°¡ ¿©·¯¸íÀÌ±â ¶§¹®¿¡
-		// Á¢¼ÓÀÚ¸¶´Ù => Åë½ÅÀ» µû¶ó ÇÒ ¼ö ÀÖ°Ô ¸¸µç´Ù
+		// í†µì‹  ì‹œì‘ => ì„œë²„ëŠ” 1ê°œ ==> í´ë¼ì´ì–¸íŠ¸ê°€ ì—¬ëŸ¬ëª…ì´ê¸° ë•Œë¬¸ì—
+		// ì ‘ì†ìë§ˆë‹¤ => í†µì‹ ì„ ë”°ë¼ í•  ìˆ˜ ìˆê²Œ ë§Œë“ ë‹¤
 		public void run() {
 			try {
 				while (true) {
-					// 1. Á¢¼ÓÀÚÀÇ ¿äÃ»À» ¹Ş´Â´Ù
+					// 1. ì ‘ì†ìì˜ ìš”ì²­ì„ ë°›ëŠ”ë‹¤
 					String msg = in.readLine();
-
-					// 100|hong|È«±æµ¿|³²ÀÚ\n
-
+					// readLine() => \nê¹Œì§€ ì½ëŠ” ë©”ì†Œë“œ
+					// 100|hong|í™ê¸¸ë™|ë‚¨ì\n ==>
 					System.out.println("Client=>" + msg);
-
 					StringTokenizer st = new StringTokenizer(msg, "|");
 					int protocol = Integer.parseInt(st.nextToken());
-					
-					// 1. »ç¿ëÀÚ°¡ µé¾î¿À¸é ¸ÕÀú ¹Ş°í,
-					// 2. ÀÌ¹Ì ÀÖ´ø »ç¿ëÀÚ¿¡°Ô »Ñ¸®°í, 
-					// 3. ÀúÀåÇÏ°í, 
-					// 4. ÀúÀåµÇ¾îÀÖ´Â ÀüÃ¼¸¦ ½Å±Ô»ç¿ëÀÚ¿¡°Ô »Ñ¸®±â
-					
-					// °¡µ¶¼º
-					switch (protocol) { 		// »ç¿ëÀÚ°¡ ³Ñ±ä ÇÁ·ÎÅäÄİÀÌ
-					case Function.LOGIN: { 		// 100 ¹øÀÌ¸é ·Î±×ÀÎÃ³¸®
-						// ·Î±×ÀÎ ¿äÃ»ÇÏ¸é Àü¼Û¹ŞÀº µ¥ÀÌÅÍ¸¦ ÀúÀå
+					// ê°€ë…ì„±
+					switch (protocol) {
+					case Function.LOGIN: {
+						// ë¡œê·¸ì¸ ìš”ì²­ => ì „ì†¡ë°ì´í„°ë¥¼ ì €ì¥
 						id = st.nextToken();
 						name = st.nextToken();
 						sex = st.nextToken();
-
-						// ÀÌÀü¿¡ Á¢¼ÓÇÑ »ç¶÷µé¿¡°Ô Á¤º¸¸¦ Àü¼Û
+						// ì´ì „ì— ì ‘ì†í•œ ì‚¬ëŒë“¤ì—ê²Œ ì •ë³´ë¥¼ ì „ì†¡
 						messageAll(Function.LOGIN + "|" + id + "|" + name + "|" + sex);
-						messageAll(Function.CHAT + "|[¾Ë¸² ¢Ñ] " + name + "´ÔÀÌ Á¢¼ÓÇÏ¼Ì½À´Ï´Ù");
 
-						// ·Î±×ÀÎÇÑ »ç¶÷À» ArrayList¿¡ Ãß°¡
+						messageAll(Function.CHAT + "|[ì•Œë¦¼ â˜] " + name + "ë‹˜ì´ ì ‘ì†í•˜ì…¨ìŠµë‹ˆë‹¤");
+
+						// ë¡œê·¸ì¸í•œ ì‚¬ëŒì„ ArrayListì— ì¶”ê°€
 						waitVc.add(this);
-
-						// È­¸é º¯°æ
+						// í™”ë©´ ë³€ê²½
 						messageTo(Function.MYLOG + "|" + name);
+						// ì´ì „ì— ì ‘ì†ì ì •ë³´ë¥¼ ë¡œê·¸ì¸ í•˜ëŠ” ì‚¬ëŒì—ê²Œ ì „ì†¡
 
-						// ÀÌÀü¿¡ Á¢¼ÓÀÚ Á¤º¸¸¦ ·Î±×ÀÎ ÇÏ´Â »ç¶÷¿¡°Ô Àü¼Û
 						for (Client c : waitVc) {
 							messageTo(Function.LOGIN + "|" + c.id + "|" + c.name + "|" + c.sex);
+
 						}
+
 					}
 						break;
-
-					case Function.CHAT: { 		// 200 ¹øÀÌ¸é Ã¤ÆÃÃ³¸®
+					case Function.CHAT: {
 						messageAll(Function.CHAT + "|[" + name + "]" + st.nextToken());
 					}
 						break;
-						
-					case Function.EXIT: { 		// 300 ¹øÀÌ¸é Á¾·áÃ³¸®
+					case Function.EXIT: {
 
 					}
 						break;
@@ -144,34 +132,34 @@ public class Server implements Runnable {
 			}
 		}
 
-		// °æ¿ì¼ö°¡ 2°¡Áö
-		// => Á¢¼ÓÀÚ ÀüÃ¼¿¡ ¸Ş¼¼Áö Àü¼Û (¿©·¯¸í)
-		// µ¿±âÈ­ ¼³Á¤ synchronized
+		// ê²½ìš°ìˆ˜ê°€ 2ê°€ì§€
+		// => ì ‘ì†ì ì „ì²´ì— ë©”ì„¸ì§€ ì „ì†¡ (ì—¬ëŸ¬ëª…)
+		// ë™ê¸°í™” ì„¤ì • synchronized
 		/*
-		 * | | ====> | ====> | ====> ºñµ¿±âÈ­ |
+		 * | | ====> | ====> | ====> ë¹„ë™ê¸°í™” |
 		 * 
 		 * | | ======> | =======> | ========> |
 		 */
-		public synchronized void messageAll(String msg) // µ¿±âÈ­
+		public synchronized void messageAll(String msg) // ë™ê¸°í™”
 		{
-			for (int i = 0; i < waitVc.size(); i++) // waitVc´Â Á¢¼ÓÇÑ ¸ğµç »ç¶÷µé
+			for (int i = 0; i < waitVc.size(); i++) // waitVcëŠ” ì ‘ì†í•œ ëª¨ë“  ì‚¬ëŒë“¤
 			{
 				try {
 					Client c = waitVc.get(i);
 					c.messageTo(msg);
 				} catch (Exception ex) {
-					waitVc.remove(i);// ¸Ş¼¼Áö¸¦ ¹ŞÁö ¾Ê´Â »ç¶÷µéÀº Á¦°Å
+					waitVc.remove(i);// ë©”ì„¸ì§€ë¥¼ ë°›ì§€ ì•ŠëŠ” ì‚¬ëŒë“¤ì€ ì œê±°
 				}
 			}
 
 		}
 
-		// => Á¢¼ÓÇÑ »ç¶÷¿¡°Ô ¸Ş¼¼Áö Àü¼Û (ÇÑ¸í)
-		public void messageTo(String msg) // ºñµ¿±âÈ­
+		// => ì ‘ì†í•œ ì‚¬ëŒì—ê²Œ ë©”ì„¸ì§€ ì „ì†¡ (í•œëª…)
+		public void messageTo(String msg) // ë¹„ë™ê¸°í™”
 		{
 			try {
-				out.write((msg + "\n").getBytes());// byte[]·Î º¯°æ(ÀÎÄÚµù)
-				// decoding => InputStreamReader => ÇÊÅÍ½ºÆ®¸²
+				out.write((msg + "\n").getBytes());// byte[]ë¡œ ë³€ê²½(ì¸ì½”ë”©)
+				// decoding => InputStreamReader => í•„í„°ìŠ¤íŠ¸ë¦¼
 			} catch (Exception ex) {
 			}
 		}

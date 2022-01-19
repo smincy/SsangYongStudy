@@ -15,17 +15,17 @@ public class WaitRoom extends JPanel {
 	public WaitRoom() {
 		ta = new JTextArea();
 		JScrollPane js1 = new JScrollPane(ta);
-		// JScrollBar(H,V) JScrollPane(H,V°¡ Æ÷ÇÔ)
+		// JScrollBar(H,V) JScrollPane(H,Vê°€ í¬í•¨)
 		tf = new JTextField();
-		b1 = new JButton("³ª°¡±â");
+		b1 = new JButton("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 
-		String[] col = { "¾ÆÀÌµğ", "ÀÌ¸§", "¼ºº°" };
+		String[] col = { "ï¿½ï¿½ï¿½Ìµï¿½", "ï¿½Ì¸ï¿½", "ï¿½ï¿½ï¿½ï¿½" };
 		String[][] row = new String[0][3];
 		model = new DefaultTableModel(row, col);
 		table = new JTable(model);
 		JScrollPane js2 = new JScrollPane(table);
 
-		// ¹èÄ¡
+		// ë°°ì¹˜
 		setLayout(null);
 		js2.setBounds(10, 15, 490, 300);
 		js1.setBounds(510, 15, 450, 300);

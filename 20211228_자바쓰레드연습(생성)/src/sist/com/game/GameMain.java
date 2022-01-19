@@ -3,39 +3,39 @@ package sist.com.game;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-// ¸»ÀÌ ÀÚµ¿À¸·Î ¿òÁ÷ÀÌ°Ô ÇÏ±âÀ§ÇØ ¾²·¹µå
+//ë§ì´ ìë™ìœ¼ë¡œ ì›€ì§ì´ê²Œ í•˜ê¸°ìœ„í•´ ì“°ë ˆë“œ
 
-// À©µµ¿ì
+//ìœˆë„ìš°
 public class GameMain extends JFrame {
-	// »óÅÂÇ¥½ÃÁÙ¿¡ ¸Ş´ºµé ¸¸µå´Â °úÁ¤
-	// µå·Ó´Ù¿î ¸Ş´º ¾È¿¡ Ç×¸ñµéÀÌ JMenuItem
+	// ìƒíƒœí‘œì‹œì¤„ì— ë©”ë‰´ë“¤ ë§Œë“œëŠ” ê³¼ì •
+	// ë“œë¡­ë‹¤ìš´ ë©”ë‰´ ì•ˆì— í•­ëª©ë“¤ì´ JMenuItem
 
-	JMenuItem startItem = new JMenuItem("Ãâ¹ß");
-	JMenuItem endItem = new JMenuItem("Á¾·á");
+	JMenuItem startItem = new JMenuItem("ï¿½ï¿½ï¿½");
+	JMenuItem endItem = new JMenuItem("ï¿½ï¿½ï¿½ï¿½");
 
-	GameView g = new GameView();	// GameView °¡Á®¿À±â
+	GameView g = new GameView();	// GameView ê°€ì ¸ì˜¤ê¸°
 
 	public GameMain() {
-		JMenu menu = new JMenu("°ÔÀÓ"); // '°ÔÀÓ' ÀÌ¶ó´Â ¸Ş´º¸¦ ¸¸µé°í
-		menu.add(startItem); // ±× ¸Ş´º¸¦ ´©¸£¸é ÇÏÀ§Ç×¸ñÀ¸·Î Itemµé Ç¥½ÃÇÏµµ·Ï Ãß°¡
+		JMenu menu = new JMenu("ï¿½ï¿½ï¿½ï¿½"); // 'ê²Œì„' ì´ë¼ëŠ” ë©”ë‰´ë¥¼ ë§Œë“¤ê³ 
+		menu.add(startItem); // ê·¸ ë©”ë‰´ë¥¼ ëˆ„ë¥´ë©´ í•˜ìœ„í•­ëª©ìœ¼ë¡œ Itemë“¤ í‘œì‹œí•˜ë„ë¡ ì¶”ê°€
 
-		menu.addSeparator(); // ±¸ºĞ¼±
+		menu.addSeparator(); // êµ¬ë¶„ì„ 
 
 		menu.add(endItem);
-		JMenuBar bar = new JMenuBar(); // ¸Ş´ºµé ÀüÃ¼¸¦ ¹­¾î ÁÖ´Â(»óÅÂÇ¥½ÃÁÙ)°ÍÀ» JMenuBar
+		JMenuBar bar = new JMenuBar(); // ë©”ë‰´ë“¤ ì „ì²´ë¥¼ ë¬¶ì–´ ì£¼ëŠ”(ìƒíƒœí‘œì‹œì¤„)ê²ƒì„ JMenuBar
 		bar.add(menu);
 
-		setJMenuBar(bar); // ÀÌ°É Áà¾ß À©µµ¿ì À§¿¡ ¸Ş´º°¡ ¿Ã¶ó°¨
+		setJMenuBar(bar); // ì´ê±¸ ì¤˜ì•¼ ìœˆë„ìš° ìœ„ì— ë©”ë‰´ê°€ ì˜¬ë¼ê°
 
-		// °ÔÀÓ Ãß°¡
+		// ê²Œì„ ì¶”ê°€
 		add("Center", g);
 
-		// À©µµ¿ì Å©±â ¼³Á¤
+		// ìœˆë„ìš° í¬ê¸° ì„¤ì •
 		setSize(700, 750);
-		setVisible(true); // À©µµ¿ì¸¦ º¸¿©Áà¶ó
-		setDefaultCloseOperation(EXIT_ON_CLOSE); // ¿ì»ó´Ü ´İ±â¹öÆ° [X] Å¬¸¯½Ã Á¾·á - ¸Ş¸ğ¸® ÇØÁ¦
+		setVisible(true); // ìœˆë„ìš°ë¥¼ ë³´ì—¬ì¤˜ë¼
+		setDefaultCloseOperation(EXIT_ON_CLOSE); // ìš°ìƒë‹¨ ë‹«ê¸°ë²„íŠ¼ [X] í´ë¦­ì‹œ ì¢…ë£Œ - ë©”ëª¨ë¦¬ í•´ì œ
 
-		// ¶÷´Ù
+		// ëŒë‹¤
 		startItem.addActionListener((e) -> {
 			g.start();		
 		});
@@ -46,8 +46,8 @@ public class GameMain extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		// È£Ãâ
-		new GameMain(); // »ı¼ºÀÚ È£Ãâ½Ã¿¡´Â ¹İµå½Ã new »ı¼ºÀÚ();
+		// í˜¸ì¶œ
+		new GameMain(); // ìƒì„±ì í˜¸ì¶œì‹œì—ëŠ” ë°˜ë“œì‹œ new ìƒì„±ì();
 	}
 
 }

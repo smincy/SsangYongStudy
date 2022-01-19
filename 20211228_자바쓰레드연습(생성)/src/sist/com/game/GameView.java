@@ -3,8 +3,8 @@ package sist.com.game;
 import java.awt.*;
 import javax.swing.*;
 
-// JFrame / JDialog / JWindow => ¾êµé À§¿¡ ¿Ã·Á¼­, »ç¿ë °¡´ÉÇÏ°Ô ¸¸µå´Â°Ô JPanel
-// JPanelÀº ´Üµ¶ ¼öÇàÀÌ ºÒ°¡´ÉÇÏ´Ù (ÄÄÆ÷³ÍÆ® ¹­¾î¼­ °ü¸®) => È­»ó, ¹öÆ°À» ¹­´Â
+//JFrame / JDialog / JWindow => ì–˜ë“¤ ìœ„ì— ì˜¬ë ¤ì„œ, ì‚¬ìš© ê°€ëŠ¥í•˜ê²Œ ë§Œë“œëŠ”ê²Œ JPanel
+//JPanelì€ ë‹¨ë… ìˆ˜í–‰ì´ ë¶ˆê°€ëŠ¥í•˜ë‹¤ (ì»´í¬ë„ŒíŠ¸ ë¬¶ì–´ì„œ ê´€ë¦¬) => í™”ìƒ, ë²„íŠ¼ì„ ë¬¶ëŠ”
 
 public class GameView extends JPanel {
 	private HorseThread h = new HorseThread();
@@ -12,25 +12,25 @@ public class GameView extends JPanel {
 	private Image horse;
 
 	public GameView() {
-		// ÀÌ¹ÌÁö °¡Á®¿À±â
-		horse = Toolkit.getDefaultToolkit().getImage("C:\\SY\\Ä¸ÃÄ\\i013521632353.gif");
+		// ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ê¸°
+		horse = Toolkit.getDefaultToolkit().getImage("C:\\SY\\Ä¸ï¿½ï¿½\\i013521632353.gif");
 	}
 
-	// ±×¸²À» ±×¸°´Ù
-	public void paint(Graphics g) { // Graphics => ±×¸²À» ±×¸®´Â µµ±¸
+	// ê·¸ë¦¼ì„ ê·¸ë¦°ë‹¤
+	public void paint(Graphics g) { // Graphics => ê·¸ë¦¼ì„ ê·¸ë¦¬ëŠ” ë„êµ¬
 
-		// ¹ÙÅÁ»ö ¼³Á¤
+		// ë°”íƒ•ìƒ‰ ì„¤ì •
 		g.setColor(Color.black);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
-		g.drawImage(horse, h.x, h.y, 150, 80, this); // ±×¸², °¡·ÎÀ§Ä¡, ¼¼·ÎÀ§Ä¡, Å©±â, ³ôÀÌ, this
+		g.drawImage(horse, h.x, h.y, 150, 80, this); // ê·¸ë¦¼, ê°€ë¡œìœ„ì¹˜, ì„¸ë¡œìœ„ì¹˜, í¬ê¸°, ë†’ì´, this
 	}
-
-	public void start() { // ½ÃÀÛ
+	
+	public void start() { // ì‹œì‘
 		h.start();
 	}
 
-	public void end() { // Á¾·á
+	public void end() {  // ì¢…ë£Œ
 		h.interrupt();
 	}
 
@@ -43,13 +43,13 @@ public class GameView extends JPanel {
 			while (true) {
 				try {
 					x -= 5;
-					if (x < 0) { // x °¡ 0 º¸´Ù ÀÛ¾ÆÁö¸é ¾²·¹µåÁ¾·á
+					if (x < 0) {	// x ê°€ 0 ë³´ë‹¤ ì‘ì•„ì§€ë©´ ì“°ë ˆë“œì¢…ë£Œ
 						x = -100;
 						interrupt();
 						break;
 					}
-					Thread.sleep(200); // Àá±ñ¾¿ ¸ØÃß°Ô
-					repaint(); // ±×¸²À» ´Ù½Ã ±×¸°´Ù
+					Thread.sleep(200); // ì ê¹ì”© ë©ˆì¶”ê²Œ
+					repaint(); 	// ê·¸ë¦¼ì„ ë‹¤ì‹œ ê·¸ë¦°ë‹¤
 				} catch (Exception e) {
 				}
 			}
