@@ -2,39 +2,39 @@ package sist.com.main;
 
 import java.util.*;
 
-// ÀÚ¹Ù(Main) => JSP(ºê¶ó¿ìÀú)
+// ìë°”(Main) => JSP(ë¸Œë¼ìš°ì €)
 public class ClientMain {
 
 	public static void main(String[] args) {
 
-		// ¿À¶óÅ¬ ¿¬°á DAO
+		// ì˜¤ë¼í´ ì—°ê²° DAO
 		EmpDAO dao = new EmpDAO();
 
-		// 1. »ç¿ø Á¤º¸ ÀüÃ¼¸¦ Ãâ·Â
+		// 1. ì‚¬ì› ì •ë³´ ì „ì²´ë¥¼ ì¶œë ¥
 		List<EmpVO> list = dao.empListData();
 
-		// 2. Ãâ·Â
-		System.out.println("====== »ç¿ø ¸ñ·Ï ======");
+		// 2. ì¶œë ¥
+		System.out.println("====== ì‚¬ì› ëª©ë¡ ======");
 		for (EmpVO vo : list) {
 			System.out.println(vo.getEmpno() + " " + vo.getEname() + "    " + vo.getJob() + "\t" + vo.getMgr() + "\t"
 					+ vo.getHiredate().toString() + "\t" + vo.getSal() + "\t" + vo.getComm() + "\t" + vo.getDeptno());
 		}
 		System.out.println("\n");
-		System.out.println("====== ºÎ¼­ Á¤º¸ ¸ñ·Ï ======");
+		System.out.println("====== ë¶€ì„œ ì •ë³´ ëª©ë¡ ======");
 		List<DeptVO> dlist = dao.deptListData();
 		for (DeptVO vo : dlist) {
 			System.out.println(vo.getDeptno() + " " + vo.getDname() + "\t" + vo.getLoc());
 		}
 
 		System.out.println("\n");
-		System.out.println("====== ±Ş¿© Á¤º¸ ¸ñ·Ï ======");
+		System.out.println("====== ê¸‰ì—¬ ì •ë³´ ëª©ë¡ ======");
 		List<SalGradeVO> slistd = dao.salgradeListData();
 		for (SalGradeVO vo : slistd) {
 			System.out.println(vo.getGrade() + "  " + vo.getLosal() + "\t" + vo.getHisal());
 		}
 
 		System.out.println("\n");
-		System.out.println("====== EMP¿Í DEPT Á¶ÀÎ ¸ñ·Ï ======");
+		System.out.println("====== EMPì™€ DEPT ì¡°ì¸ ëª©ë¡ ======");
 		List<EmpVO> eList = dao.empDeptJoinData();
 		for (EmpVO vo : eList) {
 			System.out.println(
@@ -43,7 +43,7 @@ public class ClientMain {
 		}
 
 		System.out.println("\n");
-		System.out.println("====== Emp¿Í Salgrade Á¶ÀÎ ¸ñ·Ï ======");
+		System.out.println("====== Empì™€ Salgrade ì¡°ì¸ ëª©ë¡ ======");
 		List<EmpVO> esList = dao.empSalgradeJoinData();
 		for (EmpVO vo : esList) {
 			System.out.println(vo.getEmpno() + "  " + vo.getEname() + "\t" + vo.getJob() + "   "
@@ -51,7 +51,7 @@ public class ClientMain {
 		}
 
 		System.out.println("\n");
-		System.out.println("====== Emp, Dept, Salgrade Á¶ÀÎ ¸ñ·Ï ======");
+		System.out.println("====== Emp, Dept, Salgrade ì¡°ì¸ ëª©ë¡ ======");
 		List<EmpVO> edsList = dao.empDeptSalgradeJoinData();
 		for (EmpVO vo : edsList) {
 			System.out.println(vo.getEmpno() + " " + vo.getEname() + " " + vo.getJob() + " "
@@ -60,24 +60,24 @@ public class ClientMain {
 		}
 
 		System.out.println("\n");
-		System.out.println("====== »ç¿ëÀÚ ¿äÃ» µ¥ÀÌÅÍ Ã·ºÎ ÈÄ °á°ú°ª Ãâ·Â ======");
+		System.out.println("====== ì‚¬ìš©ì ìš”ì²­ ë°ì´í„° ì²¨ë¶€ í›„ ê²°ê³¼ê°’ ì¶œë ¥ ======");
 		Scanner sc = new Scanner(System.in);
-		System.out.println("»ç¹ø ÀÔ·Â : ");
+		System.out.println("ì‚¬ë²ˆ ì…ë ¥ : ");
 		int empno = sc.nextInt();
 		EmpVO vo = dao.empDetailData(empno);
-		System.out.println("»ç¹ø :" + "\t" + vo.getEmpno());
-		System.out.println("ÀÌ¸§ :" + "\t" + vo.getEname());
-		System.out.println("Á÷À§ : " + vo.getJob());
-		System.out.println("ÀÔ»çÀÏ : " + vo.getHiredate());
-		System.out.println("±Ş¿© : " + vo.getSal());
-		System.out.println("ºÎ¼­¸í : " + vo.getDvo().getDname());
-		System.out.println("±Ù¹«Áö : " + vo.getDvo().getLoc());
-		System.out.println("È£ºÀ : " + vo.getSvo().getGrade());
+		System.out.println("ì‚¬ë²ˆ :" + "\t" + vo.getEmpno());
+		System.out.println("ì´ë¦„ :" + "\t" + vo.getEname());
+		System.out.println("ì§ìœ„ : " + vo.getJob());
+		System.out.println("ì…ì‚¬ì¼ : " + vo.getHiredate());
+		System.out.println("ê¸‰ì—¬ : " + vo.getSal());
+		System.out.println("ë¶€ì„œëª… : " + vo.getDvo().getDname());
+		System.out.println("ê·¼ë¬´ì§€ : " + vo.getDvo().getLoc());
+		System.out.println("í˜¸ë´‰ : " + vo.getSvo().getGrade());
 		
 		
 		
 		System.out.println("\n");
-		System.out.println("====== JDBC¿¡¼­ ¼­ºêÄõ¸® ÀÌ¿ë ======");
+		System.out.println("====== JDBCì—ì„œ ì„œë¸Œì¿¼ë¦¬ ì´ìš© ======");
 		List<EmpVO> subList = dao.empSubQueryData();
 		for (EmpVO s : subList) {
 			System.out.println(s.getEname() + " "
@@ -91,7 +91,7 @@ public class ClientMain {
 		
 		
 		System.out.println("\n");
-		System.out.println("==== JDBC¿¡¼­ ¼­ºêÄõ¸®2 ÀÌ¿ë =====");
+		System.out.println("==== JDBCì—ì„œ ì„œë¸Œì¿¼ë¦¬2 ì´ìš© =====");
 		List<EmpVO> subList2=dao.empSubQueryData2();
 		for(EmpVO s:subList2)
 		{
@@ -104,7 +104,7 @@ public class ClientMain {
 		}
 		
 		System.out.println("\n");
-		System.out.println("===== JOIN ´ë½Å ½ºÄ®¶ó¼­ºêÄõ¸® »ç¿ë =====");
+		System.out.println("===== JOIN ëŒ€ì‹  ìŠ¤ì¹¼ë¼ì„œë¸Œì¿¼ë¦¬ ì‚¬ìš© =====");
 		subList2=dao.empSubQueryListData();
 		for(EmpVO s:subList2)
 		{
@@ -118,7 +118,7 @@ public class ClientMain {
 		
 		
 		System.out.println("\n");
-		System.out.println("===== ÀÎ¶óÀÎºä¸¦ ÀÌ¿ëÇÑ µ¥ÀÌÅÍ ÀÚ¸£±â =====");
+		System.out.println("===== ì¸ë¼ì¸ë·°ë¥¼ ì´ìš©í•œ ë°ì´í„° ìë¥´ê¸° =====");
 		subList2=dao.empTon5Data();
 		for(EmpVO s:subList2)
 		{

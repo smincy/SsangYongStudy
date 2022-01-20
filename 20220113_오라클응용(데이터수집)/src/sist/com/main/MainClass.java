@@ -8,10 +8,10 @@ public class MainClass {
 
 	public static void main(String[] args) {
 		try {
-			// µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á
+			// ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° 
 			FoodDAO dao = new FoodDAO();
-
-			// À¥»çÀÌÆ® ¿¬°á
+			// Jsoup => Html Parser
+        	// ì›¹ ì‚¬ì´íŠ¸ì— ì—°ê²° 
 			Document doc = Jsoup.connect("https://www.mangoplate.com/").get();
 
 			Elements title = doc.select("div.info_inner_wrap span.title");
@@ -26,11 +26,11 @@ public class MainClass {
 				c.setPoster(poster.get(i).attr("data-lazy").replace("&", "^"));
 				c.setLink("https://www.mangoplate.com" + link.get(i).attr("href"));
 
-				// µ¥ÀÌÅÍ¸¦ ÀĞÀ»¶§ ¸¶´Ù ¿À¶óÅ¬¿¡ Ã·ºÎ
+				// ë°ì´í„°ë¥¼ ì½ì„ë•Œ ë§ˆë‹¤ ì˜¤ë¼í´ì— ì²¨ë¶€
 				dao.categoryInsert(c);
-				// ÀÚ¹Ù¿¡¼­ ¿À¶óÅ¬ ¿¬°á½Ã insert, update, delete ¼öÇà ½Ã AutoCommit(), µû¶ó¼­ ¹®Á¦°¡ »ı±æ °æ¿ì ½É°¢ÇÒ ¼ö ÀÖÀ½
+				// ìë°”ì—ì„œ ì˜¤ë¼í´ ì—°ê²°ì‹œ insert, update, delete ìˆ˜í–‰ ì‹œ AutoCommit(), ë”°ë¼ì„œ ë¬¸ì œê°€ ìƒê¸¸ ê²½ìš° ì‹¬ê°í•  ìˆ˜ ìˆìŒ
 			}
-			System.out.println("¿À¶óÅ¬¿¡ ÀúÀå ¿Ï·á");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
 		} catch (Exception e) {
 
 		}

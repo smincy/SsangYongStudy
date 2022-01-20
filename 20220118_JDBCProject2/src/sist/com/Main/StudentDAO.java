@@ -1,6 +1,6 @@
 package sist.com.Main;
 
-// ¿À¶óÅ¬ ¿¬°á
+// ì˜¤ë¼í´ ì—°ê²°
 
 import java.util.*;
 import java.sql.*;
@@ -12,7 +12,7 @@ public class StudentDAO {
 
 	private final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 
-	// µå¶óÀÌ¹ö µî·Ï
+	// ë“œë¼ì´ë²„ ë“±ë¡
 	public StudentDAO() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -21,7 +21,7 @@ public class StudentDAO {
 		}
 	}
 
-	// ¿¬°á
+	// ì—°ê²°
 	public void getConnection() {
 		try {
 
@@ -31,7 +31,7 @@ public class StudentDAO {
 		}
 	}
 
-	// ÇØÁ¦
+	// í•´ì œ
 	public void disConnection() {
 		try {
 			if (ps != null) {
@@ -45,23 +45,23 @@ public class StudentDAO {
 		}
 	}
 
-	// ±â´É
+	// ê¸°ëŠ¥
 	// INSERT
 	public void studentInsert(StudentVO vo) {
 		try {
-			// 1. ¿¬°á
+			// 1. ì—°ê²°
 			getConnection();
-			// 2. SQL ¹®Àå
+			// 2. SQL ë¬¸ì¥
 			String sql = "INSERT INTO student VALUES(" + "(SELECT NVL(MAX(hakbun)+1,1) FROM student)," + "?,?,?,?)";
-			// 3. SQL ¹®Àå Àü¼Û
+			// 3. SQL ë¬¸ì¥ ì „ì†¡
 			ps = conn.prepareStatement(sql);
-			// 4. ? ¿¡ °ª Ã¤¿ì±â
+			// 4. ? ì— ê°’ ì±„ìš°ê¸°
 			ps.setString(1, vo.getName());
 			ps.setInt(2, vo.getKor());
 			ps.setInt(3, vo.getEng());
 			ps.setInt(4, vo.getMath());
 
-			// 5. ½ÇÇà¿äÃ»
+			// 5. ì‹¤í–‰ìš”ì²­
 			ps.executeUpdate();
 
 		} catch (Exception e) {
@@ -71,7 +71,7 @@ public class StudentDAO {
 		}
 	}
 
-	// ÀüÃ¼ Ãâ·Â
+	// ì „ì²´ ì¶œë ¥
 	public List<StudentVO> studentListData() {
 		List<StudentVO> list = new ArrayList<StudentVO>();
 		try {
@@ -80,7 +80,7 @@ public class StudentDAO {
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				// ÇĞ¹ø, ÀÌ¸§, ±¹, ¿µ, ¼ö
+				// í•™ë²ˆ, ì´ë¦„, êµ­, ì˜, ìˆ˜
 				StudentVO vo = new StudentVO();
 				vo.setHakbun(rs.getInt(1));
 				vo.setName(rs.getString(2));

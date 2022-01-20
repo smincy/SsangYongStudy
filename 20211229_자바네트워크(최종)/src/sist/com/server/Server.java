@@ -1,18 +1,18 @@
 package sist.com.server;
 
 /*
- * 	1. ¼­¹ö±¸µ¿				> ServerSocket
- * 	2. Á¢¼ÓÀÚ Á¤º¸ ÀúÀå			> ArrayList
- * 	3. À½¾Ç Á¤º¸ ÀúÀå			> ArrayList	> ObjectInputStream
- * 	4. Åë½Å (¼Û½Å:°á°ú°ª, ¼ö½Å:¿äÃ»À»¹Ş´Â´Ù)	> OutputStream / BufferedReader
+ * 	1. ì„œë²„êµ¬ë™				> ServerSocket
+ * 	2. ì ‘ì†ì ì •ë³´ ì €ì¥			> ArrayList
+ * 	3. ìŒì•… ì •ë³´ ì €ì¥			> ArrayList	> ObjectInputStream
+ * 	4. í†µì‹  (ì†¡ì‹ :ê²°ê³¼ê°’, ìˆ˜ì‹ :ìš”ì²­ì„ë°›ëŠ”ë‹¤)	> OutputStream / BufferedReader
  */
 //-------------------------------------------------------------------------------
-//	1. ¼ÒÄÏÀ» »ı¼º
-//	2. ´ë±â»óÅÂ
-//	3. Á¢¼ÓÀÚ Á¢¼Ó´ë±â 
-//		- Á¢¼ÓÀÚÀÇ Á¤º¸¸¦ ¹Ş´Â´Ù
-//		- Á¢¼ÓÀÚ¸¶´Ù µû·Î Åë½ÅÀÌ °¡´ÉÇÏ°Ô ¸¸µç´Ù (ÇÁ·Î±×·¥À» º°µµ·Î ¼öÇà = ¾²·¹µå)
-//	4. Á¢¼ÓÀÚÀÇ Åë½Å (¾²·¹µå)		==> ÀÌºÎºĞÀÌ 'À¥ÇÁ·Î±×·¥'. ¾ÕÀ¸·Î ÀÌ ºÎºĞÀ» Áß½ÉÀ¸·Î ¸¸µé¾î³ª°¡¾ßµÇ´Â ºÎºĞ
+//	1. ì†Œì¼“ì„ ìƒì„±
+//	2. ëŒ€ê¸°ìƒíƒœ
+//	3. ì ‘ì†ì ì ‘ì†ëŒ€ê¸° 
+//		- ì ‘ì†ìì˜ ì •ë³´ë¥¼ ë°›ëŠ”ë‹¤
+//		- ì ‘ì†ìë§ˆë‹¤ ë”°ë¡œ í†µì‹ ì´ ê°€ëŠ¥í•˜ê²Œ ë§Œë“ ë‹¤ (í”„ë¡œê·¸ë¨ì„ ë³„ë„ë¡œ ìˆ˜í–‰ = ì“°ë ˆë“œ)
+//	4. ì ‘ì†ìì˜ í†µì‹  (ì“°ë ˆë“œ)		==> ì´ë¶€ë¶„ì´ 'ì›¹í”„ë¡œê·¸ë¨'. ì•ìœ¼ë¡œ ì´ ë¶€ë¶„ì„ ì¤‘ì‹¬ìœ¼ë¡œ ë§Œë“¤ì–´ë‚˜ê°€ì•¼ë˜ëŠ” ë¶€ë¶„
 
 import java.util.*;
 
@@ -24,22 +24,22 @@ import sist.com.common.*;
 public class Server implements Runnable {
 
 	private static ArrayList<Music> mList = new ArrayList<Music>();
-	// ¹ÂÁ÷ µ¥ÀÌÅÍ¸¦ (Å¬¶óÀÌ¾ğÆ®Á¤º¸) ÀúÀåÇÒ °ø°£
+	// ë®¤ì§ ë°ì´í„°ë¥¼ (í´ë¼ì´ì–¸íŠ¸ì •ë³´) ì €ì¥í•  ê³µê°„
 
 	private ArrayList cList = new ArrayList<>();
-	// Á¢¼ÓÀÚÀÇ Á¤º¸¸¦ ÀúÀåÇÑ´Ù (ID, Name, IP, Port)
+	// ì ‘ì†ìì˜ ì •ë³´ë¥¼ ì €ì¥í•œë‹¤ (ID, Name, IP, Port)
 
-	private ServerSocket ss; // ±âÁö±¹ > Á¢¼ÓÀ» ¹Ş¾Æ¼­ ¿¬°á
+	private ServerSocket ss; // ê¸°ì§€êµ­ > ì ‘ì†ì„ ë°›ì•„ì„œ ì—°ê²°
 
-	// 1. º¯¼öÀÇ ÃÊ±âÈ­
+	// 1. ë³€ìˆ˜ì˜ ì´ˆê¸°í™”
 	static {
-		// ÆÄÀÏÀ» ÀĞ¾î¼­ Arraylist¿¡ ÀúÀå ÈÄ »ç¿ë
+		// íŒŒì¼ì„ ì½ì–´ì„œ Arraylistì— ì €ì¥ í›„ ì‚¬ìš©
 		FileInputStream fis = null;
 		ObjectInputStream ois = null;
 		try {
 
-			fis = new FileInputStream("C:\\SY\\ÀÚ·á\\java_data\\music_object.txt");
-			// ÀĞÀº ÆÄÀÏÀ» °´Ã¼ ´ÜÀ§·Î ÀúÀå
+			fis = new FileInputStream("C:\\SY\\ìë£Œ\\java_data\\music_object.txt");
+			// ì½ì€ íŒŒì¼ì„ ê°ì²´ ë‹¨ìœ„ë¡œ ì €ì¥
 			ois = new ObjectInputStream(fis);
 
 			mList = (ArrayList<Music>) ois.readObject();
@@ -56,27 +56,27 @@ public class Server implements Runnable {
 	}
 
 	public Server() {
-		// ¼­¹ö ±¸µ¿
+		// ì„œë²„ êµ¬ë™
 		try {
 
-			ss = new ServerSocket(3355); // port ´Â ¹İµå½Ã °íÁ¤
-			// ¼­¹ö ±¸µ¿ ¾Ë¸²
-			// bind() (¿¹ : °³Åë) => listen() : (´ë±â»óÅÂ)
+			ss = new ServerSocket(3355); // port ëŠ” ë°˜ë“œì‹œ ê³ ì •
+			// ì„œë²„ êµ¬ë™ ì•Œë¦¼
+			// bind() (ì˜ˆ : ê°œí†µ) => listen() : (ëŒ€ê¸°ìƒíƒœ)
 			System.out.println("Music Server Start...");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
 
-	// Á¢¼Ó ½Ã Ã³¸®
+	// ì ‘ì† ì‹œ ì²˜ë¦¬
 
 	public void run() {
 		try {
-			Socket s = ss.accept(); // Á¢¼ÓÀÌ µÇ¸é => »ç¿ëÀÚÀÇ Á¤º¸(Socket)¸¦ ¾ò¾î¿Í¾ßÇÑ´Ù
-			// Socket À» ¾²·¹µå·Î Àü¼ÛÇØ¼­ Á¢¼ÓÀÚ¸¶´Ù Åë½ÅÀÌ °¡´ÉÇÏ°Ô ¸¸µé¾îÁØ´Ù
+			Socket s = ss.accept(); // ì ‘ì†ì´ ë˜ë©´ => ì‚¬ìš©ìì˜ ì •ë³´(Socket)ë¥¼ ì–»ì–´ì™€ì•¼í•œë‹¤
+			// Socket ì„ ì“°ë ˆë“œë¡œ ì „ì†¡í•´ì„œ ì ‘ì†ìë§ˆë‹¤ í†µì‹ ì´ ê°€ëŠ¥í•˜ê²Œ ë§Œë“¤ì–´ì¤€ë‹¤
 
 			Client client = new Client(s);
-			client.start(); // ¼ÒÄÏÀ» ³Ñ°ÜÁÖ°í ÇØ´ç Á¢¼ÓÀÚ¿Í Åë½ÅÀ» ½ÃÀÛÇÑ´Ù
+			client.start(); // ì†Œì¼“ì„ ë„˜ê²¨ì£¼ê³  í•´ë‹¹ ì ‘ì†ìì™€ í†µì‹ ì„ ì‹œì‘í•œë‹¤
 
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -84,37 +84,37 @@ public class Server implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		// ±¸µ¿
-		Server server = new Server(); // »ı¼ºÀÚ È£Ãâ (±¸µ¿)
-		new Thread(server).start(); // run È£Ãâ > Á¢¼ÓÀÚ Á¢¼Ó Ã³¸®
+		// êµ¬ë™
+		Server server = new Server(); // ìƒì„±ì í˜¸ì¶œ (êµ¬ë™)
+		new Thread(server).start(); // run í˜¸ì¶œ > ì ‘ì†ì ì ‘ì† ì²˜ë¦¬
 
 	}
 
-	// Åë½Å ´ã´ç Å¬·¡½º => ¹İµå½Ã (Á¢¼ÓÀÚ¸¶´Ù µû·Î »ı¼º) => ÇÁ·Î±×·¥À» º°µµ·Î ¼öÇàÇÒ ¼ö ÀÖ°Ô ¸¸µé¾îÁà¾ßÇÔ >> '¾²·¹µå'
-	// ÇÁ·Î±×·¥(ÇÁ·Î¼¼½º) ¾È¿¡¼­ ¿©·¯°³ÀÇ ´Ù¸¥ ÇÁ·Î±×·¥À» ¼öÇà => ¾²·¹µå
-	// ¾²·¹µå¸¦ ÀÌ¿ëÇØ¼­ Åë½ÅÀ» ½ÃÀÛ (Á¢¼ÓÀÚ Á¤º¸°¡ ÇÊ¿ä) => Server / Client > ÀÌ µÑÀÌ ¼­·Î µ¥ÀÌÅÍ°øÀ¯°¡ µÇ¾î¾ßÇÔ (ÀÌ¶§
-	// ³»ºÎÅ¬·¡½º »ç¿ë)
+	// í†µì‹  ë‹´ë‹¹ í´ë˜ìŠ¤ => ë°˜ë“œì‹œ (ì ‘ì†ìë§ˆë‹¤ ë”°ë¡œ ìƒì„±) => í”„ë¡œê·¸ë¨ì„ ë³„ë„ë¡œ ìˆ˜í–‰í•  ìˆ˜ ìˆê²Œ ë§Œë“¤ì–´ì¤˜ì•¼í•¨ >> 'ì“°ë ˆë“œ'
+	// í”„ë¡œê·¸ë¨(í”„ë¡œì„¸ìŠ¤) ì•ˆì—ì„œ ì—¬ëŸ¬ê°œì˜ ë‹¤ë¥¸ í”„ë¡œê·¸ë¨ì„ ìˆ˜í–‰ => ì“°ë ˆë“œ
+	// ì“°ë ˆë“œë¥¼ ì´ìš©í•´ì„œ í†µì‹ ì„ ì‹œì‘ (ì ‘ì†ì ì •ë³´ê°€ í•„ìš”) => Server / Client > ì´ ë‘˜ì´ ì„œë¡œ ë°ì´í„°ê³µìœ ê°€ ë˜ì–´ì•¼í•¨ (ì´ë•Œ
+	// ë‚´ë¶€í´ë˜ìŠ¤ ì‚¬ìš©)
 
 	class Client extends Thread {
 		Socket s;
 
-		// ¼Û½Å (¿äÃ»Ã³¸® °á°ú°ªÀ» º¸³»ÁÙ¶§ »ç¿ë)
+		// ì†¡ì‹  (ìš”ì²­ì²˜ë¦¬ ê²°ê³¼ê°’ì„ ë³´ë‚´ì¤„ë•Œ ì‚¬ìš©)
 		OutputStream out;
-		// ¼ö½Å (»ç¿ëÀÚÀÇ ¿äÃ»À» ¹Ş´Â °æ¿ì¿¡ »ç¿ë)
+		// ìˆ˜ì‹  (ì‚¬ìš©ìì˜ ìš”ì²­ì„ ë°›ëŠ” ê²½ìš°ì— ì‚¬ìš©)
 		BufferedReader br;
 
-		// Á¢¼ÓÀÚ ±¸ºĞ
-		String id, name; // ·Î±×ÀÎ ÇÒ ¶§ Àü¼Û ¹ŞÀ½
+		// ì ‘ì†ì êµ¬ë¶„
+		String id, name; // ë¡œê·¸ì¸ í•  ë•Œ ì „ì†¡ ë°›ìŒ
 
 		public Client(Socket s) {
 			try {
 				this.s = s;
 
-				// ÀÔÃâ·Â(Åë½Å)À» ÇÒ ¼ö ÀÖ°Ô ¿¬°á
-				// ÀÔ·Â / ¼ÒÄÏ ¾È¿¡¼­ °ªÀ» ¹Ù·Î ÀĞ¾î¿Àµµ·Ï
+				// ì…ì¶œë ¥(í†µì‹ )ì„ í•  ìˆ˜ ìˆê²Œ ì—°ê²°
+				// ì…ë ¥ / ì†Œì¼“ ì•ˆì—ì„œ ê°’ì„ ë°”ë¡œ ì½ì–´ì˜¤ë„ë¡
 				br = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
-				// Ãâ·Â
+				// ì¶œë ¥
 				out = s.getOutputStream();
 
 			} catch (Exception e) {
@@ -122,41 +122,41 @@ public class Server implements Runnable {
 			}
 		}
 
-		// Åë½ÅÀ» ½ÃÀÛ => run
+		// í†µì‹ ì„ ì‹œì‘ => run
 		public void run() {
 			while (true) {
 				try {
 
-					// 1. »ç¿ëÀÚ°¡ ¿äÃ»À» ÇßÀ» ¶§
+					// 1. ì‚¬ìš©ìê°€ ìš”ì²­ì„ í–ˆì„ ë•Œ
 					String msg = br.readLine();
 
-					// 2. ±â´Éº°·Î Ã³¸®ÇÏ±â À§ÇØ ³ª´²ÁÖ±â
+					// 2. ê¸°ëŠ¥ë³„ë¡œ ì²˜ë¦¬í•˜ê¸° ìœ„í•´ ë‚˜ëˆ ì£¼ê¸°
 					StringTokenizer st = new StringTokenizer(msg, "|");
 
-					// 3. ¾î¶² ¿äÃ»ÀÎÁö È®ÀÎ
+					// 3. ì–´ë–¤ ìš”ì²­ì¸ì§€ í™•ì¸
 					int protocol = Integer.parseInt(st.nextToken());
 
 					switch (protocol) {
 					case Function.LOGIN: {
-						// ·Î±×ÀÎ Ã³¸® > È­¸é º¯°æ > À½¾Ç µ¥ÀÌÅÍ Àü¼Û
+						// ë¡œê·¸ì¸ ì²˜ë¦¬ > í™”ë©´ ë³€ê²½ > ìŒì•… ë°ì´í„° ì „ì†¡
 
 						id = st.nextToken();
 						name = st.nextToken();
 
-						// ¹ŞÀº Á¤º¸¸¦ Á¢¼ÓÀÚÁ¤º¸¿¡ ÀúÀå
+						// ë°›ì€ ì •ë³´ë¥¼ ì ‘ì†ìì •ë³´ì— ì €ì¥
 						cList.add(this); // id, name, s, in, out
 
-						// ·Î±×ÀÎÃ¢ ´ÙÀ½À¸·Î À½¾Ç È­¸éÀ¸·Î º¯°æ
+						// ë¡œê·¸ì¸ì°½ ë‹¤ìŒìœ¼ë¡œ ìŒì•… í™”ë©´ìœ¼ë¡œ ë³€ê²½
 						messageTo(Function.MYLOG + "|" + name);
 
-						// À½¾Ç µ¥ÀÌÅÍ¸¦ Àü¼Û
+						// ìŒì•… ë°ì´í„°ë¥¼ ì „ì†¡
 						StringBuffer sb = new StringBuffer();
 						for (Music m : mList) {
 							String music = m.getNo() + "%" + m.getTitle() + "%" + m.getSinger() + "%" + m.getAlbum()
 									+ "^";
 							sb.append(music);
 						}
-						// ¸ñ·ÏÀ» Ãâ·ÂÇØ¶ó
+						// ëª©ë¡ì„ ì¶œë ¥í•´ë¼
 						messageTo(Function.LIST + "|" + sb.toString());
 					}
 						break;
@@ -168,19 +168,19 @@ public class Server implements Runnable {
 									+ "^";
 							sb.append(music);
 						}
-						// ¸ñ·ÏÀ» Ãâ·ÂÇØ¶ó
+						// ëª©ë¡ì„ ì¶œë ¥í•´ë¼
 						messageTo(Function.LIST + "|" + sb.toString());
 					}
 						break;
 
 					case Function.FIND: {
-						// À½¾Ç °Ë»ö¾î¸¦ ¹Ş¾Æ¼­ > Ã£Àº µ¥ÀÌÅÍ¸¦ Àü¼Û
+						// ìŒì•… ê²€ìƒ‰ì–´ë¥¼ ë°›ì•„ì„œ > ì°¾ì€ ë°ì´í„°ë¥¼ ì „ì†¡
 						StringBuffer sb = new StringBuffer();
 
-						// °Ë»ö¾î¸¦ ¹Ş´Â´Ù
+						// ê²€ìƒ‰ì–´ë¥¼ ë°›ëŠ”ë‹¤
 						String ss = st.nextToken();
 
-						// Ã£±â
+						// ì°¾ê¸°
 						for (Music m : mList) {
 							if (m.getTitle().contains(ss)) {
 								String music = m.getNo() + "%" + m.getTitle() + "%" + m.getSinger() + "%" + m.getAlbum()
@@ -188,14 +188,14 @@ public class Server implements Runnable {
 								sb.append(music);
 							}
 						}
-						// Ã£Àº ³»¿ëÀ» »ç¿ëÀÚ¿¡°Ô º¸³½´Ù
+						// ì°¾ì€ ë‚´ìš©ì„ ì‚¬ìš©ìì—ê²Œ ë³´ë‚¸ë‹¤
 						messageTo(Function.FIND + "|" + sb.toString());
 					}
 						/*
-						 * ¼­¹ö ±â´É 1. µ¥ÀÌÅÍ ¹Ş±â : BufferedReader 2. µ¥ÀÌÅÍ Àü¼Û : OutputStream > write() 3. µ¥ÀÌÅÍ °Ë»ö
-						 * : conatins(), equals() 4. µ¥ÀÌÅÍ Ãß°¡ : Login 5. µ¥ÀÌÅÍ ¼öÁ¤ 6. µ¥ÀÌÅÍ »èÁ¦
+						 * ì„œë²„ ê¸°ëŠ¥ 1. ë°ì´í„° ë°›ê¸° : BufferedReader 2. ë°ì´í„° ì „ì†¡ : OutputStream > write() 3. ë°ì´í„° ê²€ìƒ‰
+						 * : conatins(), equals() 4. ë°ì´í„° ì¶”ê°€ : Login 5. ë°ì´í„° ìˆ˜ì • 6. ë°ì´í„° ì‚­ì œ
 						 * 
-						 * ¿À¶óÅ¬, À¥¼­¹ö
+						 * ì˜¤ë¼í´, ì›¹ì„œë²„
 						 */
 
 						break;
@@ -206,7 +206,7 @@ public class Server implements Runnable {
 			}
 		}
 
-		// µ¥ÀÌÅÍ¸¦ Àü¼Û (out)
+		// ë°ì´í„°ë¥¼ ì „ì†¡ (out)
 		public void messageTo(String msg) {
 			try {
 				out.write((msg + "\n").getBytes());

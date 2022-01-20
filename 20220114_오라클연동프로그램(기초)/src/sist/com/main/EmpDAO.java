@@ -1,35 +1,35 @@
 package sist.com.main;
+// ì˜¤ë¼í´ ì—°ë™
 
-// ¿À¶óÅ¬ ¿¬µ¿
 /*
- * 1. µå¶óÀÌ¹ö µî·Ï		: 	oracle.jdbc.driver . OracleDriver
- * 		=> Class.forName()  => µå¶óÀÌ¹ö¸¦ Å¬·¡½º·Î Á¦ÀÛ
- *      => Class.forName("ÆĞÅ°Áö¸í.Å¬·¡½º¸í")
- *      : ÇÑ¹ø¸¸ ¼öÇàµÇ¹Ç·Î ÁÖ·Î »ı¼ºÀÚ¿¡ µî·Ï
+ * 1. ë“œë¼ì´ë²„ ë“±ë¡		: 	oracle.jdbc.driver . OracleDriver
+ * 		=> Class.forName()  => ë“œë¼ì´ë²„ë¥¼ í´ë˜ìŠ¤ë¡œ ì œì‘
+ *      => Class.forName("íŒ¨í‚¤ì§€ëª….í´ë˜ìŠ¤ëª…")
+ *      : í•œë²ˆë§Œ ìˆ˜í–‰ë˜ë¯€ë¡œ ì£¼ë¡œ ìƒì„±ìì— ë“±ë¡
  *      
- * 2. ¿À¶óÅ¬ ¿¬°á
- * 		1) URL(¿À¶óÅ¬ÁÖ¼Ò) ÇÊ¿ä
+ * 2. ì˜¤ë¼í´ ì—°ê²°
+ * 		1) URL(ì˜¤ë¼í´ì£¼ì†Œ) í•„ìš”
  * 			==> jdbc:oracle:thin:@IP(localhost):1521:XE
- * 		2) USER	ÇÊ¿ä
+ * 		2) USER	í•„ìš”
  * 			==> smincy
- * 		3) Password	ÇÊ¿ä
+ * 		3) Password	í•„ìš”
  * 			==> 134679
  * 		= Connection => getConnection(url, "smincy", "134679")
  * 		
- * 3. SQL ¹®Àå Àü¼Û
+ * 3. SQL ë¬¸ì¥ ì „ì†¡
  * 	=> PreparedStatement => conn.preparedStatement(sql)
  * 
- * 4. ½ÇÇà °á°ú ¹Ş¾Æ¿À±â
- *  => ResultSet rs = ps.executeQuery()		=> SELECT ¿¡¼­ ½ÇÇàµÈ °á°ú¸¦ rs¿¡ ÀúÀåÇØ¶ó
+ * 4. ì‹¤í–‰ ê²°ê³¼ ë°›ì•„ì˜¤ê¸°
+ *  => ResultSet rs = ps.executeQuery()		=> SELECT ì—ì„œ ì‹¤í–‰ëœ ê²°ê³¼ë¥¼ rsì— ì €ì¥í•´ë¼
  *  
- * 5. ´İ±â (¿¬°áÁ¾·á)
+ * 5. ë‹«ê¸° (ì—°ê²°ì¢…ë£Œ)
  * 	=> ps.close(), conn.close()
  * 
- *  	±â´ÉÀÌ ¸¹À»¶§ => ¿À¶óÅ¬ ¿¬°á / ¿À¶óÅ¬ ÇØÁ¦ ÇØÁÖ±â
- *  				¹İº¹ÀÌ ¸¹À» °æ¿ì ¸Ş¼ÒµåÈ­ (getConnection, disConnection) 
+ *  	ê¸°ëŠ¥ì´ ë§ì„ë•Œ => ì˜¤ë¼í´ ì—°ê²° / ì˜¤ë¼í´ í•´ì œ í•´ì£¼ê¸°
+ *  				ë°˜ë³µì´ ë§ì„ ê²½ìš° ë©”ì†Œë“œí™” (getConnection, disConnection) 
  */
 
-// 3¹ø±îÁö ÇÊ¼ö, ¼÷Áö ÇÊ¿ä
+// 3ë²ˆê¹Œì§€ í•„ìˆ˜, ìˆ™ì§€ í•„ìš”
 
 // PreparedStatement, Connection, ResultSet => java.sql
 
@@ -39,10 +39,10 @@ import java.util.*;
 public class EmpDAO {
 	private Connection conn;
 	private PreparedStatement ps;
-	// ¿À¶óÅ¬ URLÁÖ¼Ò
+	// ì˜¤ë¼í´ URLì£¼ì†Œ
 	private final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 
-	// 1. µå¶óÀÌ¹ö µî·Ï
+	// 1. ë“œë¼ì´ë²„ ë“±ë¡
 	public EmpDAO() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -51,7 +51,7 @@ public class EmpDAO {
 		}
 	}
 
-	// 2. ¿À¶óÅ¬ ¿¬°á
+	// 2. ì˜¤ë¼í´ ì—°ê²°
 	public void getConnection() {
 		try {
 			conn = DriverManager.getConnection(URL, "smincy", "134679");
@@ -61,7 +61,7 @@ public class EmpDAO {
 		}
 	}
 
-	// 3. ¿À¶óÅ¬ ¿¬°áÇØÁ¦
+	// 3. ì˜¤ë¼í´ ì—°ê²°í•´ì œ
 	public void disConnection() {
 		try {
 			if (ps != null) {
@@ -75,23 +75,23 @@ public class EmpDAO {
 		}
 	}
 
-	// 4. ±â´É (Emp ´Â ÇÑ¸í¿¡ ´ëÇÑ Á¤º¸, 14¸íÀ» ¸ğ¾Æ¼­ List·Î Àü¼Û
+	// 4. ê¸°ëŠ¥ (Emp ëŠ” í•œëª…ì— ëŒ€í•œ ì •ë³´, 14ëª…ì„ ëª¨ì•„ì„œ Listë¡œ ì „ì†¡
 	public List<Emp> empListData() {
 		List<Emp> list = new ArrayList<Emp>();
 
 		try {
-			// 1. ¿À¶óÅ¬ ¿¬°á (µ¥ÀÌÅÍ¸¦ °¡Á®¿Ã ÁØºñ)
+			// 1. ì˜¤ë¼í´ ì—°ê²° (ë°ì´í„°ë¥¼ ê°€ì ¸ì˜¬ ì¤€ë¹„)
 			getConnection();
 
-			// 2. SQL ¹®Àå Á¦ÀÛ
+			// 2. SQL ë¬¸ì¥ ì œì‘
 			String sql = "SELECT empno, ename, job, hiredate, sal " + "FROM emp";
-			// 3. SQL¹®ÀåÀ» ¿À¶óÅ¬·Î Àü¼Û
+			// 3. SQLë¬¸ì¥ì„ ì˜¤ë¼í´ë¡œ ì „ì†¡
 			ps = conn.prepareStatement(sql);
 
-			// 4. ÇÊ¿äÇÑ µ¥ÀÌÅÍ°¡ ¾ø´Â °æ¿ì (? °¡ ¾ø´Â °æ¿ì) => ½ÇÇà¿äÃ»À» ÇÑ´Ù
-			// ½ÇÇà °á°ú¸¦ ¹Ş¾Æº»´Ù
+			// 4. í•„ìš”í•œ ë°ì´í„°ê°€ ì—†ëŠ” ê²½ìš° (? ê°€ ì—†ëŠ” ê²½ìš°) => ì‹¤í–‰ìš”ì²­ì„ í•œë‹¤
+			// ì‹¤í–‰ ê²°ê³¼ë¥¼ ë°›ì•„ë³¸ë‹¤
 			ResultSet rs = ps.executeQuery();
-			// °á°ú°ªÀ» list¿¡ ÀúÀåÇØ¼­ »ç¿ëÀÚ¿¡°Ô Àü¼Û
+			// ê²°ê³¼ê°’ì„ listì— ì €ì¥í•´ì„œ ì‚¬ìš©ìì—ê²Œ ì „ì†¡
 			while (rs.next()) {
 				Emp e = new Emp();
 				e.setEmpno(rs.getInt(1));
@@ -108,30 +108,30 @@ public class EmpDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			// ¿À¶óÅ¬ ¿¬°á Á¾·á
+			// ì˜¤ë¼í´ ì—°ê²° ì¢…ë£Œ
 			disConnection();
 		}
 		return list;
 	}
 
-	// ÇÑ¸í¿¡ ´ëÇÑ »ç¿ø Á¤º¸ º¸±â
-	public Emp empDetailData(int empno) { // »ç¹ø¿¡ ´ëÇÑ
-		Emp emp = new Emp(); // »ç¿ø ÇÑ¸íÀÌ °¡Áö°í ÀÖ´Â µ¥ÀÌÅÍ ¸ğÀ½
+	// í•œëª…ì— ëŒ€í•œ ì‚¬ì› ì •ë³´ ë³´ê¸°
+	public Emp empDetailData(int empno) { // ì‚¬ë²ˆì— ëŒ€í•œ
+		Emp emp = new Emp(); // ì‚¬ì› í•œëª…ì´ ê°€ì§€ê³  ìˆëŠ” ë°ì´í„° ëª¨ìŒ
 
 		try {
-			// 1. ¿À¶óÅ¬ ¿¬°á
+			// 1. ì˜¤ë¼í´ ì—°ê²°
 			getConnection();
-			// 2. SQL¹®Àå Á¦ÀÛ
+			// 2. SQLë¬¸ì¥ ì œì‘
 			String sql = "SELECT empno, ename, job, hiredate, sal, comm " + "FROM emp " + "WHERE empno=?";
-			// 3. SQL¹®Àå ¿À¶óÅ¬·Î Àü¼Û ÈÄ ? °ªÀ» Ã¤¿öÁØ´Ù
+			// 3. SQLë¬¸ì¥ ì˜¤ë¼í´ë¡œ ì „ì†¡ í›„ ? ê°’ì„ ì±„ì›Œì¤€ë‹¤
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, empno);
-			// 4. ¿À¶óÅ¬¿¡ ½ÇÇà ¿äÃ» ÈÄ °á°ú°ªÀ» ¸Ş¸ğ¸®¿¡ ÀúÀå
+			// 4. ì˜¤ë¼í´ì— ì‹¤í–‰ ìš”ì²­ í›„ ê²°ê³¼ê°’ì„ ë©”ëª¨ë¦¬ì— ì €ì¥
 			ResultSet rs = ps.executeQuery();
-			// Ä¿¼­¸¦ °á°ú°ªÀÌ Ãâ·ÂµÈ À§Ä¡·Î ÀÌµ¿
+			// ì»¤ì„œë¥¼ ê²°ê³¼ê°’ì´ ì¶œë ¥ëœ ìœ„ì¹˜ë¡œ ì´ë™
 			rs.next();
 
-			// ResultSet¿¡ ÀÖ´Â µ¥ÀÌÅÍ¸¦ Emp¿¡ ÀúÀå
+			// ResultSetì— ìˆëŠ” ë°ì´í„°ë¥¼ Empì— ì €ì¥
 			emp.setEmpno(rs.getInt(1));
 			emp.setEname(rs.getNString(2));
 			emp.setJob(rs.getString(3));
@@ -143,13 +143,13 @@ public class EmpDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			// ¿À¶óÅ¬ Á¾·á
+			// ì˜¤ë¼í´ ì¢…ë£Œ
 			disConnection();
 		}
 		return emp;
 	}
 
-	// »ç¿ø Ã£±â
+	// ì‚¬ì› ì°¾ê¸°
 	public List<Emp> empFindData(String ename) {
 
 		List<Emp> list = new ArrayList<Emp>();
@@ -157,14 +157,14 @@ public class EmpDAO {
 		try {
 			getConnection();
 
-			String sql = "SELECT empno, ename, job, hiredate, sal "
-					+ "FROM emp "
-					+ "WHERE ename LIKE '%'||?||'%'";	// ¿À¶óÅ¬¿¡¼­ || Àº ¹®ÀÚ¿­ °áÇÕ => °áÇÕÇÏ¸é  %?% 
+			String sql = "SELECT empno, ename, job, hiredate, sal " + "FROM emp "
+			+ "WHERE ename LIKE '%'||?||'%'"; 
+			// ì˜¤ë¼í´ì—ì„œ || ì€ ë¬¸ìì—´ ê²°í•© => ê²°í•©í•˜ë©´  %?% 
 
 			ps = conn.prepareStatement(sql);
-			// ? ¿¡ °ªÀ» Ã¤¿öÁØ´Ù
+			// ? ì— ê°’ì„ ì±„ì›Œì¤€ë‹¤
 			ps.setString(1, ename.toUpperCase());
-			
+
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -174,7 +174,7 @@ public class EmpDAO {
 				e.setJob(rs.getString(3));
 				e.setHiredate(rs.getDate(4));
 				e.setSal(rs.getInt(5));
-				
+
 				list.add(e);
 			}
 			rs.close();

@@ -1,6 +1,6 @@
-package sist.com.±³Àç;
+package sist.com.êµì¬;
 
-// ±³Àç 289page
+// ï¿½ï¿½ï¿½ï¿½ 289page
 import java.util.*;
 
 public class MainClass {
@@ -19,7 +19,7 @@ public class MainClass {
 	public static void bookPrint() {
 		List<BookVO> list = dao.bookListData();
 		for (BookVO vo : list) {
-			System.out.println(vo.getBookid() + " " + vo.getBookname() + " " + vo.getPublisher() + " " + vo.getStrPrice() + "¿ø");
+			System.out.println(vo.getBookid() + " " + vo.getBookname() + " " + vo.getPublisher() + " " + vo.getStrPrice() + "ï¿½ï¿½");
 		}
 	}
 

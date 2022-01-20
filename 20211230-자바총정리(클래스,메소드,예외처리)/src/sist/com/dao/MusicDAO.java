@@ -6,26 +6,26 @@ import java.util.*;
 import sist.com.common.DataBase;
 
 /*
- *    DB2 : ´ë¿ë·® µ¥ÀÌÅÍº£ÀÌ½º : ±ÝÀ¶±Ç , °ø±â¾÷ , ÇÐ±³
+ *    DB2 : ëŒ€ìš©ëŸ‰ ë°ì´í„°ë² ì´ìŠ¤ : ê¸ˆìœµê¶Œ , ê³µê¸°ì—… , í•™êµ
  *    =================
- *    ÁßÇü 
- *    Oracle : ´ë±â¾÷
- *    MS-SQL : ½ÃÃ» ... (MS)
+ *    ì¤‘í˜• 
+ *    Oracle : ëŒ€ê¸°ì—…
+ *    MS-SQL : ì‹œì²­ ... (MS)
  *    =================
- *    Áß¼ÒÇü ====================> ½Ç¹«¿¡¼­´Â °¡Àå ¸¹ÀÌ »ç¿ë (¹«·á)
- *    MY-SQL : ¿À¶óÅ¬ 
- *    MariaDB : MySQL¿¡¼­ ³ª¿Í¼­ »õ·Ó°Ô ¸¸µç´Ù 
+ *    ì¤‘ì†Œí˜• ====================> ì‹¤ë¬´ì—ì„œëŠ” ê°€ìž¥ ë§Žì´ ì‚¬ìš© (ë¬´ë£Œ)
+ *    MY-SQL : ì˜¤ë¼í´ 
+ *    MariaDB : MySQLì—ì„œ ë‚˜ì™€ì„œ ìƒˆë¡­ê²Œ ë§Œë“ ë‹¤ 
  *    =================
- *    ¼ÒÇü 
- *    SQLITE : ÇÚµåÆù 
+ *    ì†Œí˜• 
+ *    SQLITE : í•¸ë“œí° 
  *    =================
  */
 /*
- *    Å¬·¡½º  : ´ë¹®ÀÚ ½ÃÀÛ
- *    º¯¼ö  : ¼Ò¹®ÀÚ 
- *    »ó¼ö  : ÀüÃ¼ ´ë¹®ÀÚ
- *    ¸Þ¼Òµå : ¼Ò¹®ÀÚ 
- *    °ýÈ£ 
+ *    í´ëž˜ìŠ¤  : ëŒ€ë¬¸ìž ì‹œìž‘
+ *    ë³€ìˆ˜  : ì†Œë¬¸ìž 
+ *    ìƒìˆ˜  : ì „ì²´ ëŒ€ë¬¸ìž
+ *    ë©”ì†Œë“œ : ì†Œë¬¸ìž 
+ *    ê´„í˜¸ 
  *    public void display(){
  *       if(){
  *       }else{
@@ -34,34 +34,34 @@ import sist.com.common.DataBase;
  *    }
  */
 public class MusicDAO implements DataBase {
-	// ¿¬°á °´Ã¼ (¿À¶óÅ¬)
+	// ì—°ê²° ê°ì²´ (ì˜¤ë¼í´)
 	private Connection conn;
-	// ¿À¶óÅ¬·Î ¸í·É¾î Àü¼Û
+	// ì˜¤ë¼í´ë¡œ ëª…ë ¹ì–´ ì „ì†¡
 	private PreparedStatement ps;
-	// ¿À¶óÅ¬ ÁÖ¼Ò => ´ë¼Ò¹®ÀÚ ±¸ºÐÀ» ÇÏÁö ¾Ê´Â´Ù
-	// SELECT ~~ , select , Select , SeLeCt => Å°¿öµå´Â ´ë¹®ÀÚ
+	// ì˜¤ë¼í´ ì£¼ì†Œ => ëŒ€ì†Œë¬¸ìž êµ¬ë¶„ì„ í•˜ì§€ ì•ŠëŠ”ë‹¤
+	// SELECT ~~ , select , Select , SeLeCt => í‚¤ì›Œë“œëŠ” ëŒ€ë¬¸ìž
 	private final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 
-	// 1. µå¶óÀÌ¹ö µî·Ï : ÇÑ¹ø¸¸ ¼öÇà => »ý¼ºÀÚ
+	// 1. ë“œë¼ì´ë²„ ë“±ë¡ : í•œë²ˆë§Œ ìˆ˜í–‰ => ìƒì„±ìž
 	public MusicDAO() {
 		try {
-			// µå¶óÀÌ¹ö µî·Ï , ¼­¹ö¿¬°á , ¾²·¹µå µ¿ÀÛ
+			// ë“œë¼ì´ë²„ ë“±ë¡ , ì„œë²„ì—°ê²° , ì“°ë ˆë“œ ë™ìž‘
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 		} catch (Exception ex) {
 		}
 	}
 
-	// 2. ¿À¶óÅ¬ ¿¬°á
+	// 2. ì˜¤ë¼í´ ì—°ê²°
 	public void getConnection() {
 		try {
 			conn = DriverManager.getConnection(URL, "hr", "happy");
-			// ¿À¶óÅ¬ => conn hr/happy
+			// ì˜¤ë¼í´ => conn hr/happy
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 
-	// 3. ¿À¶óÅ¬ ÇØÁ¦
+	// 3. ì˜¤ë¼í´ í•´ì œ
 	public void disConnection() {
 		try {
 			if (ps != null)
@@ -73,39 +73,39 @@ public class MusicDAO implements DataBase {
 		}
 	}
 
-	// 4. ±â´É ====> ¿À¶óÅ¬ µ¥ÀÌÅÍ Ãß°¡
+	// 4. ê¸°ëŠ¥ ====> ì˜¤ë¼í´ ë°ì´í„° ì¶”ê°€
 	@Override
 	public void dbInsert(Object obj) {
 		// TODO Auto-generated method stub
 		try {
 			Music m = (Music) obj;
-			// 1.¿¬°á
+			// 1.ì—°ê²°
 			getConnection();
-			// 2.¿À¶óÅ¬ ¸í·É¹® Àü¼Û => SQL
+			// 2.ì˜¤ë¼í´ ëª…ë ¹ë¬¸ ì „ì†¡ => SQL
 			/*
 			 * SQL 
-			 * 	= DML = µ¥ÀÌÅÍ Á¶ÀÛ¾ð¾î 
-			 * 	  SELECT : µ¥ÀÌÅÍ °Ë»ö 
-			 * 	  INSERT : µ¥ÀÌÅÍ Ãß°¡ 
-			 * 	  UPDATE : µ¥ÀÌÅÍ ¼öÁ¤ 
-			 * 	  DELETE : µ¥ÀÌÅÍ »èÁ¦ 
-			 * 	= DDL = µ¥ÀÌÅÍ ¼±¾ð¾ð¾î 
+			 * 	= DML = ë°ì´í„° ì¡°ìž‘ì–¸ì–´ 
+			 * 	  SELECT : ë°ì´í„° ê²€ìƒ‰ 
+			 * 	  INSERT : ë°ì´í„° ì¶”ê°€ 
+			 * 	  UPDATE : ë°ì´í„° ìˆ˜ì • 
+			 * 	  DELETE : ë°ì´í„° ì‚­ì œ 
+			 * 	= DDL = ë°ì´í„° ì„ ì–¸ì–¸ì–´ 
 			 * 	  TABLE / VIEW / SEQUENCE / INDEX / PROCEDURE 
 			 * 	  FUNCTION / TRIGGER 
-			 * 	  CREATE : µ¥ÀÌÅÍº£ÀÌ½º ¼³°è (Á¤±ÔÈ­) 
+			 * 	  CREATE : ë°ì´í„°ë² ì´ìŠ¤ ì„¤ê³„ (ì •ê·œí™”) 
 			 * 	  DROP 
 			 * 	  ALTER 
 			 * 	  RENAME 
 			 * 	  TRUNCATE 
-			 * 	= DCL = µ¥ÀÌÅÍ Á¦¾î¾ð¾î 
+			 * 	= DCL = ë°ì´í„° ì œì–´ì–¸ì–´ 
 			 * 	  GRANT 
 			 * 	  REVOKE 
-			 *  = TCL = Æ®·£Àè¼Ç Á¦¾î ¾ð¾î 
+			 *  = TCL = íŠ¸ëžœìž­ì…˜ ì œì–´ ì–¸ì–´ 
 			 *    COMMIT 
 			 *    ROLLBACK
 			 */
 			String sql = "INSERT INTO genie_music VALUES(?,?,?,?,?,?,?,?,?)";
-			// 3.°ªÀ» Ã¤¿ö¼­ ½ÇÇà ¸í·É
+			// 3.ê°’ì„ ì±„ì›Œì„œ ì‹¤í–‰ ëª…ë ¹
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, m.getNo());
 			ps.setString(2, m.getTitle());
@@ -117,13 +117,13 @@ public class MusicDAO implements DataBase {
 			ps.setString(8, m.getKey());
 			ps.setString(9, m.getPoster());
 
-			ps.executeUpdate(); // ³ì»öÈ­»ìÇ¥ , ¿£ÅÍ
+			ps.executeUpdate(); // ë…¹ìƒ‰í™”ì‚´í‘œ , ì—”í„°
 			// COMMIT ==. AutoCommit
 		} catch (Exception ex) {
-			// ¿¡·¯Ã¼Å©
+			// ì—ëŸ¬ì²´í¬
 			ex.printStackTrace();
 		} finally {
-			// ¿À¶óÅ¬ Á¾·á
+			// ì˜¤ë¼í´ ì¢…ë£Œ
 			disConnection();
 		}
 	}

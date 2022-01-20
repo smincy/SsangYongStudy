@@ -9,24 +9,25 @@ import org.jsoup.select.Elements;
 
 import sist.com.dao.Books;
 import sist.com.dao.BooksDAO;
+
 public class BooksManager {
-    // ¿À¶óÅ¬¿¡ ¿¬°á => BooksDAO
-	private BooksDAO dao=new BooksDAO(); // µ¥ÀÌÅÍ¸¦ ¿À¶óÅ¬¿¡ Ãß°¡ 
-	// try~catch (¿¹¿Üº¹±¸), throws(¿¹¿ÜÈ¸ÇÇ=>¼±¾ğ)
-	// »çÀü¿¡ ¿¡·¯¹ß»ıÀ» Â÷´ÜÇÏ´Â ÇÁ·Î±×·¥ => ¿¡·¯¸¦ Àâ¾ÆÁÖ´Â °ÍÀº ¾Æ´Ï°í 
-	// ¿¡·¯³­ ºÎºĞÀ» Á¡ÇÁÇØ¼­ => ´ÙÀ½¹®ÀåÀ¸·Î ÀÌµ¿ 
-	// ¿¡·¯³­ ºÎºĞÀ» È®ÀÎ => getMessage(),printStackTrace()
+    // ì˜¤ë¼í´ì— ì—°ê²° => BooksDAO
+	private BooksDAO dao=new BooksDAO(); // ë°ì´í„°ë¥¼ ì˜¤ë¼í´ì— ì¶”ê°€ 
+	// try~catch (ì˜ˆì™¸ë³µêµ¬), throws(ì˜ˆì™¸íšŒí”¼=>ì„ ì–¸)
+	// ì‚¬ì „ì— ì—ëŸ¬ë°œìƒì„ ì°¨ë‹¨í•˜ëŠ” í”„ë¡œê·¸ë¨ => ì—ëŸ¬ë¥¼ ì¡ì•„ì£¼ëŠ” ê²ƒì€ ì•„ë‹ˆê³  
+	// ì—ëŸ¬ë‚œ ë¶€ë¶„ì„ ì í”„í•´ì„œ => ë‹¤ìŒë¬¸ì¥ìœ¼ë¡œ ì´ë™ 
+	// ì—ëŸ¬ë‚œ ë¶€ë¶„ì„ í™•ì¸ => getMessage(),printStackTrace()
 	public void booksGetData()
 	{
 		try
 		{
-			// ÆÄÀÏ ÀĞ±â => ÀúÀå 
+			// íŒŒì¼ ì½ê¸° => ì €ì¥ 
 			StringBuffer sb=new StringBuffer();
 			FileInputStream fis=
 					new FileInputStream("c:\\javaDev\\books.txt");
 			BufferedReader br=
 					new BufferedReader(new InputStreamReader(fis,"UTF-8"));
-			// ÆÄÀÏ ÀüÃ¼¸¦ ÀĞ¾î¼­ => ÀÓ½ÃÀúÀå 
+			// íŒŒì¼ ì „ì²´ë¥¼ ì½ì–´ì„œ => ì„ì‹œì €ì¥ 
 			// UTF-8  ==> EUC-KR 
 			while(true)
 			{
@@ -35,40 +36,40 @@ public class BooksManager {
 				sb.append(data);
 			}
 			
-			//System.out.println(sb.toString());// ¸Ş¸ğ¸®¿¡ ÀúÀåµÈ µ¥ÀÌÅÍ¸¦ Ãâ·Â
-			// <> => Å×±×º° µ¥ÀÌÅÍ ¼öÁı  
+			//System.out.println(sb.toString());// ë©”ëª¨ë¦¬ì— ì €ì¥ëœ ë°ì´í„°ë¥¼ ì¶œë ¥
+			// <> => í…Œê·¸ë³„ ë°ì´í„° ìˆ˜ì§‘  
 			// <div id="a"> => div:eq(0)
 			// <div class="b"> => div:eq(1)
 			// <div> => HTML
-			// Jsoup => HTML Parser => ÇÊ¿äÇÑ µ¥ÀÌÅÍ¸¦ Ã£¾ÆÁÖ´Â ¿ªÇÒ 
+			// Jsoup => HTML Parser => í•„ìš”í•œ ë°ì´í„°ë¥¼ ì°¾ì•„ì£¼ëŠ” ì—­í•  
 			Document doc=Jsoup.parse(sb.toString());
 			/*
-			 *   connect() => ½ÇÁ¦ URLÀ» ÀÌ¿ëÇØ¼­ À¥¼­¹ö¿¡ Á¢±Ù 
-			 *   parse() => HTML¹®ÀÚ¿­ , ÆÄÀÏ
+			 *   connect() => ì‹¤ì œ URLì„ ì´ìš©í•´ì„œ ì›¹ì„œë²„ì— ì ‘ê·¼ 
+			 *   parse() => HTMLë¬¸ìì—´ , íŒŒì¼
 			 */
 			/*
 			 *  <div class="col-md-11 book-list-detail">
 					<a class="book-url" href="https://wikibook.co.kr/tf">
-					<h4 class="main-title">»ıÈ°ÄÚµù ¸Ó½Å·¯´× with ÆÄÀÌ½ã ÅÙ¼­ÇÃ·Î(½Ç½ÀÆí)</h4>
+					<h4 class="main-title">ìƒí™œì½”ë”© ë¨¸ì‹ ëŸ¬ë‹ with íŒŒì´ì¬ í…ì„œí”Œë¡œ(ì‹¤ìŠµí¸)</h4>
 					</a>
 					
 			    <div class="col-md-1 book-list-image">
 				<a href="https://wikibook.co.kr/tf/">
 				<img src="https://wikibook.co.kr/images/cover/s/9791158392994.jpg">
                  
-                 <div class="sub-title">º¸´Â ¼ø°£ ÆÈ·Î¿ìÇÏ°í ½Í°Ô ¸¸µå´Â</div>
+                 <div class="sub-title">ë³´ëŠ” ìˆœê°„ íŒ”ë¡œìš°í•˜ê³  ì‹¶ê²Œ ë§Œë“œëŠ”</div>
                  <div class="book-info">
-				<span class="author">±èÁ¤Àº <small>ÁöÀ½</small></span> |
-				22,000¿ø |
-				<span class="pub-date">2022³â 01¿ù 12ÀÏ | </span>
+				<span class="author">ê¹€ì •ì€ <small>ì§€ìŒ</small></span> |
+				22,000ì› |
+				<span class="pub-date">2022ë…„ 01ì›” 12ì¼ | </span>
 				<span class="isbn"><small>ISBN: </small>9791158392956</span>
-				<span class="tag" style="display:none">ºê·£µù,ÀÎ½ºÅ¸±×·¥,ÀÎ½ºÅ¸±×·¥ ºê·£µù,instagram,branding</span>
+				<span class="tag" style="display:none">ë¸Œëœë”©,ì¸ìŠ¤íƒ€ê·¸ë¨,ì¸ìŠ¤íƒ€ê·¸ë¨ ë¸Œëœë”©,instagram,branding</span>
 				</div>
 				<span id="tags">
 				<i class="fas fa-tags"></i>
-				<a href="https://wikibook.co.kr/tag/%eb%b8%8c%eb%9e%9c%eb%94%a9/"><span class="label label-default">ºê·£µù</span></a>
-				<a href="https://wikibook.co.kr/tag/%ec%9d%b8%ec%8a%a4%ed%83%80%ea%b7%b8%eb%9e%a8/"><span class="label label-default">ÀÎ½ºÅ¸±×·¥</span></a>
-				<a href="https://wikibook.co.kr/tag/%ec%9d%b8%ec%8a%a4%ed%83%80%ea%b7%b8%eb%9e%a8-%eb%b8%8c%eb%9e%9c%eb%94%a9/"><span class="label label-default">ÀÎ½ºÅ¸±×·¥ ºê·£µù</span></a>
+				<a href="https://wikibook.co.kr/tag/%eb%b8%8c%eb%9e%9c%eb%94%a9/"><span class="label label-default">ë¸Œëœë”©</span></a>
+				<a href="https://wikibook.co.kr/tag/%ec%9d%b8%ec%8a%a4%ed%83%80%ea%b7%b8%eb%9e%a8/"><span class="label label-default">ì¸ìŠ¤íƒ€ê·¸ë¨</span></a>
+				<a href="https://wikibook.co.kr/tag/%ec%9d%b8%ec%8a%a4%ed%83%80%ea%b7%b8%eb%9e%a8-%eb%b8%8c%eb%9e%9c%eb%94%a9/"><span class="label label-default">ì¸ìŠ¤íƒ€ê·¸ë¨ ë¸Œëœë”©</span></a>
 				<a href="https://wikibook.co.kr/tag/instagram/"><span class="label label-default">instagram</span></a>
 				<a href="https://wikibook.co.kr/tag/branding/"><span class="label label-default">branding</span></a>
 				</span>
@@ -83,8 +84,8 @@ public class BooksManager {
 			Elements isbn=doc.select("div.book-info span.isbn");
 			Elements tags=doc.select("div.book-info span.tag");
 			/*
-			 *    <div>°ª</div> ==> text() 
-			 *    <img src="°ª"> ==> attr("src")
+			 *    <div>ê°’</div> ==> text() 
+			 *    <img src="ê°’"> ==> attr("src")
 			 */
 			for(int i=0;i<title.size();i++)
 			{
@@ -118,16 +119,16 @@ public class BooksManager {
 					p=ss[2];
 				}
 				
-				System.out.println("¹øÈ£:"+(i+1));
-				System.out.println("ÀúÀÚ:"+title_data);
-				System.out.println("±×¸²:"+poster_data);
-				System.out.println("¼Ò°³:"+cd);
-				System.out.println("°¡°İ:"+p);
-				System.out.println("µî·ÏÀÏ:"+regdate_data);
+				System.out.println("ë²ˆí˜¸:"+(i+1));
+				System.out.println("ì €ì:"+title_data);
+				System.out.println("ê·¸ë¦¼:"+poster_data);
+				System.out.println("ì†Œê°œ:"+cd);
+				System.out.println("ê°€ê²©:"+p);
+				System.out.println("ë“±ë¡ì¼:"+regdate_data);
 				System.out.println("isbn:"+isbn_data);
-				System.out.println("ÅÂ±×:"+tags_data);
+				System.out.println("íƒœê·¸:"+tags_data);
 				
-				// ¿À¶óÅ¬¿¡ µ¥ÀÌÅÍ Ã·ºÎ 
+				// ì˜¤ë¼í´ì— ë°ì´í„° ì²¨ë¶€ 
 				Books book=new Books();
 				book.setNo(i+1);
 				book.setTitle(title_data);
@@ -140,10 +141,10 @@ public class BooksManager {
 				
 				dao.dbInsert(book);
 				
-				// ÀĞÀº ¼Óµµ != ¿À¶óÅ¬ ÀúÀå 
+				// ì½ì€ ì†ë„ != ì˜¤ë¼í´ ì €ì¥ 
 				Thread.sleep(300);
 			}
-			System.out.println("*******¿À¶óÅ¬ ÀúÀå ¿Ï·á!!*******");
+			System.out.println("*******ì˜¤ë¼í´ ì €ì¥ ì™„ë£Œ!!*******");
 		}catch(Exception ex)
 		{
 			ex.printStackTrace();
@@ -154,4 +155,5 @@ public class BooksManager {
 		bm.booksGetData();
 	}
 }
+
 

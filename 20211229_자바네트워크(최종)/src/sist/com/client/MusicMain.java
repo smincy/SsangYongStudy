@@ -1,6 +1,6 @@
 package sist.com.client;
 
-// ¿©±â¼­ ¸¸µå´Â À©µµ¿ìÃ¢ÀÌ >> ³ªÁß¿¡ HTML ·Î ¹Ù²î¸é¼­ ÁøÂ¥ À¥ ÇÁ·Î±×·¡¹Ö 
+//ì—¬ê¸°ì„œ ë§Œë“œëŠ” ìœˆë„ìš°ì°½ì´ >> ë‚˜ì¤‘ì— HTML ë¡œ ë°”ë€Œë©´ì„œ ì§„ì§œ ì›¹ í”„ë¡œê·¸ë˜ë° 
 
 import java.awt.*;
 import javax.swing.*;
@@ -18,102 +18,102 @@ public class MusicMain extends JFrame implements Runnable, ActionListener {
 	Login login = new Login();
 
 	MusicView mv = new MusicView();
-	// ³×Æ®¿öÅ© °ü·ÃµÈ Å¬·¡½º
-	Socket s; // ¿¬°á±â°è(ÀüÈ­±â)
-	// ¼Û½Å, ¼ö½Å
+	// ë„¤íŠ¸ì›Œí¬ ê´€ë ¨ëœ í´ë˜ìŠ¤
+	Socket s; // ì—°ê²°ê¸°ê³„(ì „í™”ê¸°)
+	// ì†¡ì‹ , ìˆ˜ì‹ 
 	OutputStream out;
 	BufferedReader in;
 
 	public MusicMain() {
 		setLayout(card);
-		// ÇÊ¿äÇÑ È­¸é ¸ğ¾ÆµÎ±â (Login, Music)
+		// í•„ìš”í•œ í™”ë©´ ëª¨ì•„ë‘ê¸° (Login, Music)
 
 		add("LOGIN", login);
 		add("MV", mv);
 
-		// Å©±â
+		// í¬ê¸°
 		setSize(800, 600);
 
-		// À©µµ¿ì¸¦ º¸¿©´Ş¶ó ¿äÃ»
+		// ìœˆë„ìš°ë¥¼ ë³´ì—¬ë‹¬ë¼ ìš”ì²­
 		setVisible(true);
 
-		// Á¾·á¹öÆ° Å¬¸¯½Ã À©µµ¿ì ÇØÁ¦
+		// ì¢…ë£Œë²„íŠ¼ í´ë¦­ì‹œ ìœˆë„ìš° í•´ì œ
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		// ¹öÆ° Å¬¸¯½Ã => µî·Ï ÇØ¾ß => ÀÚµ¿À¸·Î È£Ãâ (CallBack)
-		login.b1.addActionListener(this);// ·Î±×ÀÎ
-		login.b2.addActionListener(this);// Ãë¼Ò
-		mv.b1.addActionListener(this);// °Ë»ö
-		mv.b2.addActionListener(this);// ¸ñ·Ï
+		// ë²„íŠ¼ í´ë¦­ì‹œ => ë“±ë¡ í•´ì•¼ => ìë™ìœ¼ë¡œ í˜¸ì¶œ (CallBack)
+		login.b1.addActionListener(this);// ë¡œê·¸ì¸
+		login.b2.addActionListener(this);// ì·¨ì†Œ
+		mv.b1.addActionListener(this);// ê²€ìƒ‰
+		mv.b2.addActionListener(this);// ëª©ë¡
 
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		// »ı¼ºÀÚ¸¸ È£Ãâ
+
+		// ìƒì„±ìë§Œ í˜¸ì¶œ
 		new MusicMain();
 	}
 
-// ¹öÆ° Å¬¸¯½Ã Ã³¸® 
+	// ë²„íŠ¼ í´ë¦­ì‹œ ì²˜ë¦¬
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		// »ç¿ëÀÚ ¿äÃ»
+		// ì‚¬ìš©ì ìš”ì²­
 		if (e.getSource() == login.b1) {
-			// ¼­¹ö¿Í ¿¬°á
-			// IDÀĞ±â ==> °­Á¦·Î ÀÔ·Â => À¥(À¯È¿¼º °Ë»ç)
+			// ì„œë²„ì™€ ì—°ê²°
+			// IDì½ê¸° ==> ê°•ì œë¡œ ì…ë ¥ => ì›¹(ìœ íš¨ì„± ê²€ì‚¬)
 			String id = login.tf1.getText();
-			if (id.length() < 1) // ÀÔ·ÂÀÌ ¾ÈµÈ °æ¿ì
+			if (id.length() < 1) // ì…ë ¥ì´ ì•ˆëœ ê²½ìš°
 			{
-				JOptionPane.showMessageDialog(this, "¾ÆÀÌµğ¸¦ ÀÔ·Â");
+				JOptionPane.showMessageDialog(this, "ì•„ì´ë””ë¥¼ ì…ë ¥");
 				login.tf1.requestFocus();
 				return;
 			}
-			// ÀÌ¸§ ÀĞ±â
+			// ì´ë¦„ ì½ê¸°
 			String name = login.tf2.getText();
-			if (name.length() < 1) // ÀÔ·ÂÀÌ ¾ÈµÈ °æ¿ì
+			if (name.length() < 1) // ì…ë ¥ì´ ì•ˆëœ ê²½ìš°
 			{
-				JOptionPane.showMessageDialog(this, "ÀÌ¸§À» ÀÔ·Â");
+				JOptionPane.showMessageDialog(this, "ì´ë¦„ì„ ì…ë ¥");
 				login.tf2.requestFocus();
 				return;
 			}
-			// ¼­¹ö¿Í ¿¬°á
+			// ì„œë²„ì™€ ì—°ê²°
 			try {
-				s = new Socket("localhost", 3355);// ¼­¹ö¿Í ¿¬°á
-				// Socket("¼­¹öÁÖ¼Ò(IP)",¼­¹ö¿¡¼­ ¼³Á¤µÈ PORT)
-				// ¼Û¼ö½Å À§Ä¡ È®ÀÎ
-				out = s.getOutputStream();// ¼­¹ö·Î µ¥ÀÌÅÍ¸¦ Àü¼Û
+				s = new Socket("localhost", 3355);// ì„œë²„ì™€ ì—°ê²°
+				// Socket("ì„œë²„ì£¼ì†Œ(IP)",ì„œë²„ì—ì„œ ì„¤ì •ëœ PORT)
+				// ì†¡ìˆ˜ì‹  ìœ„ì¹˜ í™•ì¸
+				out = s.getOutputStream();// ì„œë²„ë¡œ ë°ì´í„°ë¥¼ ì „ì†¡
 				in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 				/*
-				 * Å¬¶óÀÌ¾ğÆ®: Socket(¼­¹öÁ¤º¸) => ¼­¹ö IP ¼­¹ö : Socket(Å¬¶óÀÌ¾ğÆ® Á¤º¸)=> Å¬¶óÀÌ¾ğÆ® IP
+				 * í´ë¼ì´ì–¸íŠ¸: Socket(ì„œë²„ì •ë³´) => ì„œë²„ IP ì„œë²„ : Socket(í´ë¼ì´ì–¸íŠ¸ ì •ë³´)=> í´ë¼ì´ì–¸íŠ¸ IP
 				 */
-				// ·Î±×ÀÎ ¿äÃ»
+				// ë¡œê·¸ì¸ ìš”ì²­
 				out.write((Function.LOGIN + "|" + id + "|" + name + "\n").getBytes());
 			} catch (Exception ex) {
 			}
-			// ID,ÀÌ¸§ => LoginÀ» ¿äÃ»
-			// ¼­¹ö¿¡¼­ µé¾î¿À´Â µ¥ÀÌÅÍ¸¦ ¹Ş¾Æ¼­ Ãâ·ÂÇÑ´Ù
+			// ID,ì´ë¦„ => Loginì„ ìš”ì²­
+			// ì„œë²„ì—ì„œ ë“¤ì–´ì˜¤ëŠ” ë°ì´í„°ë¥¼ ë°›ì•„ì„œ ì¶œë ¥í•œë‹¤
 			new Thread(this).start();
 		} else if (e.getSource() == login.b2) {
-			// Ãë¼Ò => ÇÁ·Î±×·¥ Á¾·á
-			System.exit(0); // 0 => Á¤»ó Á¾·á
+			// ì·¨ì†Œ => í”„ë¡œê·¸ë¨ ì¢…ë£Œ
+			System.exit(0); // 0 => ì •ìƒ ì¢…ë£Œ
 		} else if (e.getSource() == mv.b1) {
-			// °Ë»ö¾î¸¦ ÀĞ¾î¼­ °Ë»öµÈ ³»¿ëÀ» Ã£¾Æ ´Ş¶ó ¿äÃ»
-			String ss = mv.tf.getText(); // ÀÔ·ÂÇÑ ¹®ÀÚ¸¦ ÀĞ¾î ¿Â´Ù
+			// ê²€ìƒ‰ì–´ë¥¼ ì½ì–´ì„œ ê²€ìƒ‰ëœ ë‚´ìš©ì„ ì°¾ì•„ ë‹¬ë¼ ìš”ì²­
+			String ss = mv.tf.getText(); // ì…ë ¥í•œ ë¬¸ìë¥¼ ì½ì–´ ì˜¨ë‹¤
 			if (ss.length() < 1) {
-				JOptionPane.showMessageDialog(this, "°Ë»ö¾î ÀÔ·Â");
+				JOptionPane.showMessageDialog(this, "ê²€ìƒ‰ì–´ ì…ë ¥");
 				mv.tf.requestFocus();
 				return;
 			}
-			// ¼­¹ö·Î Àü¼Û
+			// ì„œë²„ë¡œ ì „ì†¡
 			try {
 				out.write((Function.FIND + "|" + ss + "\n").getBytes());
 			} catch (Exception ex) {
 			}
-			// °Ë»ö¾î¸¦ Áö¿öÁØ´Ù
+			// ê²€ìƒ‰ì–´ë¥¼ ì§€ì›Œì¤€ë‹¤
 			mv.tf.setText("");
 		} else if (e.getSource() == mv.b2) {
-			// ÀüÃ¼ ¸ñ·Ï ¿äÃ»
+			// ì „ì²´ ëª©ë¡ ìš”ì²­
 			try {
 				out.write((Function.LIST + "|\n").getBytes());
 			} catch (Exception ex) {
@@ -122,18 +122,18 @@ public class MusicMain extends JFrame implements Runnable, ActionListener {
 
 	}
 
-// ¼­¹ö¿¡¼­ º¸³»ÁØ µ¥ÀÌÅÍ Ãâ·Â 
-// switch => ³×Æ®¿öÅ© , À©µµ¿ì , °ÔÀÓ 
-// À¥ => if¸¦ ÁÖ·Î »ç¿ë (º°Á¡ Ã³¸®) => ¸®ºä , ¸ÀÁı ,¿©ÇàÄÚ½º 
+	// ì„œë²„ì—ì„œ ë³´ë‚´ì¤€ ë°ì´í„° ì¶œë ¥
+	// switch => ë„¤íŠ¸ì›Œí¬ , ìœˆë„ìš° , ê²Œì„
+	// ì›¹ => ifë¥¼ ì£¼ë¡œ ì‚¬ìš© (ë³„ì  ì²˜ë¦¬) => ë¦¬ë·° , ë§›ì§‘ ,ì—¬í–‰ì½”ìŠ¤
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		try {
 			while (true) {
-				// ¼­¹ö·ÎºÎÅÍ µ¥ÀÌÅÍ ¹Ş±â
+				// ì„œë²„ë¡œë¶€í„° ë°ì´í„° ë°›ê¸°
 				String msg = in.readLine();
 				System.out.println("Server=>" + msg);
-				// ±¸ºĞ
+				// êµ¬ë¶„
 				StringTokenizer st = new StringTokenizer(msg, "|");
 				int protocol = Integer.parseInt(st.nextToken());
 				// Function.MYLOG , Function.LIST,Function.FIND
@@ -144,7 +144,7 @@ public class MusicMain extends JFrame implements Runnable, ActionListener {
 				}
 					break;
 				case Function.LIST: {
-					// Å×ÀÌºí ³»¿ëÀ» Áö¿ì°í ´Ù½Ã Ã¤¿î´Ù
+					// í…Œì´ë¸” ë‚´ìš©ì„ ì§€ìš°ê³  ë‹¤ì‹œ ì±„ìš´ë‹¤
 					for (int i = mv.model.getRowCount() - 1; i >= 0; i--) {
 						mv.model.removeRow(i);
 					}

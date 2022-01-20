@@ -4,36 +4,35 @@ import java.io.*;
 import java.util.*;
 
 import sist.com.music.Music;
-// Å¬¶óÀÌ¾ğÆ®ÇÁ·Î±×·¥ : ³»°¡ °¡Áö°íÀÖ´Â ÆÄÀÏÀ» °¡Áö°í ¸¸µå´Â ÇÁ·Î±×·¥
+
+// í´ë¼ì´ì–¸íŠ¸í”„ë¡œê·¸ë¨ : ë‚´ê°€ ê°€ì§€ê³ ìˆëŠ” íŒŒì¼ì„ ê°€ì§€ê³  ë§Œë“œëŠ” í”„ë¡œê·¸ë¨
 public class MainClass {
 
 	public static void main(String[] args) {
-		// io °¡ ³ª¿Ô±â ¶§¹®¿¡ ÀÏ´Ü ¿¹¿ÜÃ³¸®
+		// io ê°€ ë‚˜ì™”ê¸° ë•Œë¬¸ì— ì¼ë‹¨ ì˜ˆì™¸ì²˜ë¦¬
 		try {
 
-			// 1. ÆÄÀÏ¿¡¼­ ÀĞ¾î¼­ ¸Ş¸ğ¸®¿¡ ÀúÀåÇØ³õ°í Á¦¾î¸¦ ½ÃÀÛ
-			// ¼­¹ö¿¡ ÆÄÀÏÀ» ÀúÀåÇØ µÎ°í, ¸ğµç Á¢¼ÓÀÚ°¡ µ¥ÀÌÅÍ¸¦ °øÀ¯ÇÒ ¼ö ÀÖ°Ô ¸¸µé±â
+			// 1. íŒŒì¼ì—ì„œ ì½ì–´ì„œ ë©”ëª¨ë¦¬ì— ì €ì¥í•´ë†“ê³  ì œì–´ë¥¼ ì‹œì‘
+			// ì„œë²„ì— íŒŒì¼ì„ ì €ì¥í•´ ë‘ê³ , ëª¨ë“  ì ‘ì†ìê°€ ë°ì´í„°ë¥¼ ê³µìœ í•  ìˆ˜ ìˆê²Œ ë§Œë“¤ê¸°
 
 			ArrayList<Music> mList = new ArrayList<Music>();
-			// ÆÄÀÏ ÀĞ¾î¼­ mList ¿¡ ÀúÀå
-			FileInputStream fis = new FileInputStream("C:\\SY\\ÀÚ·á\\java_data\\music_object.txt");
+			// íŒŒì¼ ì½ì–´ì„œ mList ì— ì €ì¥
+			FileInputStream fis = new FileInputStream("C:\\SY\\ìë£Œ\\java_data\\music_object.txt");
 
-			// ÀĞÀº ÆÄÀÏÀ» °´Ã¼·Î ÀúÀå (=¿ªÁ÷·ÄÈ­)
-			// ¸Ş¸ğ¸® > ÆÄÀÏ > ¿À¶óÅ¬ : Á¦¾îÇÏ±â ½±´Ù => CURD ÇÁ·Î±×·¥
-			// ¿À¶óÅ¬ÀÇ ÀåÁ¡À¸·Î´Â : ¿©·¯°³ÀÇ µ¥ÀÌÅÍ¸¦ È¥ÇÕÇØ¼­ µ¥ÀÌÅÍ ÀĞ±â °¡´É >> JOIN, SUBQUERY
+			// ì½ì€ íŒŒì¼ì„ ê°ì²´ë¡œ ì €ì¥ (=ì—­ì§ë ¬í™”)
+			// ë©”ëª¨ë¦¬ > íŒŒì¼ > ì˜¤ë¼í´ : ì œì–´í•˜ê¸° ì‰½ë‹¤ => CURD í”„ë¡œê·¸ë¨
+			// ì˜¤ë¼í´ì˜ ì¥ì ìœ¼ë¡œëŠ” : ì—¬ëŸ¬ê°œì˜ ë°ì´í„°ë¥¼ í˜¼í•©í•´ì„œ ë°ì´í„° ì½ê¸° ê°€ëŠ¥ >> JOIN, SUBQUERY
 
-			ObjectInputStream ois = new ObjectInputStream(fis); // ÆÄÀÏ¿¡ ÀÖ´Â µ¥ÀÌÅÍ¸¦ °´Ã¼´ÜÀ§·Î ¹Ş±â
+			ObjectInputStream ois = new ObjectInputStream(fis); // íŒŒì¼ì— ìˆëŠ” ë°ì´í„°ë¥¼ ê°ì²´ë‹¨ìœ„ë¡œ ë°›ê¸°
 
 			mList = (ArrayList<Music>) ois.readObject();
-			
-			// ¸Ş¸ğ¸®¿¡ ÀúÀåµÈ µ¥ÀÌÅÍ¸¦ Ãâ·Â
+
+			// ë©”ëª¨ë¦¬ì— ì €ì¥ëœ ë°ì´í„°ë¥¼ ì¶œë ¥
 			System.out.println(" = Music Top 200 = ");
 			for (Music m : mList) {
 				System.out.println(m.getNo() + "." + m.getTitle());
 			}
-			
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

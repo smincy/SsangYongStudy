@@ -1,10 +1,10 @@
-package sist.com.±³Àç;
+package sist.com.êµì¬;
 
 import java.util.*;
 import java.sql.*;
 
-// ¿À¶óÅ¬ / À¥¼­¹ö(Å©·Ñ¸µ) ¿¬°á 
-// ÆÄÀÏ ÀÔÃâ·Â
+// ï¿½ï¿½ï¿½ï¿½Å¬ / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(Å©ï¿½Ñ¸ï¿½) ï¿½ï¿½ï¿½ï¿½ 
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 
 public class BookDAO {
 
@@ -13,27 +13,27 @@ public class BookDAO {
 
 	private final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 
-	// µå¶óÀÌ¹ö µî·Ï
+	// ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½
 	public BookDAO() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			System.out.println("µå¶óÀÌ¹ö ·Îµù ¼º°ø");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	// ¿¬°á
+	// ï¿½ï¿½ï¿½ï¿½
 	public void getConnection() {
 		try {
 			conn = DriverManager.getConnection(URL, "smincy", "134679");
-			System.out.println("¿À¶óÅ¬ ¿¬°á");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½Å¬ ï¿½ï¿½ï¿½ï¿½");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
 
-	// ÇØÁ¦
+	// ï¿½ï¿½ï¿½ï¿½
 	public void disConnection() {
 		try {
 			if (ps != null) {
@@ -42,13 +42,13 @@ public class BookDAO {
 			if (conn != null) {
 				conn.close();
 			}
-			System.out.println("¿À¶óÅ¬ ¿¬°á ÇØÁ¦ ¿Ï·á");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½Å¬ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
 
-	// ¿À¶óÅ¬¿¡¼­ µ¥ÀÌÅÍ ÀĞ±â
+	// ï¿½ï¿½ï¿½ï¿½Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ±ï¿½
 	public List<BookVO> bookListData() {
 		List<BookVO> list = new ArrayList<BookVO>();
 		try {

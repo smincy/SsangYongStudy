@@ -1,6 +1,5 @@
 package sist.com.main2;
 
-// zipcode 테이블 생성필요
 
 public class Zipcode {
 

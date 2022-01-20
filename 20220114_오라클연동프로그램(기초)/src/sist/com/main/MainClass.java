@@ -1,6 +1,6 @@
 package sist.com.main;
 
-// JSP (À¥)
+//JSP (ì›¹)
 import java.util.*;
 
 public class MainClass {
@@ -18,38 +18,34 @@ public class MainClass {
 		
 		/*
 		Scanner sc = new Scanner(System.in);
-
-		System.out.println("»ç¹ø ÀÔ·Â : ");
+		System.out.println("ì‚¬ë²ˆ ì…ë ¥ : ");
 		int empno = sc.nextInt();
-
 		Emp emp = dao.empDetailData(empno);
-
-		System.out.println("-----------½ÇÇà °á°ú-----------");
-
-		System.out.println("»ç¹ø : " + emp.getEmpno());
-		System.out.println("ÀÌ¸§ : " + emp.getEname());
-		System.out.println("Á÷À§ : " + emp.getJob());
-		System.out.println("ÀÔ»çÀÏ : " + emp.getHiredate().toString());
-		System.out.println("±Ş¿© : " + emp.getSal());
-		System.out.println("¼º°ú±Ş : " + (emp.getComm() == 0 ? "¾øÀ½" : emp.getComm()));
+		System.out.println("-----------ì‹¤í–‰ ê²°ê³¼-----------");
+		System.out.println("ì‚¬ë²ˆ : " + emp.getEmpno());
+		System.out.println("ì´ë¦„ : " + emp.getEname());
+		System.out.println("ì§ìœ„ : " + emp.getJob());
+		System.out.println("ì…ì‚¬ì¼ : " + emp.getHiredate().toString());
+		System.out.println("ê¸‰ì—¬ : " + emp.getSal());
+		System.out.println("ì„±ê³¼ê¸‰ : " + (emp.getComm() == 0 ? "ì—†ìŒ" : emp.getComm()));
 		*/
 		
 		
 		Scanner sc = new Scanner(System.in);
-		System.out.println("°Ë»öÇÒ »ç¿øÀÇ ÀÌ¸§ : ");
+		System.out.println("ê²€ìƒ‰í•  ì‚¬ì›ì˜ ì´ë¦„ : ");
 		String ename = sc.next();
 
 		List<Emp> list = dao.empFindData(ename);
 
-		System.out.println("----------°Ë»ö °á°ú----------");
+		System.out.println("----------ê²€ìƒ‰ ê²°ê³¼----------");
 
 		for (Emp e : list) {
-			System.out.println("»ç¹ø : " + e.getEmpno());
-			System.out.println("ÀÌ¸§ : " + e.getEname());
-			System.out.println("Á÷À§ : " + e.getJob());
-			System.out.println("ÀÔ»çÀÏ : " + e.getHiredate().toString());
-			System.out.println("±Ş¿© : " + e.getSal());
-			System.out.println("¼º°ú±Ş : " + (e.getComm() == 0 ? "¾øÀ½" : e.getComm()));
+			System.out.println("ì‚¬ë²ˆ : " + e.getEmpno());
+			System.out.println("ì´ë¦„ : " + e.getEname());
+			System.out.println("ì§ìœ„ : " + e.getJob());
+			System.out.println("ì…ì‚¬ì¼ : " + e.getHiredate().toString());
+			System.out.println("ê¸‰ì—¬ : " + e.getSal());
+			System.out.println("ì„±ê³¼ê¸‰ : " + (e.getComm() == 0 ? "ì—†ìŒ" : e.getComm()));
 		}
 
 	}

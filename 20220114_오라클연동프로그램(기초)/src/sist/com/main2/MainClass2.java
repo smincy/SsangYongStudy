@@ -9,16 +9,16 @@ public class MainClass2 {
 
 		Scanner sc = new Scanner(System.in);
 
-		System.out.print("µ¿ ÀÔ·Â : ");
+		System.out.print("ë™ ì…ë ¥ : ");
 		String dong = sc.next();
 
 		int count = dao.zipcodeFindCount(dong);
 		List<Zipcode> list = dao.zipcodeListData(dong);
 
 		if (count == 0) {
-			System.out.println(" °Ë»ö °á°ú ¾øÀ½ ");
+			System.out.println(" ê²€ìƒ‰ ê²°ê³¼ ì—†ìŒ ");
 		} else {
-			System.out.println(" °Ë»ö°á°ú : " + count + " °Ç ");
+			System.out.println(" ê²€ìƒ‰ê²°ê³¼ : " + count + " ê±´ ");
 			for (Zipcode z : list) {
 				System.out.println(z.getZipcode() + " " + z.getAddress());
 			}

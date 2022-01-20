@@ -1,10 +1,10 @@
 package sist.com.main;
 /*
- *	¿À¶óÅ¬ ¿¬°á : JDBC
- *	1. ¿À¶óÅ¬ ¿¬°á
- *	2. SQL¹®Àå Àü¼Û
- *	3. °á°ú°ª ¹Ş±â
- *	4. ¿À¶óÅ¬ ¿¬°á ÇØÁ¦ 
+ *	ì˜¤ë¼í´ ì—°ê²° : JDBC
+ *	1. ì˜¤ë¼í´ ì—°ê²°
+ *	2. SQLë¬¸ì¥ ì „ì†¡
+ *	3. ê²°ê³¼ê°’ ë°›ê¸°
+ *	4. ì˜¤ë¼í´ ì—°ê²° í•´ì œ 
  */
 
 import java.sql.*;
@@ -16,7 +16,7 @@ public class FoodDAO {
 	private PreparedStatement ps;
 	private final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 
-	// 1. µå¶óÀÌ¹ö µî·Ï (1¹ø¸¸µî·Ï) => »ı¼ºÀÚ
+	// 1. ë“œë¼ì´ë²„ ë“±ë¡ (1ë²ˆë§Œë“±ë¡) => ìƒì„±ì
 	public FoodDAO() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -25,7 +25,7 @@ public class FoodDAO {
 		}
 	}
 
-	// 2. ¿À¶óÅ¬ ¿¬°á
+	// 2. ì˜¤ë¼í´ ì—°ê²°
 	public void getConnection() {
 		try {
 			conn = DriverManager.getConnection(URL, "smincy", "134679");
@@ -33,7 +33,7 @@ public class FoodDAO {
 		}
 	}
 
-	// 3. ¿À¶óÅ¬ ÇØÁ¦
+	// 3. ì˜¤ë¼í´ í•´ì œ
 	public void disConnection() {
 		try {
 			if (ps != null) {
@@ -47,22 +47,22 @@ public class FoodDAO {
 		}
 	}
 
-	// 4. ±â´É -> Category¿¡ µ¥ÀÌÅÍ Ãß°¡
+	// 4. ê¸°ëŠ¥ -> Categoryì— ë°ì´í„° ì¶”ê°€
 	public void categoryInsert(Category c) {
 
 		try {
-			// 1. ¿À¶óÅ¬ ¿¬°á
+			// 1. ì˜¤ë¼í´ ì—°ê²°
 			getConnection();
-			// 2. SQL¹®Àå Á¦ÀÛ
+			// 2. SQLë¬¸ì¥ ì œì‘
 			String sql = "INSERT INTO category VALUES(cate_cno_seq.nextval,?,?,?,?)";
-			// 3. ¿À¶óÅ¬·Î Àü¼Û
+			// 3. ì˜¤ë¼í´ë¡œ ì „ì†¡
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, c.getTitle());
 			ps.setString(2, c.getSubfect());
 			ps.setString(3, c.getPoster());
 			ps.setString(4, c.getLink());
 
-			// ½ÇÇà ¸í·É
+			// ì‹¤í–‰ ëª…ë ¹
 			ps.executeUpdate();
 
 		} catch (Exception e) {
@@ -72,20 +72,101 @@ public class FoodDAO {
 		}
 	}
 
-	/*
-	 * 22.01.14
-	 * 
-	 * 
-	 */
-
-	// ¸ÀÁı ÀúÀå
+	// ë§›ì§‘ ì €ì¥ 
+		/*
+		 *     ì‚¬ìš©ììš”ì²­ ===> ìë°” ====================> ì˜¤ë¼í´ 
+		 *                ìš”ì²­ ë‚´ìš©ì„ SQLë¬¸ì¥ìœ¼ë¡œ ë³€ê²½        |
+		 *                                           SQLì„ ë°›ì•„ì„œ ì‹¤í–‰ 
+		 *                                              |
+		 *                      <==================== ê²°ê³¼ê°’ì„ ìë°”ë¡œ ì „ì†¡
+		 *                      |
+		 *                 ê²°ê³¼ê°’ì„ ì‚¬ìš©ìì—ê²Œ ì‘ë‹µ 
+		 *     (ìë°”) / C# / NODEJS / C/C++ / íŒŒì´ì¬ / ìŠ¤ì¹¼ë¼....
+		 *      1. ì˜¤ë¼í´ì— ì—°ê²° (Connection) conn hr/happy
+		 *                                ---------------
+		 *                                getConnection()
+		 *      2. ì‚¬ìš©ì ìš”ì²­í•œ ë‚´ìš©ì„ SQLë¬¸ì¥ìœ¼ë¡œ ë³€ê²½ 
+		 *         ------------------------------
+		 *      3. SQLë¬¸ì¥ì„ ì˜¤ë¼í´ë¡œ ì „ì†¡ => Statement(PreparedStatement)
+		 *         Statement   / PreparedStatement(ë¯¸ë¦¬ SQLë¬¸ì¥ ì „ì†¡ , ë‚˜ì¤‘ì— í•„ìš”í•œ ë°ì´í„°ë¥¼ ì²¨ë¶€) 
+		 *         ---------     -----------------
+		 *          SQL+í•„ìš”í•œ ë°ì´í„°ë¥¼ í•œë²ˆì— ì „ì†¡ 
+		 *          
+		 *          ì˜¤ë¼í´ì— ë°ì´í„° ì¶”ê°€ë¥¼ ìš”ì²­ì‹œì— (INSERT~)
+		 *          ì˜ˆ)
+		 *              name , sex , age , address , tel (íšŒì›ê°€ì…)
+		 *              
+		 *              ìë°”ì—ì„œ ê°’ì„ ë°›ëŠ”ë‹¤ 
+		 *              String name="í™ê¸¸ë™";
+		 *              String sex="ë‚¨ì";
+		 *              int age=25;
+		 *              String address="ì„œìš¸ì‹œ";
+		 *              String tel="010-1111-1111";
+		 *              
+		 *              => SQLë¬¸ì¥ì„ ì „ì†¡ì‹œì— => ë¬¸ìì—´ë¡œ ì „ì†¡í•´ì•¼ ëœë‹¤ 
+		 *              String sql="INSERT INTO member VALUES('"
+		 *                        +name+"','",sex+"',"+age
+		 *                        +",'"+address+"','"+tel+"')";
+		 *              => String => VARCHAR2ë³€ê²½ => 'ê°’'
+		 *              => Statement 
+		 *              => ê°œë°œì ìš”ì²­ì— ì˜í•´ì„œ ë³€ê²½ 
+		 *              String sql="INSERT INTO member VALUES(?,?,?,?,?)"
+		 *              => ë‚˜ì¤‘ì— ?ì— ê°’ì„ ì±„ìš´ë‹¤ 
+		 *              => setString(1,name) ==> ìë™ìœ¼ë¡œ ''ê°€ ì‚¬ìš© 
+		 *                             => 'í™ê¸¸ë™'
+		 *                 setInt()
+		 *                 setDouble()
+		 *              => ì¥ì  => ''ì„ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤ (ìë™ìœ¼ë¡œ ì¶”ê°€) => ì‚¬ìš©í•˜ê¸° ì‰½ê²Œ 
+		 *              => ë‹¨ì  => ì†ŒìŠ¤ê°€ ê¸¸ì–´ì§„ë‹¤ 
+		 *              
+		 *       4. ì˜¤ë¼í´ ì‹¤í–‰ëª…ë ¹ì–´ ì „ì†¡ 
+		 *          = executeQuery() : SELECT (ë°ì´í„°ë¥¼ ì½ì–´ ì˜¨ë‹¤)
+		 *          = executeUpdate() => COMMITì´ í¬í•¨ 
+		 *                               => ë°ì´í„°ë¥¼ ì½ì€ ê²ƒì´ ì•„ë‹ˆë¼ ì‹¤í–‰
+		 *                               => INSERT , UPDATE , DELETE
+		 *                               
+		 *       5. ì˜¤ë¼í´ì—ì„œ ì‹¤í–‰ëœ ê²°ê³¼ì½ê¸°(SELECT) => ResultSet
+		 *          ResultSet => Recordë‹¨ìœ„ ,ROWë‹¨ìœ„ë¡œ ì½ê¸° 
+		 *          =========
+		 *            ë°ì´í„°ë¥¼ ì¸ì¶œ => 1) ì²˜ìŒ , 2) ë§ˆì§€ë§‰ 
+		 *            
+		 *            ---------------------
+		 *              ID   Name    Sex
+		 *            ---------------------
+		 *              aaa  í™ê¸¸ë™    ë‚¨ì  ===> ì—¬ê¸°ì„œë¶€í„° ë°‘ìœ¼ë¡œ ë‚´ë ¤ê°€ë©´ ì½ê¸°
+		 *                                      next() ***
+		 *            ---------------------
+		 *              bbb  ì‹¬ì²­ì´    ì—¬ì
+		 *            ---------------------
+		 *              ccc  ë°•ë¬¸ìˆ˜    ë‚¨ì  ===> ì—¬ê¸°ì„œë¶€í„° ìœ„ë¡œ ì˜¬ë¼ê°€ë©´ì„œ ì½ê¸°
+		 *                                      previous()
+		 *            ---------------------
+		 *       6. PreparedStatement / Connectionì„ ë‹«ëŠ”ë‹¤ 
+		 *                close()          close()
+		 *              
+		 *              
+		 */
+		/*
+		 *  NO      NOT NULL NUMBER   ==> int      
+			CNO              NUMBER   ==> int     
+			NAME    NOT NULL VARCHAR2(200)  => String
+			SCORE   NOT NULL NUMBER(2,1)    => double
+			ADDRESS NOT NULL VARCHAR2(500)  => String 
+			TEL     NOT NULL VARCHAR2(30)   => String 
+			TYPE    NOT NULL VARCHAR2(100)  => String
+			PRICE            VARCHAR2(50)   => String
+			PARKING          VARCHAR2(50)   => String
+			TIME             VARCHAR2(50)   => String
+			MENU             CLOB           => String
+			POSTER  NOT NULL VARCHAR2(4000) => String
+		 */
 	public void foodInsert(FoodHouse food) {
 		try {
-			getConnection(); // ¿¬°á
-			// 1. SQL¹®Àå Á¦ÀÛ
+			getConnection(); // ì—°ê²°
+			// 1. SQLë¬¸ì¥ ì œì‘
 			String sql = "INSERT INTO food_house VALUES(" + "fh_no_seq.nectval,?,?,?,?,?," + "?,?,?,?,?,?)";
 
-			// 2. SQL¿¡ ÇÊ¿äÇÑ µ¥ÀÌÅÍ°ª Ã¤¿ì±â( ? ¿¡ °ª Ã¤¿ì±â)
+			// 2. SQLì— í•„ìš”í•œ ë°ì´í„°ê°’ ì±„ìš°ê¸°( ? ì— ê°’ ì±„ìš°ê¸°)
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, food.getCno());
 			ps.setString(2, food.getName());
@@ -99,38 +180,42 @@ public class FoodDAO {
 			ps.setString(10, food.getMenu());
 			ps.setString(11, food.getPoster());
 
-			// 3. ¿À¶óÅ¬¿¡ ¸í·É¹® ½ÇÇà ¿äÃ»
+			// 3. ì˜¤ë¼í´ì— ëª…ë ¹ë¬¸ ì‹¤í–‰ ìš”ì²­
 			ps.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			disConnection(); // ¿¬°á ÇØÁ¦
+			disConnection(); // ì—°ê²° í•´ì œ
 		}
 	}
 
-	// µ¥ÀÌÅÍ ÀĞ±â => CategoryÀÇ link, cno, title ÇÊ¿ä
+	// ë°ì´í„° ì½ê¸° => Categoryì˜ link, cno, title í•„ìš”
 	public List<Category> categoryListData() {
 		List<Category> list = new ArrayList<Category>();
 		try {
-			// 1. ¿¬°á
+			// 1. ì—°ê²°
 			getConnection();
-			// 2. SQL¹®Àå Á¦ÀÛ
+			// 2. SQLë¬¸ì¥ ì œì‘
 			String sql = "SELECT cno, title, link " + "FROM category";
 
-			// 3. ÇÊ¿äÇÑ µ¥ÀÌÅÍ¸¦ Àü¼Û (¾øÀ»¼öµµÀÖÀ½)
+			// 3. í•„ìš”í•œ ë°ì´í„°ë¥¼ ì „ì†¡ (ì—†ì„ìˆ˜ë„ìˆìŒ)
 			// X
 
-			// 4. ¿À¶óÅ¬¿¡ ¸í·É¹® ½ÇÇà ¿äÃ»
-			ps = conn.prepareStatement(sql); // sql¹®ÀåÀ» ¿À¶óÅ¬·Î º¸³½´Ù
+			// 4. ì˜¤ë¼í´ì— ëª…ë ¹ë¬¸ ì‹¤í–‰ ìš”ì²­
+			ps = conn.prepareStatement(sql); // sqlë¬¸ì¥ì„ ì˜¤ë¼í´ë¡œ ë³´ë‚¸ë‹¤
 
-			// 5. °á°ú°ªÀ» ¹Ş´Â´Ù
-			ResultSet rs = ps.executeQuery(); // ½ÇÇàµÈ °á°ú¸¦ rs¿¡ ³Ö¾î¶ó
+			// 5. ê²°ê³¼ê°’ì„ ë°›ëŠ”ë‹¤
+			ResultSet rs = ps.executeQuery(); // ì‹¤í–‰ëœ ê²°ê³¼ë¥¼ rsì— ë„£ì–´ë¼
 
-			// 6. ¹ŞÀº °á°ú°ªÀ» ¸®½ºÆ®¿¡ Ã·ºÎ
-			while (rs.next()) { // °á°úÀÇ À§¿¡¼­ºÎÅÍ ¾Æ·¡·Î ÇÑÁÙ¾¿ ÀĞ¾î¿È
+			// 6. ë°›ì€ ê²°ê³¼ê°’ì„ ë¦¬ìŠ¤íŠ¸ì— ì²¨ë¶€
+			while (rs.next()) { // ê²°ê³¼ì˜ ìœ„ì—ì„œë¶€í„° ì•„ë˜ë¡œ í•œì¤„ì”© ì½ì–´ì˜´
 				/*
-				 *  
+				 *   ì˜¤ë¼í´ì— ìˆëŠ” ë°ì´í„°ë¥¼ ìë°”ì™€ ë§¤ì¹­ 
+				 *   ë¬¸ìì—´ : getString()
+ 				 *   ì‹¤ìˆ˜ : getDouble()
+				 *   ì •ìˆ˜ : getInt()
+				 *   ë‚ ì§œ : getDate()
 				 */
 
 				Category c = new Category();
@@ -145,7 +230,7 @@ public class FoodDAO {
 			e.printStackTrace();
 
 		} finally {
-			// ¿¬°á ÇØÁ¦
+			// ì—°ê²° í•´ì œ
 			disConnection();
 		}
 		return list;

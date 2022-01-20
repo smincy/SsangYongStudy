@@ -3,7 +3,7 @@ package sist.com.main;
 import java.util.*;
 import java.sql.*;
 
-//¿À¶óÅ¬ ¿¬°á => ¼Û¼ö½Å
+//ì˜¤ë¼í´ ì—°ê²° => ì†¡ìˆ˜ì‹ 
 public class EmpDAO {
 
 	private Connection conn;
@@ -28,8 +28,8 @@ public class EmpDAO {
 
 	public void disConnection() {
 		try {
-			if (ps != null) { // ps °¡ ¿­·ÁÀÖ´Ù¸é
-				ps.close(); // ps ¸¦ ´İ¾ÆÁà¶ó
+			if (ps != null) { // ps ê°€ ì—´ë ¤ìˆë‹¤ë©´
+				ps.close(); // ps ë¥¼ ë‹«ì•„ì¤˜ë¼
 			}
 			if (conn != null) {
 				conn.close();
@@ -43,19 +43,19 @@ public class EmpDAO {
 
 		List<EmpVO> list = new ArrayList<EmpVO>();
 		try {
-			// 1. ¿¬°á
+			// 1. ì—°ê²°
 			GetConnection();
-			// 2. SQL ¹®Àå Á¦ÀÛ
+			// 2. SQL ë¬¸ì¥ ì œì‘
 			String sql = "SELECT * FROM emp";
-			// 3. SQL ¹®ÀåÀ» ¿À¶óÅ©·Ñ Àü¼Û
+			// 3. SQL ë¬¸ì¥ì„ ì˜¤ë¼í¬ë¡¤ ì „ì†¡
 			ps = conn.prepareStatement(sql);
-			// 4. ½ÇÇà ÈÄ °á°ú°ªÀ» °¡Áö°í ¿Â´Ù
+			// 4. ì‹¤í–‰ í›„ ê²°ê³¼ê°’ì„ ê°€ì§€ê³  ì˜¨ë‹¤
 			ResultSet rs = ps.executeQuery();
 
-			while (rs.next()) { // 5. Ä¿¼­ À§Ä¡ ÀÌµ¿
-				// ¾Æ·¡·Î ³»·Á°¡¸é¼­ ÇÑÁÙ¾¿ ÀĞ¾î¿À±â
+			while (rs.next()) { // 5. ì»¤ì„œ ìœ„ì¹˜ ì´ë™
+				// ì•„ë˜ë¡œ ë‚´ë ¤ê°€ë©´ì„œ í•œì¤„ì”© ì½ì–´ì˜¤ê¸°
 
-				// °¡Á®¿Â °á°ú°ªÀ» µ¿½Ã¿¡ ÄÃ·³/º¯¼ö¿¡ °¢°¢ ÀúÀåÇÏ±â À§ÇØ
+				// ê°€ì ¸ì˜¨ ê²°ê³¼ê°’ì„ ë™ì‹œì— ì»¬ëŸ¼/ë³€ìˆ˜ì— ê°ê° ì €ì¥í•˜ê¸° ìœ„í•´
 				EmpVO vo = new EmpVO();
 				vo.setEmpno(rs.getInt(1));
 				vo.setEname(rs.getString(2));
@@ -68,7 +68,7 @@ public class EmpDAO {
 
 				list.add(vo);
 				/*
-				 * ÀüÃ¼ ¸ñ·Ï => list ÇÑ¸í, ÇÑ°³ Á¤º¸ => ÇØ´ç ~VO
+				 * ì „ì²´ ëª©ë¡ => list í•œëª…, í•œê°œ ì •ë³´ => í•´ë‹¹ ~VO
 				 */
 			}
 
@@ -80,7 +80,7 @@ public class EmpDAO {
 		return list;
 	}
 
-	// 2. ºÎ¼­ ¸ñ·Ï Àü¼Û
+	// 2. ë¶€ì„œ ëª©ë¡ ì „ì†¡
 	public List<DeptVO> deptListData() {
 		List<DeptVO> list = new ArrayList<DeptVO>();
 
@@ -105,7 +105,7 @@ public class EmpDAO {
 		return list;
 	}
 
-	// µî±Ş ¸ñ·Ï Ãâ·Â
+	// ë“±ê¸‰ ëª©ë¡ ì¶œë ¥
 	public List<SalGradeVO> salgradeListData() {
 		List<SalGradeVO> list = new ArrayList<SalGradeVO>();
 
@@ -116,9 +116,9 @@ public class EmpDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				SalGradeVO vo = new SalGradeVO();
-				vo.setGrade(rs.getInt("grade")); // ÄÃ·³¸íÀ¸·Î ¹Ş¾Æ¿Ã¼öµµÀÖÀ½
-				vo.setLosal(rs.getInt("losal")); // ÇÔ¼ö³ª º°ÄªÀ» »ç¿ë½Ã¿¡´Â
-				vo.setHisal(rs.getInt("hisal")); // ÀÎµ¦½º¸¦ »ç¿ëÇÏ´Â °æ¿ì°¡ ¸¹À½
+				vo.setGrade(rs.getInt("grade")); // ì»¬ëŸ¼ëª…ìœ¼ë¡œ ë°›ì•„ì˜¬ìˆ˜ë„ìˆìŒ
+				vo.setLosal(rs.getInt("losal")); // í•¨ìˆ˜ë‚˜ ë³„ì¹­ì„ ì‚¬ìš©ì‹œì—ëŠ”
+				vo.setHisal(rs.getInt("hisal")); // ì¸ë±ìŠ¤ë¥¼ ì‚¬ìš©í•˜ëŠ” ê²½ìš°ê°€ ë§ìŒ
 				list.add(vo);
 			}
 
@@ -130,7 +130,7 @@ public class EmpDAO {
 		return list;
 	}
 
-	// »ç¿ø, ºÎ¼­ => JOIN
+	// ì‚¬ì›, ë¶€ì„œ => JOIN
 	public List<EmpVO> empDeptJoinData() {
 		List<EmpVO> list = new ArrayList<EmpVO>();
 		try {
@@ -161,7 +161,7 @@ public class EmpDAO {
 		return list;
 	}
 
-	// »ç¿ø, µî±Ş (BETWEEN ~ AND, INNER JOIN)
+	// ì‚¬ì›, ë“±ê¸‰ (BETWEEN ~ AND, INNER JOIN)
 	public List<EmpVO> empSalgradeJoinData() {
 
 		List<EmpVO> list = new ArrayList<EmpVO>();
@@ -193,31 +193,49 @@ public class EmpDAO {
 	}
 
 	/*
-	 * INNER JOIN : °¡Àå ¸¹ÀÌ »ç¿ëµÇ´Â Á¶ÀÎ EQUI_JOIN(¿¬»êÀÚ =)
-	 * 
-	 * SELECT ~ FROM A,B WHERE A.col=B.col
-	 * 
-	 * SELECT ~ FROM A JOIN B ON A.col=B.col
-	 * 
-	 * NON_EQUI_JOIN(¿¬»êÀÚ =ÀÌ ¾Æ´Ñ ´Ù¸¥ ¿¬»êÀÚ:BETWEEN,IN,ºñ±³,³í¸®)
-	 * 
-	 * SELECT ~ FROM A,B WHERE sal BETWEEN °ª AND °ª
-	 * 
-	 * SELECT ~ FROM A JOIN B ON sal BETWEEN °ª AND °ª
-	 * 
-	 * OUTER JOIN => NULLÀÌ ÀÖ´Â °æ¿ì¿¡ µ¥ÀÌÅÍ ÀĞ±â LEFT OUTER JOIN SELECT ~ FROM A,B WHERE
-	 * A.col=B.col(+)
-	 * 
-	 * SELECT ~ FROM A LEFT OUTER JOIN B ON A.col=B.col
-	 * 
-	 * 
-	 * RIGTH OUTER JOIN SELECT ~ FROM A,B WHERE A.col(+)=B.col
-	 * 
-	 * SELECT ~ FROM A RIGTH OUTER JOIN B ON A.col=B.col
-	 * 
-	 */
+	    *      INNER JOIN : ê°€ì¥ ë§ì´ ì‚¬ìš©ë˜ëŠ” ì¡°ì¸ 
+	    *        EQUI_JOIN(ì—°ì‚°ì =)
+	    *        
+	    *        SELECT ~ 
+	    *        FROM A,B
+	    *        WHERE A.col=B.col
+	    *        
+	    *        SELECT ~
+	    *        FROM A JOIN B
+	    *        ON A.col=B.col 
+	    *        
+	    *        NON_EQUI_JOIN(ì—°ì‚°ì =ì´ ì•„ë‹Œ ë‹¤ë¥¸ ì—°ì‚°ì:BETWEEN,IN,ë¹„êµ,ë…¼ë¦¬)
+	    *      
+	    *        SELECT ~
+	    *        FROM A,B
+	    *        WHERE sal BETWEEN ê°’ AND ê°’ 
+	    *        
+	    *        SELECT ~
+	    *        FROM A JOIN B
+	    *        ON sal BETWEEN ê°’ AND ê°’ 
+	    *        
+	    *      OUTER JOIN => NULLì´ ìˆëŠ” ê²½ìš°ì— ë°ì´í„° ì½ê¸° 
+	    *        LEFT OUTER JOIN
+	    *        SELECT ~ 
+	    *        FROM A,B
+	    *        WHERE A.col=B.col(+)
+	    *        
+	    *        SELECT ~
+	    *        FROM A LEFT OUTER JOIN B
+	    *        ON A.col=B.col 
+	    *        
+	    *        
+	    *        RIGTH OUTER JOIN 
+	    *        SELECT ~ 
+	    *        FROM A,B
+	    *        WHERE A.col(+)=B.col
+	    *        
+	    *        SELECT ~
+	    *        FROM A RIGTH OUTER JOIN B
+	    *        ON A.col=B.col 
+	    */
 
-	// »ç¿ø, ºÎ¼­ µî±Ş => JOIN
+	// ì‚¬ì›, ë¶€ì„œ ë“±ê¸‰ => JOIN
 	public List<EmpVO> empDeptSalgradeJoinData() {
 		List<EmpVO> list = new ArrayList<EmpVO>();
 
@@ -226,12 +244,12 @@ public class EmpDAO {
 			String sql = "SELECT empno, ename, job, hiredate, sal, dname, loc, grade " + "FROM emp, dept, salgrade "
 					+ "WHERE emp.deptno = dept.deptno " + "AND sal BETWEEN losal AND hisal";
 
-			/*
-			 * ANSI Á¶ÀÎ "SELECT empno, ename, job, hiredate, sal, dname, loc, grade FROM emp
-			 * JOIN dept ON emp.deptno = dept.deptno JOIN salgrade ON sal BETWEEN losal AND
-			 * hisal;"
-			 * 
-			 */
+			/*String sql="SELECT empno,ename,job,hiredate,sal,"//emp
+		     +"dname,loc," // dept 
+		     +"grade " // salgrade
+		     +"FROM emp,dept,salgrade "
+		     +"WHERE emp.deptno=dept.deptno "
+		     +"AND sal BETWEEN losal AND hisal";*/
 			ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -257,8 +275,8 @@ public class EmpDAO {
 		return list;
 	}
 
-	// »ç¿ëÀÚ ¿äÃ»°ªÀÌ ÀÖ´Â °æ¿ì
-	// 7788 »ç¹øÀ» °¡Áö°í ÀÖ´Â »ç¿øÀÇ »ç¹ø, ÀÌ¸§, Á÷À§, ÀÔ»çÀÏ, ±Ù¹«Áö, ºÎ¼­¸í, µî±Ş
+	// ì‚¬ìš©ì ìš”ì²­ê°’ì´ ìˆëŠ” ê²½ìš°
+	// 7788 ì‚¬ë²ˆì„ ê°€ì§€ê³  ìˆëŠ” ì‚¬ì›ì˜ ì‚¬ë²ˆ, ì´ë¦„, ì§ìœ„, ì…ì‚¬ì¼, ê·¼ë¬´ì§€, ë¶€ì„œëª…, ë“±ê¸‰
 	public EmpVO empDetailData(int empno) {
 		EmpVO vo = new EmpVO();
 		try {
@@ -267,7 +285,7 @@ public class EmpDAO {
 					+ "FROM emp, dept, salgrade WHERE emp.deptno = dept.deptno AND sal BETWEEN losal AND hisal AND empno = ?";
 			ps = conn.prepareStatement(sql);
 
-			ps.setInt(1, empno); // 1 => Ã¹¹øÂ° ? ¿¡ °ªÀ» Ã¤¿öÁØ´Ù
+			ps.setInt(1, empno); // 1 => ì²«ë²ˆì§¸ ? ì— ê°’ì„ ì±„ì›Œì¤€ë‹¤
 
 			ResultSet rs = ps.executeQuery();
 			rs.next();
@@ -290,34 +308,70 @@ public class EmpDAO {
 		return vo;
 	}
 
-	// 7. SubQuery
-	/*
-	 * ³×Æ®¿öÅ© Åë½Å ¼­¹ö : ¿À¶óÅ¬ => ÀÀ´ä Å¬¶óÀÌ¾ğÆ® : ÀÚ¹Ù => ¿äÃ» (JDBC) ------- ¼ÓµµÀÇ ¹®Á¦ : ¿À¶óÅ¬¿¬°á (DBCP)
-	 * ------- ÄÚµùÀÌ ³Ê¹« ±æ¾îÁø´Ù => ORM (MyBatis,Hibernate) => Spring+Mybatis ¼­ºêÄõ¸® :
-	 * SQL+SQL => SQLÀ» ÇÑ°³·Î ¸¸µå´Â °æ¿ì ³×Æ®¿öÅ© => ÇÑ¹ø¿¡ ¸ğ¾Æ¼­ Àü¼Û ------ SELECTÀı : ÄÃ·³Çü½Ä =>
-	 * ½ºÄ®¶ó¼­ºêÄõ¸® (Å×ÀÌºí ¿©·¯°³¿¡¼­ µ¥ÀÌÅÍ ÃßÃâ) Çü½Ä) SELECT (SELECT~ ), (SELECT~ ) FROM table_name
-	 * 
-	 * FROMÀı : Å×ÀÌºí ´ë½Å »ç¿ë => ÀÎ¶óÀÎ ºä => Top-N(rownum) , ÆäÀÌÁö ³ª´©±â Çü½Ä) SELECT ~ FROM
-	 * (SELECT~) --------- ½ÇÇàÇÑ ÄÃ·³¸¸ »ç¿ëÀÌ °¡´É
-	 * 
-	 * SELECT ~ FROM (SELECT ~ FROM (SELECT ~) WHEREÀı : Á¶°Ç°ª ´ë½Å »ç¿ë Çü½Ä) ´ÜÀÏÇà ¼­ºêÄõ¸® :
-	 * ¼­ºêÄõ¸®ÀÇ °á°ú°ªÀÌ 1°³ÀÎ °æ¿ì SELECT ~ FROM table_name WHERE ÄÃ·³¸í ¿¬»êÀÚ (SELECT~~)
-	 * ---------------- ---------- ¸ŞÀÎÄõ¸® ¼­ºêÄõ¸® ´ÙÁßÇà ¼­ºêÄõ¸® : ¼­ºêÄõ¸® °á°ú°ªÀÌ ¿©·¯°³ÀÎ °æ¿ì SELECT ~
-	 * FROM table_name WHERE ÄÃ·³¸í IN,ANY,ALL,SOME (SELECT~~) ----------------
-	 * ---------- ¸ŞÀÎÄõ¸® ¼­ºêÄõ¸®
-	 * 
-	 * IN(10,20,30) => µ¿½Ã Àû¿ë > ANY(10,20,30) => 10 >10 < ANY(10,20,30) => 30 <30 =
-	 * ANY(10,20,30) => IN(10,20,30) > ALL(10,20,30) => 30 >30 < ALL(10,20,30) => 10
-	 * <10 --------------------------- MIN/MAX
-	 * 
-	 * WHERE deptno > (ÃÖ¼Ò°ª) => 10,20,30) deptno > ANY(SELECT DISTINCT deptno FROM
-	 * emp) 10 deptno > (SELECT MIN(deptno) FROM emp) 10
-	 * 
-	 * deptno < ANY(SELECT DISTINCT deptno FROM emp) 30 deptno < (SELECT MAX(deptno)
-	 * FROM emp) 30
-	 */
-	// ±Ş¿©ÀÇ Æò±Õº¸´Ù ¸¹ÀÌ ¹Ş´Â »ç¿øÀÇ ÀÌ¸§, Á÷À§, ÀÔ»çÀÏ, ±Ş¿©, ºÎ¼­¸í, ±Ù¹«Áö
-	// ¼­ºêÄõ¸® => Á¶ÀÎ
+	// 7. SubQuery 
+	   /*
+	    *   ë„¤íŠ¸ì›Œí¬ í†µì‹  
+	    *   ì„œë²„ : ì˜¤ë¼í´ => ì‘ë‹µ 
+	    *   í´ë¼ì´ì–¸íŠ¸ : ìë°” => ìš”ì²­ (JDBC) 
+	    *                        ------- ì†ë„ì˜ ë¬¸ì œ : ì˜¤ë¼í´ì—°ê²° (DBCP)
+	    *                        ------- ì½”ë”©ì´ ë„ˆë¬´ ê¸¸ì–´ì§„ë‹¤ 
+	    *                                => ORM (MyBatis,Hibernate)
+	    *                                => Spring+Mybatis
+	    *   ì„œë¸Œì¿¼ë¦¬ : SQL+SQL => SQLì„ í•œê°œë¡œ ë§Œë“œëŠ” ê²½ìš° 
+	    *            ë„¤íŠ¸ì›Œí¬ => í•œë²ˆì— ëª¨ì•„ì„œ ì „ì†¡ 
+	    *   ------
+	    *     SELECTì ˆ : ì»¬ëŸ¼í˜•ì‹ => ìŠ¤ì¹¼ë¼ì„œë¸Œì¿¼ë¦¬ (í…Œì´ë¸” ì—¬ëŸ¬ê°œì—ì„œ ë°ì´í„° ì¶”ì¶œ)
+	    *        í˜•ì‹) 
+	    *             SELECT (SELECT~ ),
+	    *                    (SELECT~ )
+	    *             FROM table_name
+	    *              
+	    *     FROMì ˆ : í…Œì´ë¸” ëŒ€ì‹  ì‚¬ìš© => ì¸ë¼ì¸ ë·° 
+	    *              => Top-N(rownum) , í˜ì´ì§€ ë‚˜ëˆ„ê¸° 
+	    *        í˜•ì‹)
+	    *             SELECT ~
+	    *             FROM (SELECT~) 
+	    *                  --------- ì‹¤í–‰í•œ ì»¬ëŸ¼ë§Œ ì‚¬ìš©ì´ ê°€ëŠ¥ 
+	    *                  
+	    *             SELECT ~
+	    *             FROM (SELECT ~
+	    *                   FROM (SELECT ~)
+	    *     WHEREì ˆ : ì¡°ê±´ê°’ ëŒ€ì‹  ì‚¬ìš© 
+	    *        í˜•ì‹) 
+	    *              ë‹¨ì¼í–‰ ì„œë¸Œì¿¼ë¦¬ : ì„œë¸Œì¿¼ë¦¬ì˜ ê²°ê³¼ê°’ì´ 1ê°œì¸ ê²½ìš°
+	    *              SELECT ~
+	    *              FROM table_name
+	    *              WHERE ì»¬ëŸ¼ëª… ì—°ì‚°ì (SELECT~~)
+	    *              ---------------- ----------
+	    *                 ë©”ì¸ì¿¼ë¦¬          ì„œë¸Œì¿¼ë¦¬ 
+	    *              ë‹¤ì¤‘í–‰ ì„œë¸Œì¿¼ë¦¬ : ì„œë¸Œì¿¼ë¦¬ ê²°ê³¼ê°’ì´ ì—¬ëŸ¬ê°œì¸ ê²½ìš° 
+	    *              SELECT ~
+	    *              FROM table_name
+	    *              WHERE ì»¬ëŸ¼ëª… IN,ANY,ALL,SOME (SELECT~~)
+	    *              ---------------- ----------
+	    *                 ë©”ì¸ì¿¼ë¦¬          ì„œë¸Œì¿¼ë¦¬ 
+	    *                 
+	    *              IN(10,20,30) => ë™ì‹œ ì ìš© 
+	    *              > ANY(10,20,30) => 10  >10
+	    *              < ANY(10,20,30) => 30  <30
+	    *              = ANY(10,20,30) => IN(10,20,30)
+	    *              > ALL(10,20,30) => 30  >30
+	    *              < ALL(10,20,30) => 10  <10
+	    *              --------------------------- MIN/MAX
+	    *              
+	    *              WHERE deptno > (ìµœì†Œê°’) => 10,20,30)
+	    *                    deptno > ANY(SELECT DISTINCT deptno
+	    *                                 FROM emp) 10
+	    *                    deptno > (SELECT MIN(deptno) FROM emp) 10
+	    *                    
+	    *                    deptno < ANY(SELECT DISTINCT deptno
+	    *                                 FROM emp) 30
+	    *                    deptno < (SELECT MAX(deptno) FROM emp) 30
+	    *              
+	    */
+	   // ê¸‰ì—¬ì˜ í‰ê· ë³´ë‹¤ ë§ì´ ë°›ëŠ” ì‚¬ì›ì˜ ì´ë¦„,ì§ìœ„,ì…ì‚¬ì¼,ê¸‰ì—¬,ë¶€ì„œëª…,ê·¼ë¬´ì§€ 
+	   // ì„œë¸Œì¿¼ë¦¬ => ì¡°ì¸ 
+	   // í•œëª…=> EmpVO  , ì—¬ëŸ¬ëª… => List<EmpVO> 
 	public List<EmpVO> empSubQueryData() {
 		List<EmpVO> list = new ArrayList<EmpVO>();
 
@@ -360,11 +414,11 @@ public class EmpDAO {
 		return list;
 	}
 
-	// ¼­ºêÄõ¸®2
+	// ì„œë¸Œì¿¼ë¦¬2
 	public List<EmpVO> empSubQueryData2() {
 		List<EmpVO> list = new ArrayList<EmpVO>();
 		try {
-			// 1. ¿À¶óÅ¬ ¿¬°á
+			// 1. ì˜¤ë¼í´ ì—°ê²°
 			GetConnection();
 			String sql = "SELECT ename,job,hiredate,sal,dname,loc " 
 					+ "FROM emp,dept " 
@@ -373,7 +427,7 @@ public class EmpDAO {
 					+ "ORDER BY ename ASC";
 			ps = conn.prepareStatement(sql);
 
-			// 5. °á°ú°ª ¹Ş±â
+			// 5. ê²°ê³¼ê°’ ë°›ê¸°
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				EmpVO vo = new EmpVO();
@@ -388,40 +442,40 @@ public class EmpDAO {
 			}
 			rs.close();
 		} catch (Exception ex) {
-			// ¿À·ù Ã³¸®
+			// ì˜¤ë¥˜ ì²˜ë¦¬
 			ex.printStackTrace();
 		} finally {
-			// ´İ±â
+			// ë‹«ê¸°
 			disConnection();
 		}
 		return list;
 	}
 
-	// ½ºÄ®¶ó ¼­ºêÄõ¸®
+	// ìŠ¤ì¹¼ë¼ ì„œë¸Œì¿¼ë¦¬
 	/*
 	 * SELECT ename, job, hiredate,sal, 
 	 * (SELECT dname FROM dept WHERE deptno=emp.deptno) dname, 
 	 * (SELECT loc FROM dept WHERE deptno=emp.deptno) loc
 	 * FROM emp;
 	 */
-	// -> JOIN¾øÀÌ ¼­ºêÄõ¸®·Î => µ¥ÀÌÅÍ ÃßÃâ (ÀÌ¸§,Á÷À§,ÀÔ»çÀÏ, ±Ş¿©, ºÎ¼­¸í,±Ù¹«Áö)
+	// -> JOINì—†ì´ ì„œë¸Œì¿¼ë¦¬ë¡œ => ë°ì´í„° ì¶”ì¶œ (ì´ë¦„,ì§ìœ„,ì…ì‚¬ì¼, ê¸‰ì—¬, ë¶€ì„œëª…,ê·¼ë¬´ì§€)
 	public List<EmpVO> empSubQueryListData() {
-		// 1. ¸®ÅÏÇü
+		// 1. ë¦¬í„´í˜•
 		List<EmpVO> list = new ArrayList<EmpVO>();
 		try {
-			// 1. ¿À¶óÅ¬ ¿¬°á
+			// 1. ì˜¤ë¼í´ ì—°ê²°
 			GetConnection(); // LIKE '%A%' ==> LIKE '%'||'A'||'%'
-			// ÀÚ¹Ù¿¡¼­ => ¿À¶óÅ¬·Î Àü¼Û (¹®ÀÚ¿­) => °ø¹é
+			// ìë°”ì—ì„œ => ì˜¤ë¼í´ë¡œ ì „ì†¡ (ë¬¸ìì—´) => ê³µë°±
 			// String sql="SELECT ename,job,(SELECT~)"
-			// 2. SQL¹®Àå
+			// 2. SQLë¬¸ì¥
 			// SQLDevloper =>
 			String sql = "SELECT ename,job,hiredate,sal," + "(SELECT dname FROM dept WHERE deptno=emp.deptno),"
 					+ "(SELECT loc FROM dept WHERE deptno=emp.deptno) " + "FROM emp";
-			// 3. ¿À¶óÅ¬·Î SQL¹®Àå Àü¼Û
+			// 3. ì˜¤ë¼í´ë¡œ SQLë¬¸ì¥ ì „ì†¡
 			ps = conn.prepareStatement(sql);
-			// 4. °á°ú°ªÀ» ¹Ş´Â´Ù
+			// 4. ê²°ê³¼ê°’ì„ ë°›ëŠ”ë‹¤
 			ResultSet rs = ps.executeQuery();
-			// 5. °á°ú°ªÀ» List¿¡ ´ã´Â´Ù
+			// 5. ê²°ê³¼ê°’ì„ Listì— ë‹´ëŠ”ë‹¤
 			while (rs.next()) {
 				EmpVO vo = new EmpVO();
 				vo.setEname(rs.getString(1));
@@ -437,38 +491,38 @@ public class EmpDAO {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
-			disConnection();// ´İ±â
+			disConnection();// ë‹«ê¸°
 		}
 		return list;
 	}
 
-	// ÀÎ¶óÀÎºä
+	// ì¸ë¼ì¸ë·°
 	/*
-	 * SELECT : »ç¿ë 
-	 * 	1) ÀüÃ¼ ¸ñ·Ï (¸ñ·Ï Ãâ·Â) 
-	 * 	2) Á¶°Ç => 1°³ (»ó¼¼º¸±â) 
-	 * 	3) Á¶ÀÎ 
-	 * 	4) ¼­ºêÄõ¸® : 
-	 * 		1) ½ºÄ®¶ó 
-	 * 		2) ÀÎ¶óÀÎºä
+	 * SELECT : ì‚¬ìš© 
+	 * 	1) ì „ì²´ ëª©ë¡ (ëª©ë¡ ì¶œë ¥) 
+	 * 	2) ì¡°ê±´ => 1ê°œ (ìƒì„¸ë³´ê¸°) 
+	 * 	3) ì¡°ì¸ 
+	 * 	4) ì„œë¸Œì¿¼ë¦¬ : 
+	 * 		1) ìŠ¤ì¹¼ë¼ 
+	 * 		2) ì¸ë¼ì¸ë·°
 	 */
 	
-	// Top-N (À§¿¡¼­ ¸î°³~~ ÀÎ±â°Ë»ö¾î , ÀÎ±â °øÁö»çÇ× ~ ÀÎ±â °Ô½Ã¹° )
-	// 1. ±Ş¿©°¡ ¸¹Àº ¼ø¼­·Î »óÀ§ 5¸íÀ» ÃßÃâ => ÀÌ¸§,ÀÔ»çÀÏ, Á÷À§, ±Ş¿©
+	// Top-N (ìœ„ì—ì„œ ëª‡ê°œ~~ ì¸ê¸°ê²€ìƒ‰ì–´ , ì¸ê¸° ê³µì§€ì‚¬í•­ ~ ì¸ê¸° ê²Œì‹œë¬¼ )
+	// 1. ê¸‰ì—¬ê°€ ë§ì€ ìˆœì„œë¡œ ìƒìœ„ 5ëª…ì„ ì¶”ì¶œ => ì´ë¦„,ì…ì‚¬ì¼, ì§ìœ„, ê¸‰ì—¬
 	/*
 	 * SELECT ----> 3) 
 	 * FROM ----- 1) 
 	 * WHERE ----- 2) 
 	 * ORDER BY --> 4)
 	 * 
-	 * ==> Áß°£¿¡ µ¥ÀÌÅÍ¸¦ ÃßÃâ ÇÒ ¼ö ¾ø´Ù rownum BETWEEN 6 AND 10 ==> (X)
+	 * ==> ì¤‘ê°„ì— ë°ì´í„°ë¥¼ ì¶”ì¶œ í•  ìˆ˜ ì—†ë‹¤ rownum BETWEEN 6 AND 10 ==> (X)
 	 */
 	public List<EmpVO> empTon5Data() {
 		List<EmpVO> list = new ArrayList<EmpVO>();
 		try {
-			// ¿¬°á
+			// ì—°ê²°
 			GetConnection();
-			// SQL¹®Àå
+			// SQLë¬¸ì¥
 			String sql = "SELECT ename,job,hiredate,sal,rownum " 
 					+ "FROM (SELECT ename,job,hiredate,sal "
 							+ "FROM emp ORDER BY sal DESC) " 

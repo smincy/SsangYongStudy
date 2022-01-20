@@ -10,28 +10,28 @@ public class Login extends JPanel {
 	JButton b1, b2;
 
 	public Login() {
-		la1 = new JLabel("¾ÆÀÌµğ");
-		la2 = new JLabel("ÀÌ¸§");
+		la1 = new JLabel("ï¿½ï¿½ï¿½Ìµï¿½");
+		la2 = new JLabel("ï¿½Ì¸ï¿½");
 
 		tf1 = new JTextField();
 		tf2 = new JTextField();
-		b1 = new JButton("·Î±×ÀÎ");
-		b2 = new JButton("Ãë¼Ò");
+		b1 = new JButton("ï¿½Î±ï¿½ï¿½ï¿½");
+		b2 = new JButton("ï¿½ï¿½ï¿½");
 
 		setLayout(null);
-		// ¹èÄ¡
+		// ë°°ì¹˜
 		la1.setBounds(10, 15, 50, 30);
 		tf1.setBounds(65, 15, 150, 30);
 
 		la2.setBounds(10, 50, 50, 30);
 		tf2.setBounds(65, 50, 150, 30);
 
-		// ¹öÆ°À» ¿©·¯°³ ¹­¾î¼­ > JPanel
+		// ë²„íŠ¼ì„ ì—¬ëŸ¬ê°œ ë¬¶ì–´ì„œ > JPanel
 		JPanel p = new JPanel();
 		p.add(b1);
 		p.add(b2);
 
-		// À©µµ¿ì¿¡ ¿Ã¸®±â
+		// ìœˆë„ìš°ì— ì˜¬ë¦¬ê¸°
 		add(la1);
 		add(tf1);
 		add(la2);

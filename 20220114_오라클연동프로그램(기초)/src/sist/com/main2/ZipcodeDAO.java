@@ -1,30 +1,30 @@
 package sist.com.main2;
-// 2022.01.14
+//2022.01.14
 
-// »ç¿ëÀÚ°¡ ¿äÃ»ÇßÀ» ¶§ ¿À¶óÅ¬ Ã³¸® (DML : CURD)
+//ì‚¬ìš©ìê°€ ìš”ì²­í–ˆì„ ë•Œ ì˜¤ë¼í´ ì²˜ë¦¬ (DML : CURD)
 
 import java.util.*;
 import java.sql.*;
 
 /*
- *  1. µå¶óÀÌ¹ö µî·Ï Class.forName()
- *  2. ¿À¶óÅ¬ ¿¬°á Connection getConnection(URL, "user", "password")
- *  3. SQL¹®Àå Àü¼Û : PreparedStatement => conn.preparedStatement(sql)
- *  4. SQL¹®Àå ½ÇÇà ¿äÃ»
- *  	= SELECT => executeQuery()
- *  	= INSERT, UPDATE, DELETE => executeUpdate() 
- */
+*  1. ë“œë¼ì´ë²„ ë“±ë¡ Class.forName()
+*  2. ì˜¤ë¼í´ ì—°ê²° Connection getConnection(URL, "user", "password")
+*  3. SQLë¬¸ì¥ ì „ì†¡ : PreparedStatement => conn.preparedStatement(sql)
+*  4. SQLë¬¸ì¥ ì‹¤í–‰ ìš”ì²­
+*  	= SELECT => executeQuery()
+*  	= INSERT, UPDATE, DELETE => executeUpdate() 
+*/
 
 public class ZipcodeDAO {
 
-	// ¿À¶óÅ¬ ¿¬°á °´Ã¼ »ı¼º
+	// ì˜¤ë¼í´ ì—°ê²° ê°ì²´ ìƒì„±
 	private Connection conn;
-	// ¿À¶óÅ¬·Î ¼Û¼ö½ÅÇÏ´Â °´Ã¼ »ı¼º
+	// ì˜¤ë¼í´ë¡œ ì†¡ìˆ˜ì‹ í•˜ëŠ” ê°ì²´ ìƒì„±
 	private PreparedStatement ps;
-	// URL ÁÖ¼Ò
+	// URL ì£¼ì†Œ
 	private final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 
-	// µå¶óÀÌ¹ö µî·Ï
+	// ë“œë¼ì´ë²„ ë“±ë¡
 	public ZipcodeDAO() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -32,7 +32,7 @@ public class ZipcodeDAO {
 		}
 	}
 
-	// ¿À¶óÅ¬ ¿¬°á
+	// ì˜¤ë¼í´ ì—°ê²°
 	public void getConnection() {
 		try {
 			conn = DriverManager.getConnection(URL, "smincy", "134679");
@@ -40,7 +40,7 @@ public class ZipcodeDAO {
 		}
 	}
 
-	// ¿À¶óÅ¬ Á¾·á
+	// ì˜¤ë¼í´ ì¢…ë£Œ
 	public void disConnection() {
 		try {
 			if (ps != null) {
@@ -54,7 +54,7 @@ public class ZipcodeDAO {
 		}
 	}
 
-	// ±â´É - 1.Ã£±â 2.°Ë»ö °¹¼ö È®ÀÎ
+	// ê¸°ëŠ¥ - 1.ì°¾ê¸° 2.ê²€ìƒ‰ ê°¯ìˆ˜ í™•ì¸
 	public int zipcodeFindCount(String dong) {
 		int count = 0;
 		try {
@@ -75,7 +75,7 @@ public class ZipcodeDAO {
 		return count;
 	}
 
-	// ½ÇÁ¦ ¿ìÆí¹øÈ£¸¦ Ã£¾Æ ¿Â´Ù
+	// ì‹¤ì œ ìš°í¸ë²ˆí˜¸ë¥¼ ì°¾ì•„ ì˜¨ë‹¤
 	public List<Zipcode> zipcodeListData(String dong) {
 		List<Zipcode> list = new ArrayList<Zipcode>();
 		try {

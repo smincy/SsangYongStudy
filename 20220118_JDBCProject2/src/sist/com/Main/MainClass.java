@@ -3,54 +3,53 @@ package sist.com.Main;
 import java.util.*;
 
 public class MainClass {
-	// 1. ¿À¶óÅ¬ ¿¬°á
+	// 1. ì˜¤ë¼í´ ì—°ê²°
 	static StudentDAO dao = new StudentDAO();
 
 	public static void main(String[] args) {
 
-	
 		{
-			// 2. »ç¿ëÀÚ ÀÔ·Â
+			// 2. ì‚¬ìš©ì ì…ë ¥
 			Scanner sc = new Scanner(System.in);
 
-			System.out.println("ÀÌ¸§ ÀÔ·Â : ");
+			System.out.println("ì´ë¦„ ì…ë ¥ : ");
 			String name = sc.next();
-			System.out.println("±¹¾î Á¡¼ö : ");
+			System.out.println("êµ­ì–´ ì ìˆ˜ : ");
 			int kor = sc.nextInt();
-			System.out.println("¿µ¾î Á¡¼ö : ");
+			System.out.println("ì˜ì–´ ì ìˆ˜ : ");
 			int eng = sc.nextInt();
-			System.out.println("¼öÇĞ Á¡¼ö : ");
+			System.out.println("ìˆ˜í•™ ì ìˆ˜ : ");
 			int math = sc.nextInt();
 
-			// »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ °ªÀ» ¹­¾î¼­ ¿À¶óÅ¬·Î Àü¼Û
+			// ì‚¬ìš©ìê°€ ì…ë ¥í•œ ê°’ì„ ë¬¶ì–´ì„œ ì˜¤ë¼í´ë¡œ ì „ì†¡
 			StudentVO vo = new StudentVO();
 			vo.setName(name);
 			vo.setKor(kor);
 			vo.setEng(eng);
 			vo.setMath(math);
-			// ¿À¶óÅ¬¿¡ INSERT ¿äÃ»
+			// ì˜¤ë¼í´ì— INSERT ìš”ì²­
 			dao.studentInsert(vo);
-			System.out.println("===== ¿À¶óÅ¬ µ¥ÀÌÅÍ Ãß°¡ ¿Ï·á =====");
+			System.out.println("===== ì˜¤ë¼í´ ë°ì´í„° ì¶”ê°€ ì™„ë£Œ =====");
 			studentPrint();
 		}
 
 		/*
-		 * // 3. Ãâ·Â List<StudentVO> list = dao.studentListData(); // »ç¿ëÀÚ¿¡°Ô Ãâ·Â for
+		 * // 3. ì¶œë ¥ List<StudentVO> list = dao.studentListData(); // ì‚¬ìš©ìì—ê²Œ ì¶œë ¥ for
 		 * (StudentVO vo2 : list) { System.out.println(vo2.getHakbun() + " " +
 		 * vo2.getName() + " " + vo2.getKor() + " " + vo2.getEng() + " " +
 		 * vo2.getMath()); }
 		 */
 
 		{
-		// 4. ¾÷µ¥ÀÌÆ®
+			// 4. ì—…ë°ì´íŠ¸
 			Scanner sc = new Scanner(System.in);
-			System.out.println("¼öÁ¤ÇÒ ÇĞ¹ø ÀÔ·Â : ");
+			System.out.println("ìˆ˜ì •í•  í•™ë²ˆ ì…ë ¥ : ");
 			int hakbun = sc.nextInt();
-			System.out.println("±¹¾î º¯°æ : ");
+			System.out.println("êµ­ì–´ ë³€ê²½ : ");
 			int kor = sc.nextInt();
-			System.out.println("¿µ¾î º¯°æ : ");
+			System.out.println("ì˜ì–´ ë³€ê²½ : ");
 			int eng = sc.nextInt();
-			System.out.println("¼öÇĞ º¯°æ : ");
+			System.out.println("ìˆ˜í•™ ë³€ê²½ : ");
 			int math = sc.nextInt();
 
 			StudentVO vo = new StudentVO();
@@ -61,24 +60,23 @@ public class MainClass {
 
 			dao.studentUpdate(vo);
 
-			System.out.println("===== ¼öÁ¤ ¿Ï·á =====");
-			studentPrint();
-		}	
-		
-		{
-			// 5. »èÁ¦
-			Scanner sc = new Scanner(System.in);
-			System.out.println("»èÁ¦ÇÒ ÇĞ¹ø ¼±ÅÃ : ");
-			int hakbun = sc.nextInt();
-			dao.studentDelete(hakbun);
-			System.out.println("===== »èÁ¦ ¿Ï·á =====");
+			System.out.println("===== ìˆ˜ì • ì™„ë£Œ =====");
 			studentPrint();
 		}
-		
+
+		{
+			// 5. ì‚­ì œ
+			Scanner sc = new Scanner(System.in);
+			System.out.println("ì‚­ì œí•  í•™ë²ˆ ì„ íƒ : ");
+			int hakbun = sc.nextInt();
+			dao.studentDelete(hakbun);
+			System.out.println("===== ì‚­ì œ ì™„ë£Œ =====");
+			studentPrint();
+		}
 
 	}
 
-	public static void studentPrint() { // ¹İº¹µÇ´Â Ãâ·Â¹®À» ¸Ş¼Òµå·Î
+	public static void studentPrint() { // ë°˜ë³µë˜ëŠ” ì¶œë ¥ë¬¸ì„ ë©”ì†Œë“œë¡œ
 		List<StudentVO> list = dao.studentListData();
 		for (StudentVO vo : list) {
 			System.out.println(

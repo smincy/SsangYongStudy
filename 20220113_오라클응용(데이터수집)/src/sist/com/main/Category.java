@@ -1,6 +1,5 @@
 package sist.com.main;
 
-// µ¥ÀÌÅÍ °ü¸® (Ä¸½¶È­)
 
 public class Category {
 

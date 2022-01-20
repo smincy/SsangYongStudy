@@ -12,8 +12,8 @@ public class MusicView extends JPanel {
 	JTextField tf;
 
 	public MusicView() {
-		b1 = new JButton("°Ë»ö");
-		b2 = new JButton("¸ñ·Ï");
+		b1 = new JButton("ê²€ìƒ‰");
+		b2 = new JButton("ëª©ë¡");
 		tf = new JTextField(20);
 		JPanel p = new JPanel();
 
@@ -21,13 +21,13 @@ public class MusicView extends JPanel {
 		p.add(b1);
 		p.add(b2);
 
-		String[] col = { "¼øÀ§", "°î¸í", "°¡¼ö¸í", "¾Ù¹ü" };
+		String[] col = { "ìˆœìœ„", "ê³¡ëª…", "ê°€ìˆ˜ëª…", "ì•¨ë²”" };
 		String[][] row = new String[0][4];
 		model = new DefaultTableModel(row, col);
 		table = new JTable(model);
 		JScrollPane js = new JScrollPane(table);
 
-		// ¹èÄ¡
+		// ë°°ì¹˜
 		setLayout(new BorderLayout());
 		// => North , South , East , West , Center
 		add("North", p);

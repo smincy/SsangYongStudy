@@ -2,7 +2,6 @@ package sist.com.music;
 
 import java.io.Serializable;
 
-// ∞¥√º ¥‹¿ß∑Œ
 
 public class Music implements Serializable {
 
