@@ -2,12 +2,12 @@ package sist.com.test;
 
 public class VariableEx2 {
 
-	public void byteValue() { // << void´Â ¸Þ¼ÒµåÀÇ °á°úÇü
+	public void byteValue() { // << voidëŠ” ë©”ì†Œë“œì˜ ê²°ê³¼í˜•
 
 		System.out.println(Byte.MIN_VALUE + " ~ " + Byte.MAX_VALUE);
 	}
 
-	public void intValue() { // << void´Â ¸Þ¼ÒµåÀÇ °á°úÇü
+	public void intValue() { // << voidëŠ” ë©”ì†Œë“œì˜ ê²°ê³¼í˜•
 
 		System.out.println(Integer.MIN_VALUE + " ~ " + Integer.MAX_VALUE);
 	}
@@ -16,10 +16,10 @@ public class VariableEx2 {
 		VariableEx1 vv = new VariableEx1();
 		VariableEx2 v = new VariableEx2();
 		
-		// VariableEx1()ÀÇ ¸Þ¼Òµå¸¦ »ç¿ëÇÏ±â À§ÇØ¼­ ÁÖ¼Ò¸¦ ÇÒ´ç, »ç¿ëÇÏ·Á´Â Å¬·¡½º ÁÖ¼Ò ÇÒ´ç
-		// main ¹Û¿¡, Class ¾È¿¡ ÀÖ´Â ¸Þ¼Òµå¸¦ »ç¿ëÇÏ±â À§ÇØ¼­
+		// VariableEx1()ì˜ ë©”ì†Œë“œë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•´ì„œ ì£¼ì†Œë¥¼ í• ë‹¹, ì‚¬ìš©í•˜ë ¤ëŠ” í´ëž˜ìŠ¤ ì£¼ì†Œ í• ë‹¹
+		// main ë°–ì—, Class ì•ˆì— ìžˆëŠ” ë©”ì†Œë“œë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•´ì„œ
 
-		vv.¸Þ¼ÒµåÀÌ¸§1();
+		//vv.ë©”ì†Œë“œì´ë¦„1();
 
 		v.byteValue();
 		v.intValue();
