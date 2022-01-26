@@ -81,7 +81,8 @@ public class FoodDAO {
 	public void foodInsert(FoodHouseVO vo) {
 		try {
 			getConnection();
-			String sql = "INSERT INTO foodHouse VALUES (" + "(SELECT NVL(MAX(no)+1,1) FROM foodHouse), "
+			String sql = "INSERT INTO foodHouse VALUES (" 
+					+ "(SELECT NVL(MAX(no)+1,1) FROM foodHouse), "
 					+ "?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			ps = conn.prepareStatement(sql);
 			// ? 에 값을 채운다
